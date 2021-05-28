@@ -316,6 +316,8 @@ _**Table A.1**: Table of the notation we use throughout the paper and this post.
 
 <a name="sch2015a"></a> [sch2015a] Schulman, J., Levine, S., Abbeel, P., Jordan, M., & Moritz, P. (2015). Trust region policy optimization. _International conference on machine learning (pp. 1889-1897). PMLR._ ([paper](https://arxiv.org/pdf/1502.05477.pdf))
 
+<a name="wei2020a"></a> [wei2020a] Weihs, L., Jain, U., Salvador, J., Lazebnik, S., Kembhavi, A., & Schwing, A. (2020). Bridging the imitation gap by adaptive insubordination. _arXiv preprint arXiv:2007.12173._ ([paper](https://arxiv.org/pdf/2007.12173.pdf))
+
 
 <br>
 ---
