@@ -5,7 +5,7 @@
  
 add back \<video autoplay playsinline... 
 <figure class="video_container">
-  <video playsinline style="pointer-events: none;" allowfullscreen="true" width="100%" allowfullscreen="true" loop="true" muted="true">
+  <video autoplay  playsinline style="pointer-events: none;" allowfullscreen="true" width="100%" allowfullscreen="true" loop="true" muted="true">
     <source src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/occluded-pedestrian.mp4" type="video/mp4">
   </video>
 </figure>
@@ -327,8 +327,9 @@ _**Table A.1**: Table of the notation we use throughout the paper and this post.
 © Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License, Andrew Warrington & J. Wilder Lavington.
 
 <center>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/oxford.png" width="30%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/ubc.png" width="40%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/plai.png" width="11%">
+<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/oxford.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/ubc.png" width="28%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/iai.png" width="27%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/plai.png" width="9%">
 </center>
 ---
