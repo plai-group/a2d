@@ -95,18 +95,6 @@ _[<sup>1</sup>](#fn1)As an aside, identifibility implies that there exists a tra
 We try to keep this post light on the math, however, to succinctly talk about the work, some notation and terminology is required.  We therefore recommend that the reader surveys Section 2 of the [paper](#https://arxiv.org/pdf/2012.15566.pdf), as this section contains all of the technical background and core definitions we will use throughout this work.  Many people familiar with RL in POMDPs will be very comfortable with most of the terminology we use.  We also include here a table of notation in [Table A.1](#tab_a1).
 
 
-<!--
-The _state_ of the environment at time \\( t \\) is denoted \\( s_t \\).  This is a complete state, and is assumed to be in an easy-to-use and compact representation.  The 
-
-Two important definitions are _belief states_ and _occupancy measures_.
-
-Belief state refers to the variable that the partially observing policy is conditioned on and is a function of (or random variable conditioned on) the entire history of observations and actions.  Commonly, however, a simple _windowed belief state_ is used [mur2000a](#mur2000a), and is just the last \\( k \\) observations and actions.  The policy is therefore conditioned on a fixed dimensional and immediately available variable.  
-
-Occupancy measure then refers to the distribution over the states and/or belief states visited by an agent rolling out under a particular policy.  Occupancy measures are a somewhat laborious thing to define and conceptualize, but for our purposes here, it is sufficient to think of the occupancy measure as the probability that the environment is in a particular state at a random point in time.  We can also define conditional occupancy measures, defining the probability of a particular state given a particular belief state or vice versa, and joint occupancy measures, defining the probability that a particular state and belief state co-occur.  
--->
-
-
-
 ## <a name="sec_tra"></a> Asymmetric Imitation Learning \& Implicit Policies
 The first thing we must define is the asymptotic properties of asymmetric imitation learning.  Concretely defining this will then allow us to exploit these definitions to derive the A2D update.  This material is tackled in Section 4 of the [paper](#https://arxiv.org/pdf/2012.15566.pdf).
 
@@ -250,13 +238,15 @@ The second environment we study is an autonomous vehicles (AV) scenario.  We use
 
 
 ## <a name="sec_dis"></a> Discussion \& Future Directions
-In this work we looked at modifying an asymmetric imitation learning algorithm, such that the expert is modified, or learned online, with the trainee, such that the expert is learned to maximize the reward of the trainee after imitation.  This ameloriates the inherent drawbacks of reinforcement learning in high dimensions.  
+In this work we looked at modifying an asymmetric imitation learning algorithm, such that the expert is modified, or learned online, with the trainee, such that the expert is learned to maximize the reward of the trainee after imitation.  This ameloriates the inherent drawbacks of reinforcement learning in high dimensions, and allows the low-variance supervision provided by AIL to be leveraged.  
 
 In this work we also considered the scenario where the expert is an omniscient policy operating on the complete state representation of the underlying MDP.  An interesting alternative approach is the scenario where, instead of observing a complete state, the expert also only observes a partial state.  That may represent a more generalizable use-case, where expensive and accurate sensors can be used at training time, whereas only cheap, noisy, or incomplete sensor suites are available at test time.  Analysing this scenario is markedly more difficult as one must also reason about information that may be available to the agent, but is not available to the expert.
 
-Beyond this, this work can be viewed as embedding a supervised learning or projection step _inside_ a policy gradient algorithm.  This presents a number of opportunities for extending our method to consider "optimizing" the agent such that the <span style="color:red">review whatever the reviewer was talking about</span>.
+Beyond this, this work can be viewed as embedding a supervised learning or projection step _inside_ a policy gradient algorithm.  This presents a number of further opportunities for extending our method.  Foremost, one could consider updating the trainee such that the limitations of agent and expert are considered, and vice versa, i.e. the expert and agent are pushed towards policies that provide lower-variance and "better" gradients for each other.  
 
-<span style="color:red">i want to talk something about how A2D is just a base and can be extended in a litany of ways</span> However, beyond these more concrete points, we believe this general approach is a new and exciting twist and combination of themes from across RL.  Our work is not so much about the particular implementation choices we made, rather that it is possible to pass an importance weighted policy gradient through an imitation learning procedure to update the expert policy, and that is can be cast as embedding a supervised learning task inside an RL task.  
+Investigating the bias introduced through the Monte Carlo estimator is a  
+
+However, beyond these more concrete points, we believe this general approach is a new and exciting twist and combination of themes from across RL.  Our work is not so much about the particular implementation choices we made, rather that it is possible to pass an importance weighted policy gradient through an imitation learning procedure to update the expert policy, and that is can be cast as embedding a supervised learning task inside an RL task.  
 
 If you are interested in building on this general idea, then please reach out!  We are always keen to talk science and build on our work, and combine it in new ways with other methods, or, apply it to hard problem domains! 
 
