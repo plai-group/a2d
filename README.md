@@ -9,9 +9,9 @@ This repository (sort of) contains the source code accompanying the paper Robust
 ## A Foreword: Multiple Repositories
 While working remotely and in different timezones as a result of COVID-19, the long route to market for this paper, and one of the authors continuing to work on the project after the other had finished the degree program, the codebases used for the two main experiments in the paper (gridworld and autonomous vehicles (AV)) diverged quite significantly.  
 
-The gridworld implementation is available (here)[https://github.com/andrewwarrington/a2d_gridworld].
+The gridworld implementation is available [here](https://github.com/andrewwarrington/a2d_gridworld). 
 
-The autonomous vehicles implementation is available (here)[].
+The autonomous vehicles implementation is available [here]().
 
 Although the core of each algorithm is the same, there are several differences in the low-level implementation that make combining the codebases for exact reproduction of experimental results (tied to the exact Git commit or Weights and Biases experimental log) (a) an onerous task, and (b) would make the code unnecessarily complex and hard to parse.  
 
