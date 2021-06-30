@@ -1,4 +1,4 @@
-# Adaptive Asymmetric DAgger (A2D) Root Repository
+# A2D Gridworld Implementation
 
 This repository contains the source code for the gridworld experiments presented in the paper Robust Asymmetric Learning in POMDPs, Warrington, A.\*, Lavington, J. W.\*, Ścibior, A., Schmidt, M., & Wood, F. (2021). Robust Asymmetric Learning in POMDPs. _International Conference on Machine Learning, 2021.  arXiv preprint arXiv:2012.15566_. ([paper](https://arxiv.org/pdf/2012.15566.pdf)).
 
@@ -13,19 +13,11 @@ This repository contains the source code for the gridworld experiments presented
 
 
 ## <a name="sec_ins"></a> Installation
-This repository is relatively straightforward.  If directly cloning this repository then run:
-
-```
-git clone git@github.com:andrewwarrington/a2d_gridworld.git
-cd a2d_gridworld
-pip3 install -r requirements.txt
-```
-
-The repository is only dependent on pure python modules, and the only slightly awkward dependences that are required are PyTorch and OpenAI Gym, both of which can now be installed through pip.  
+No further steps are required to install this implementation, beyond `pip install -r requirements.txt` in the parent directory.
 
 
 
-## <a name="sec_rep"></a> TL;DR: I Want To Reproduce Results
+## <a name="sec_rep"></a> TL;DR: Reproducing Results
 The code is configured for reproducing the experimental results in the paper with minimal user interaction or modification.  There are four main sets of experiments presented in the papers: Figure 4 & 5, Figure B.1, Figure B.2, and Figure B.3.  The current default parameter settings are as were used for the original experiments.  
 
 
@@ -96,25 +88,7 @@ Each script generates a textual report in the log file (`report.txt`) and printe
 ## <a name="sec_not"></a> Important Notes
 
 
-#### Multiple Repositories?
-While working remotely and in different timezones as a result of COVID-19, the long route to market for this paper, and one of the authors continuing to work on the project after the other had finished the degree program, the codebases used for the two main experiments in the paper (gridworld and autonomous vehicles (AV)) diverged quite significantly.  
-
-Although the core of each algorithm is the same, there are several differences in the low-level implementation that make combining the codebases for exact reproduction of experimental results (tied to the exact Git commit or Weights and Biases experimental log) (a) an onerous task, and (b) would make the code unnecessarily complex and hard to parse.  
-
-While it is on the to-do list to reconcile these codebases, the most sensible thing to do in the immediate future is to simply release both codebases verbatim.  This ensures that the results in the paper are immediately reproducible, and the _exact_ code used to generate those results can be inspected, critiqued, and built upon.  Each codebase can also stripped back for specifically that individual experiment, making the code as readily understandable as possible.  Finally, proposing bugfixes etc to each codebase individually reduces the chance that it _silently_ breaks the ability of the other codebase to reproduce results.  
-
-In the future, when a unified codebase is created, it will be inserted directly into this repository.  The original repositories will still be linked as they currently are for indefinite preservation of experimental reproducibility and provenance.  
-
-
-#### Should I Pull This Repository?
-If you are only interested in reproducing the gridworld experiments, or you just want to look around a codebase to try and understand the algorithm, then pull this repository directly. 
-
-There is a "parent" to this repository is [here](https://github.com/plai-group/a2d) that contains additional documentation, presentation materials, figures etc.  This gridworld repository is contained within the parent repository as a Git submodule, along with the AV repository.  If you want to reproduce all of the experimental results, browse the additional documentation, or look around the AV implementation, then pull the [parent repository](https://github.com/plai-group/a2d).  If you are only interested in the AV experiments and implementation, then head on over to the AV repository [here]().  
-
-If you pull the parent repository, then all of the scripts in this submodule must be run from _within_ the submodule root; i.e. commands must start `./X.sh` as opposed to `./a2d_gridworld/X.sh` etc.
-
-
-#### Important Note: Minigrid
+#### Minigrid
 This repository contains code from the `gym-minigrid` package, originally distributed by Maxime Chevalier-Boisvert Lucas Willems, and Suman Pal, available [here](https://github.com/maximecb/gym-minigrid). We had to apply non-trivial modifications to this code, and therefore we include this updated code directly in this repository.  Therefore, when citing/referencing this work, please also direct a citation/reference to the original authors.  The code was originally released under the Apache 2.0 license, and so I have included a change note in the python files that I have modified, and retained an original license notice at the top of each file. 
 
 
