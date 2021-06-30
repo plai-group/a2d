@@ -18,25 +18,26 @@ In the future, once a unified codebase is created, it will be inserted directly 
 
 
 
-## Installation
+## Core Installation
 
-To download this repository run:
+To download and install this repository run:
 
 ```
 git clone https://github.com/plai-group/a2d
 cd a2d
 pip install -r requirements.txt
+# INCLUDE CARLA INSTALLATION DETAILS HERE.
 ```
 
 ## Layout
 
 This repository contains three things: the gridwold implementation; the AV implementation; and the accompanying materials.
 
-The gridworld and AV implementations are essentially standalone codebases contained within this "root" repository.  The root repository contains the materials the accompanying materials, including the LaTeX source code for the paper, figures, [poster](), materials used in the [talk](), and an informal [blog post]().  
+The gridworld and AV implementations are essentially standalone codebases contained within this "root" repository.  The root repository contains the materials the accompanying materials, including the LaTeX source code for the paper, figures, [poster](), materials used in the [talk](), and an informal [blog post]().  Each implementation is individually documented within the respective directory. 
 
-The gridworld implementation is then contained in `a2d_gridworld`, while the AV implementation is contained in `a2d_av`.  Each implementation is individually documented within the respective directory.  
+The gridworld implementation is contained in `a2d_gridworld`.  The gridworld implementation requires no further installation beyond installing the `requirements.txt` through pip.
 
-The gridworld implementation requires no further installation beyond installing the `requirements.txt` through pip.  The AV code requires a working installation of the AV simulator CARLA.  Information about this is contained in `a2d_av`. 
+The AV implementation is contained in `a2d_av`.   The AV implementation requires a working installation of the AV simulator CARLA.  Information about installing the required software and containers is contained in `a2d_av`. 
 
 
 
