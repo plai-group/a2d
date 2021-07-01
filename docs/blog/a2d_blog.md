@@ -3,12 +3,12 @@
 </script>
 <!-- -->   
  
-add back \<video autoplay playsinline... 
+<!-- add back \<video autoplay playsinline... 
 <figure class="video_container">
   <video playsinline style="pointer-events: none;" allowfullscreen="true" width="100%" allowfullscreen="true" loop="true" muted="true">
     <source src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/occluded-pedestrian.mp4" type="video/mp4">
   </video>
-</figure>
+</figure> -->
 <!--<center>
 <small>
 <a name="fig1"></a> _Figure 1: The agent does not know there is an occluded hazard, and hence the policy is unsafe._ NOTE -- .
@@ -17,8 +17,10 @@ add back \<video autoplay playsinline...
  
 # Robust Asymmetric Learning in POMDPs
 <small>
-Blog post by [Andrew Warrington](https://scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://github.com/plai-group/a2d).
+Blog post by [Andrew Warrington](#https://scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](#https://scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](#https://github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](#https://github.com/plai-group/a2d).
 </small>
+
+<br>
 
 Imitation learning (IL) is great.  IL reduces reinforcement learning (RL) to a supervised learning problem, regressing the _trainee_ policy onto an _expert_, where the expert is pre-trained and can already solve the environment.  This allows us to exploit efficient and low-variance supervision to transfer and manipulate policies, without the complexity and hassle of performing full reinforcement learning.  This is particularly beneficial in high-dimensional and partially observed environments, where jointly learning to perceive _and_ act is notoriously difficult.  The expert has already learned to act, and so the trainee only needs to learn to percieve such that it can replicate the actions of the expert. 
 
