@@ -16,11 +16,7 @@
 </center>--> 
  
 # Robust Asymmetric Learning in POMDPs
-<small>
-Blog post by [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://www.scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://www.github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://www.github.com/plai-group/a2d).
-</small>
-
-
+_Blog post by [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://www.scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://www.github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://www.github.com/plai-group/a2d)._
 
 <br>
 
@@ -55,9 +51,7 @@ In this post, we will explore and expand on some of the ideas presented in the p
 
 ## <a name="sec_for"></a> Background 
 
-<small>
 _If you are only interested in the technical content, this background section can be skipped._
-</small>
 
 Reinforcement learning (RL) in Markov decision processes (MDPs) is a hard problem.  Stochastic environments, large action spaces, and long dependencies between actions and rewards make learning to optimally interact with an environment one of the most challenging problems in machine learning.  
 
@@ -159,11 +153,9 @@ If processes are not identifiable, then the reward earned by the trainee may be 
 
 We briefly survey this derivation in the next section.
 
-<small>
 <a name="fn2"></a>[<sup>2</sup>](#fn2) _To sample from this distribution would require one of the following: being able to force rollouts to go through a particular belief state; the belief state defining a predictive distribution over the true state; or; a method for generating an unbiased estimate of the true state from the observation history.  These are not simple problems, and hence we consider sampling from this distribution to be intractable._
 
 <a name="fn3"></a>[<sup>3</sup>](#fn3) _We note that we are a little lax in notation here, and overload \\( \phi \^\* \\) to indicate the optimal agent policy under the RL_ and _under the AIL objective, even when these policies may not be the same.  This is to avoid adding more notational clutter.  Practically speaking however, \\( \phi \\) is/cannot be learned using the original AIL objective, and instead  \\( \psi \\) is learned, and so there is no clash practically speaking._
-</small>
 
 
 
