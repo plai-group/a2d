@@ -17,8 +17,10 @@
  
 # Robust Asymmetric Learning in POMDPs
 <small>
-Blog post by [Andrew Warrington](#https://scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](#https://scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](#https://github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](#https://github.com/plai-group/a2d).
+Blog post by [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://www.scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://www.github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://www.github.com/plai-group/a2d).
 </small>
+
+
 
 <br>
 
