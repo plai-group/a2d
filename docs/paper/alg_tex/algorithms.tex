@@ -1,0 +1,29 @@
+\begin{figure}[t]
+\begin{minipage}{0.46\textwidth}
+    \vspace{-0.25cm}
+    \begin{algorithm}[H]
+        \setstretch{1.15}
+        \small %\small, \footnotesize, \scriptsize, or \tiny
+        \caption{Adaptive Asymmetric DAgger (A2D)}
+        \label{alg:a2d}
+        \begin{algorithmic}[1]
+          \STATE {\bfseries Input:} MDP $\mathcal{M}_{\Theta}$, POMDP $\mathcal{M}_{\Phi}$, Annealing schedule $\texttt{AnnealBeta}(n, \beta)$.
+          \STATE {\bfseries Return:} Variational trainee parameters $\psi$.
+          \STATE $\theta, \psi, \nu_m, \nu_p, \gets \texttt{InitNets} \left(\mathcal{M}_{\Theta}, \mathcal{M}_{\Phi} \right)$
+          \STATE $\beta \gets 1,\ D \gets \emptyset$ 
+          \FOR {$n = 0,\ \dots,\ N$}
+            \STATE $\beta \gets \texttt{AnnealBeta}\left(n, \beta\right)$
+            \STATE $\pi_{\beta} \gets \beta  \pi_{\theta}  + (1 - \beta) \pi_{\psi}$
+            \STATE $\mathcal{T} = \{\tau_i\}_{i=1}^\mathcal{I} \sim q_{\pi_{\beta}} (\tau)$ \label{ln:alg:a2d:q}
+            \STATE $D \gets \texttt{UpdateBuffer}\left(D, \mathcal{T} \right)$
+            \STATE \textcolor{blue}{$V^{\pi_{\beta}} \gets \beta V^{\pi_{\theta}}_{\nu_m} + (1 - \beta) V^{\pi_{\psi}}_{\nu_p}$}  \label{ln:alg:a2d:rl_v}
+            \STATE \textcolor{blue}{$\theta, \nu_m, \nu_p \gets \texttt{RLStep} \left( \mathcal{T}, V^{\pi_{\beta}}, \pi_{\beta} \right)$} \label{ln:alg:a2d:rl_p}
+            \STATE $\psi \gets \texttt{AILStep}\left(D, \pi_{\theta}, \pi_{\psi} \right)$ \label{ln:alg:a2d:proj}
+          \ENDFOR
+        \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\vspace{-0.2cm}
+\setcounter{algorithm}{0}
+\captionof{algorithm}{Adaptive asymmetric DAgger (A2D) algorithm.  Additional steps we introduce beyond DAgger~\citep{Ross2011} are highlighted in blue, and implement the feedback loop in Figure \ref{fig:a2d}.  \texttt{RLStep} is a policy gradient step, updating the expert, using the gradient estimator in \eqref{equ:a2d:a2d_update}.  \texttt{AILStep} is an AIL variational policy update, as in \eqref{equ:def:variational:gradient}.}
+\end{figure}

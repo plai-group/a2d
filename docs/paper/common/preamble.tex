@@ -1,0 +1,87 @@
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2021} with \usepackage[nohyperref]{icml2021} above.
+\usepackage{hyperref}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% % % Use the following line for the initial blind version submitted for review:
+% \usepackage{icml2021}
+
+% If accepted, instead use the following line for the camera-ready submission:
+\usepackage[accepted]{icml2021}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Robust Asymmetric Learning in POMDPs}
+
+% AW - 
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsthm}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{pgfplots}
+\usepackage{lipsum}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic,eqparbox,array}
+\usepackage{balance}
+\usepackage{chngpage}
+\usepackage{setspace}
+\usepackage{etoolbox}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes,arrows}
+
+\pgfplotsset{compat=1.16}
+
+% Define new theorem macros.
+\newtheorem{assumption}{Assumption}
+\newtheorem{asscorollary}{Corollary}[assumption]
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{asump}{Assumption}
+
+% Stuff for todo notes.
+\usepackage[colorinlistoftodos,prependcaption, textsize=tiny,textwidth=2cm]{todonotes}
+\newcommand{\unsure}[2][]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommand{\tocite}[2][]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommand{\improvement}[2][]{\todo[linecolor=yellow,backgroundcolor=yellow!25,bordercolor=yellow,#1]{#2}}
+\newcommand{\implement}[2][]{\todo[linecolor=green,backgroundcolor=green!25,bordercolor=green,#1]{#2}}
+\newcommand{\aw}[1]{\textcolor{blue}{[AW: #1]}}
+\newcommand{\fw}[1]{\textcolor{green}{[FW: #1]}}
+\newcommand{\wl}[1]{\textcolor{cyan}{[WL: #1]}}
+\renewcommand{\check}[1]{\textcolor{red}{[CHECK: #1]}}
+\newcommand{\cw}[1]{\textcolor{green}{[CW: #1]}}
+\newcommand{\as}[1]{\textcolor{green}{[AS: #1]}}
+
+% Some math macros.
+\newcommand{\tends}{\rightarrow}
+\DeclareMathOperator{\argmax}{arg\,max}
+\DeclareMathOperator{\argmin}{arg\,min}
+\newcommand{\where}{\quad \text{where }\ \ }
+
+% Counters for hacking theorem numbers.
+\newcounter{sthe}
+\newcounter{sequ}
+    
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0mm}
+
+\usepackage{enumitem}
+\setlist{leftmargin=5.5mm}

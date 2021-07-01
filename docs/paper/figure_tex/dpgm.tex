@@ -1,0 +1,141 @@
+\tikzstyle{main}=[circle, minimum size = 4mm, thick, draw =black!80, node distance = 6mm, fill = white!100]
+\tikzstyle{obs}=[circle, minimum size = 4mm, thick, draw =black!80, node distance = 6mm, fill = black!20]
+\tikzstyle{text_only}=[circle, minimum size = 4mm, thick, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{main_sq}=[style={diamond}, minimum size = 2mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{every node}=[font=\small]%, scale=0.8]
+
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\begin{tikzpicture}[baseline={([yshift={-\ht\strutbox}]current bounding box.north)}]  % ,outer sep=0pt,inner sep=0pt]
+
+  \node[obs] (s1) [] {};
+  \node[obs, node distance = 15mm] (s2) [right = of s1] {};
+  \node[obs, node distance = 15mm] (s3) [right = of s2] {};
+  
+  \node[main_sq] (r1) [above right = of s1] {};
+  \node[main_sq] (r2) [above right = of s2] {};
+  \node[main_sq] (r3) [above right = of s3] {};
+  
+  \node[main, node distance = 10mm] (a1) [below = of r1] {};
+  \node[main, node distance = 10mm] (a2) [below = of r2] {};
+  \node[main, node distance = 10mm] (a3) [below = of r3] {}; 
+  
+  \node[text_only] (st) [left = of s1] {$s_t$};
+  \node[text_only, node distance = 0mm ] (rt) [above = of st] {$r_t$};
+  \node[text_only, node distance = 0mm] (at) [below = of st] {$a_t$};
+  
+  \node[text_only, node distance = 10mm] (sf) [right = of s3] {};
+
+  \path 				(s1) edge [connect] (r1) % dots.
+                        (s2) edge [connect] (r2) % dots.
+                        (s3) edge [connect] (r3) % dots.
+                        
+                        (s1) edge [connect] (s2) % dots.
+                        (s2) edge [connect] (s3) % dots.
+                        
+                        (a1) edge [connect] (s2) % dots.
+                        (a2) edge [connect] (s3) % dots.
+                        
+                        (s2) edge [connect] (r1) % dots.
+                        (s3) edge [connect] (r2) % dots.
+                        
+                        (s1) edge [connect] (a1) % dots.
+                        (s2) edge [connect] (a2) % dots.
+                        (s3) edge [connect] (a3) % dots.
+                        
+                        (a1) edge [connect] (r1) % dots.
+                        (a2) edge [connect] (r2) % dots.
+                        (a3) edge [connect] (r3) % dots.
+                        
+                        (st) edge [connect] (s1) % dots.
+                        (s3) edge [connect] (sf) % dots.
+    ;
+    
+    \draw[red,thick,dotted] ($(s2.north west)+(-0.3,0.9)$)  rectangle ($(a2.south east)+(0.3,-0.2)$);
+    
+\end{tikzpicture}
+
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+\vspace{0.1cm}
+\centering
+\begin{tikzpicture}[baseline={([yshift={-\ht\strutbox}]current bounding box.north)}]  % ,outer sep=0pt,inner sep=0pt]
+
+  \node[main] (s1) [] {};
+  \node[main, node distance = 15mm] (s2) [right = of s1] {};
+  \node[main, node distance = 15mm] (s3) [right = of s2] {};
+  
+  \node[main_sq] (r1) [above right = of s1] {};
+  \node[main_sq] (r2) [above right = of s2] {};
+  \node[main_sq] (r3) [above right = of s3] {};
+  
+  \node[obs] (o1) [below = of s1] {};
+  \node[obs] (o2) [below = of s2] {};
+  \node[obs] (o3) [below = of s3] {};
+   
+  \node[main, node distance = 3mm] (b1) [below = of o1] {};
+  \node[main, node distance = 3mm] (b2) [below = of o2] {};
+  \node[main, node distance = 3mm] (b3) [below = of o3] {};
+   
+  \node[main, node distance = 10mm] (a1) [below = of r1] {};
+  \node[main, node distance = 10mm] (a2) [below = of r2] {};
+  \node[main, node distance = 10mm] (a3) [below = of r3] {}; 
+  
+  \node[text_only] (st) [left = of s1] {$s_t$};
+  \node[text_only, node distance = 0mm ] (rt) [above = of st] {$r_t$};
+  \node[text_only, node distance = 0mm] (at) [below = of st] {$a_t$};
+  \node[text_only, node distance = 3mm] (ot) [below = of st] {$o_t$};
+  \node[text_only] (bt) [left = of b1] {$b_t$};
+  
+  \node[text_only, node distance = 10mm] (sf) [right = of s3] {};
+  \node[text_only, node distance = 10mm] (bf) [right = of b3] {};
+
+  \path 				(s1) edge [connect] (r1) % dots.
+                        (s2) edge [connect] (r2) % dots.
+                        (s3) edge [connect] (r3) % dots.
+                        
+                        (s1) edge [connect] (s2) % dots.
+                        (s2) edge [connect] (s3) % dots.
+                        
+                        (b1) edge [connect] (b2) % dots.
+                        (b2) edge [connect] (b3) % dots.
+                        
+                        (a1) edge [connect] (s2) % dots.
+                        (a2) edge [connect] (s3) % dots.
+                        
+                        (s2) edge [connect] (r1) % dots.
+                        (s3) edge [connect] (r2) % dots.
+                        
+                        (s1) edge [connect] (o1) % dots.
+                        (s2) edge [connect] (o2) % dots.
+                        (s3) edge [connect] (o3) % dots.
+                        
+                        (o1) edge [connect] (b1) % dots.
+                        (o2) edge [connect] (b2) % dots.
+                        (o3) edge [connect] (b3) % dots.
+                        
+                        (b1) edge [connect] (a1) % dots.
+                        (b2) edge [connect] (a2) % dots.
+                        (b3) edge [connect] (a3) % dots.
+                        
+                        (a1) edge [connect] (r1) % dots.
+                        (a2) edge [connect] (r2) % dots.
+                        (a3) edge [connect] (r3) % dots.
+                        
+                        (st) edge [connect] (s1) % dots.
+                        (s3) edge [connect] (sf) % dots.
+                        
+                        (bt) edge [connect] (b1) % dots.
+                        (b3) edge [connect] (bf) % dots.
+                        
+                        (a1) edge [connect] (b2) % dots.
+                        (a2) edge [connect] (b3) % dots.
+    ;
+    
+    \draw[red,thick,dotted] ($(s2.north west)+(-0.3,0.9)$)  rectangle ($(b2.south west)+(1.28,-0.2)$);
+    
+\end{tikzpicture}
+
+\end{subfigure}

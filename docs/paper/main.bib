@@ -1,0 +1,1555 @@
+@inproceedings{Chen2019,
+  title={Learning by cheating},
+  author={Chen, Dian and Zhou, Brady and Koltun, Vladlen and Kr{\"a}henb{\"u}hl, Philipp},
+  booktitle={Conference on Robot Learning},
+  pages={66--75},
+  year={2020},
+  organization={PMLR}
+}
+
+@article{Ross2011,
+abstract = {Sequential prediction problems such as imitation learning, where future observations depend on previous predictions (actions), violate the common i.i.d. assumptions made in statistical learning. This leads to poor performance in theory and often in practice. Some recent approaches (Daum{\'{e}} III et al., 2009; Ross and Bagnell, 2010) provide stronger guarantees in this setting, but remain somewhat unsatisfactory as they train either non-stationary or stochastic policies and require a large number of iterations. In this paper, we propose a new iterative algorithm, which trains a stationary deterministic policy, that can be seen as a no regret algorithm in an online learning setting. We show that any such no regret algorithm, combined with additional reduction assumptions, must find a policy with good performance under the distribution of observations it induces in such sequential settings. We demonstrate that this new approach outperforms previous approaches on two challenging imitation learning problems and a benchmark sequence labeling problem. Copyright 2011 by the authors.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1011.0686v3},
+author = {Ross, St{\'{e}}phane and Gordon, Geoffrey J. and Bagnell, J. Andrew},
+eprint = {arXiv:1011.0686v3},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1011.0686.pdf:pdf},
+issn = {15324435},
+journal = {Journal of Machine Learning Research},
+pages = {627--635},
+title = {{A reduction of imitation learning and structured prediction to no-regret online learning}},
+volume = {15},
+year = {2011}
+}
+
+@book{bertsekas2014constrained,
+  title={Constrained optimization and Lagrange multiplier methods},
+  author={Bertsekas, Dimitri P},
+  year={2014},
+  publisher={Academic press}
+}
+
+@inproceedings{
+yarats2021image,
+title={Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels},
+author={Denis Yarats and Ilya Kostrikov and Rob Fergus},
+booktitle={International Conference on Learning Representations},
+year={2021},
+url={https://openreview.net/forum?id=GY6-6sTvGaf}
+}
+
+@article{laskin_srinivas2020curl,
+  title={CURL: Contrastive Unsupervised Representations for Reinforcement Learning},
+  author={Laskin, Michael and Srinivas, Aravind and Abbeel, Pieter},
+  note={arXiv:2004.04136},
+  journal={Proceedings of the 37th International Conference on Machine 
+  Learning, Vienna, Austria, PMLR 119},
+  year={2020}
+}
+
+@InProceedings{pmlr-v125-agarwal20a, title = {Optimality and Approximation with Policy Gradient Methods in {M}arkov Decision Processes}, author = {Agarwal, Alekh and Kakade, Sham M and Lee, Jason D and Mahajan, Gaurav}, booktitle = {Proceedings of Thirty Third Conference on Learning Theory},  year = {2020}, publisher = {PMLR}, pdf = {http://proceedings.mlr.press/v125/agarwal20a/agarwal20a.pdf}, url = {http://proceedings.mlr.press/v125/agarwal20a.html}, abstract = { Policy gradient (PG) methods are among the most effective methods in challenging reinforcement learning problems with large state and/or action spaces. However, little is known about even their most basic theoretical convergence properties, including: if and how fast they converge to a globally optimal solution (say with a sufficiently rich policy class); how they cope with approximation error due to using a restricted class of parametric policies; or their finite sample behavior. Such characterizations are important not only to compare these methods to their approximate value function counterparts (where such issues are relatively well understood, at least in the worst case), but also to help with more principled approaches to algorithm design. This work provides provable characterizations of computational, approximation, and sample size issues with regards to policy gradient methods in the context of discounted {M}arkov Decision Processes (MDPs). We focus on both: 1) “tabular” policy parameterizations, where the optimal policy is contained in the class and where we show global convergence to the optimal policy, and 2) restricted policy classes, which may not contain the optimal policy and where we provide agnostic learning results. In the \emph{tabular setting}, our main results are: 1) convergence rate to global optimum for direct parameterization and projected gradient ascent 2) an asymptotic convergence to global optimum for softmax policy parameterization and PG; and a convergence rate with additional entropy regularization, and 3) dimension-free convergence to global optimum for softmax policy parameterization and Natural Policy Gradient (NPG) method with exact gradients. In \emph{function approximation}, we further analyze NPG with exact as well as inexact gradients under certain smoothness assumptions on the policy parameterization and establish rates of convergence in terms of the quality of the initial state distribution. One insight of this work is in formalizing how a favorable initial state distribution provides a means to circumvent worst-case exploration issues. Overall, these results place PG methods under a solid theoretical footing, analogous to the global convergence guarantees of iterative value function based algorithms.} }
+
+@article{deisenroth2013survey,
+  title={A survey on policy search for robotics},
+  author={Deisenroth, Marc Peter and Neumann, Gerhard and Peters, Jan and others},
+  journal={Foundations and trends in Robotics},
+  volume={2},
+  number={1-2},
+  pages={388--403},
+  year={2013},
+  publisher={now publishers}
+}
+
+@article{nguyen2020belief,
+  title={Belief-Grounded Networks for Accelerated Robot Learning under Partial Observability},
+  author={Nguyen, Hai and Daley, Brett and Song, Xinchao and Amato, Chistopher and Platt, Robert},
+  journal={arXiv preprint arXiv:2010.09170},
+  year={2020}
+}
+
+
+@InProceedings{pmlr-v70-sun17d, title = {Deeply {A}ggre{V}a{T}e{D}: Differentiable Imitation Learning for Sequential Prediction}, author = {Wen Sun and Arun Venkatraman and Geoffrey J. Gordon and Byron Boots and J. Andrew Bagnell}, booktitle = {Proceedings of the 34th International Conference on Machine Learning}, year = {2017}, publisher = {PMLR}, pdf = {http://proceedings.mlr.press/v70/sun17d/sun17d.pdf}, url = {http://proceedings.mlr.press/v70/sun17d.html}, abstract = {Recently, researchers have demonstrated state-of-the-art performance on sequential prediction problems using deep neural networks and Reinforcement Learning (RL). For some of these problems, oracles that can demonstrate good performance may be available during training, but are not used by plain RL methods. To take advantage of this extra information, we propose AggreVaTeD, an extension of the Imitation Learning (IL) approach of Ross \& Bagnell (2014). AggreVaTeD allows us to use expressive differentiable policy representations such as deep networks, while leveraging training-time oracles to achieve faster and more accurate solutions with less training data. Specifically, we present two gradient procedures that can learn neural network policies for several problems, including a sequential prediction task and several high-dimensional robotics control problems. We also provide a comprehensive theoretical study of IL that demonstrates that we can expect up to exponentially-lower sample complexity for learning with AggreVaTeD than with plain RL algorithms. Our results and theory indicate that IL (and AggreVaTeD in particular) can be a more effective strategy for sequential prediction than plain RL.} }
+
+@article{yan2020explaining,
+  title={Explaining fast improvement in online policy optimization},
+  author={Yan, Xinyan and Boots, Byron and Cheng, Ching-An},
+  journal={arXiv preprint arXiv:2007.02520},
+  year={2020}
+}
+
+@article{Sun2017,
+abstract = {Recently, researchers have demonstrated state-of-the-art performance on sequential prediction problems using deep neural networks and Reinforcement Learning (RL). For some of these problems, oracles that can demonstrate good performance may be available during training, but are not used by plain RL methods. To take advantage of this extra information, we propose AggreVaTeD, an extension of the Imitation Learning (IL) approach of Ross {\&} Bagnell (2014). AggreVaTeD allows us to use expressive differentiable policy representations such as deep networks, while leveraging training-time oracles to achieve faster and more accurate solutions with less training data. Specifically, we present two gradient procedures that can learn neural network policies for several problems, including a sequential prediction task and several high-dimensional robotics control problems. We also provide a comprehensive theoretical study of IL that demonstrates that we can expect up to exponentially-lower sample complexity for learning with AggreVaTeD than with plain RL algorithms. Our results and theory indicate that IL (and AggreVaTeD in particular) can be a more effective strategy for sequential prediction than plain RL.},
+archivePrefix = {arXiv},
+arxivId = {1703.01030},
+author = {Sun, Wen and Venkatraman, Arun and Gordon, Geoffrey J. and Boots, Byron and Bagnell, J. Andrew},
+eprint = {1703.01030},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/3305890.3306023.pdf:pdf},
+isbn = {9781510855144},
+journal = {34th International Conference on Machine Learning},
+pages = {5090--5108},
+title = {{Deeply AggreVaTeD: Differentiable imitation learning for sequential prediction}},
+volume = {7},
+year = {2017}
+}
+
+@article{Sun2018,
+abstract = {In this paper, we propose to combine imitation and reinforcement learning via the idea of reward shaping using an oracle. We study the effectiveness of the near-optimal cost-to-go oracle on the planning horizon and demonstrate that the cost-to-go oracle shortens the learner's planning horizon as function of its accuracy: a globally optimal oracle can shorten the planning horizon to one, leading to a one-step greedy {M}arkov Decision Process which is much easier to optimize, while an oracle that is far away from the optimality requires planning over a longer horizon to achieve near-optimal performance. Hence our new insight bridges the gap and interpolates between imitation learning and reinforcement learning. Motivated by the above mentioned insights, we propose Truncated HORizon Policy Search (THOR), a method that focuses on searching for policies that maximize the total reshaped reward over a finite planning horizon when the oracle is sub-optimal. We experimentally demonstrate that a gradient-based implementation of THOR can achieve superior performance compared to RL baselines and IL baselines even when the oracle is sub-optimal.},
+archivePrefix = {arXiv},
+arxivId = {1805.11240},
+author = {Sun, Wen and Bagnell, J. Andrew and Boots, Byron},
+eprint = {1805.11240},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1805.11240.pdf:pdf},
+journal = {6th International Conference on Learning Representations},
+pages = {1--14},
+title = {{Truncated horizon policy search: Combining reinforcement learning {\&} imitation learning}},
+year = {2018}
+}
+@article{schulman2015high,
+  title={High-dimensional continuous control using generalized advantage estimation},
+  author={Schulman, John and Moritz, Philipp and Levine, Sergey and Jordan, Michael and Abbeel, Pieter},
+  journal={arXiv:1506.02438},
+  year={2015}
+}
+@article{williams1992simple,
+  title={Simple statistical gradient-following algorithms for connectionist reinforcement learning},
+  author={Williams, Ronald J},
+  journal={Machine learning},
+  volume={8},
+  number={3-4},
+  pages={229--256},
+  year={1992},
+  publisher={Springer}
+}
+
+@article{Dann2018,
+abstract = {We study the computational tractability of PAC reinforcement learning with rich observations. We present new provably sample-efficient algorithms for environments with deterministic hidden state dynamics and stochastic rich observations. These methods operate in an oracle model of computation-accessing policy and value function classes exclusively through standard optimization primitives-and therefore represent computationally efficient alternatives to prior algorithms that require enumeration. With stochastic hidden state dynamics, we prove that the only known sample-efficient algorithm, OLIVE [1], cannot be implemented in the oracle model. We also present several examples that illustrate fundamental challenges of tractable PAC reinforcement learning in such general settings.},
+annote = {focusses on scenarios where the is an observations that is sufficient to inform the underlying state, i.e. {POMDP} and {MDP} are consistent. nice diagram of {POMDP} setup.},
+archivePrefix = {arXiv},
+arxivId = {1803.00606},
+author = {Dann, Christoph and Jiang, Nan and Krishnamurthy, Akshay and Agarwal, Alekh and Langford, John and Schapire, Robert E.},
+eprint = {1803.00606},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/7416-on-oracle-efficient-pac-rl-with-rich-observations.pdf:pdf},
+issn = {10495258},
+journal = {Advances in Neural Information Processing Systems},
+number = {NeurIPS},
+pages = {1422--1432},
+title = {{On oracle-efficient PAC RL with rich observations}},
+volume = {2018-December},
+year = {2018}
+}
+
+@article{arora2018hindsight,
+  title={Hindsight is only 50/50: Unsuitability of MDP based approximate POMDP solvers for multi-resolution information gathering},
+  author={Arora, Sankalp and Choudhury, Sanjiban and Scherer, Sebastian},
+  journal={arXiv preprint arXiv:1804.02573},
+  year={2018}
+}
+
+@article{levine2018reinforcement,
+    title={Reinforcement Learning and Control as Probabilistic Inference: Tutorial and Review},
+    author={Sergey Levine},
+    year={2018},
+    eprint={1805.00909},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@incollection{spaan2012partially,
+  title={Partially observable {M}arkov decision processes},
+  author={Spaan, Matthijs TJ},
+  booktitle={Reinforcement Learning},
+  pages={387--414},
+  year={2012},
+  publisher={Springer}
+}
+
+@article{laskey2017dart,
+  title={Dart: Noise injection for robust imitation learning},
+  author={Laskey, Michael and Lee, Jonathan and Fox, Roy and Dragan, Anca and Goldberg, Ken},
+  journal={arXiv preprint arXiv:1703.09327},
+  year={2017}
+}
+
+@article{luo2019learning,
+  title={Learning self-correctable policies and value functions from demonstrations with negative sampling},
+  author={Luo, Yuping and Xu, Huazhe and Ma, Tengyu},
+  journal={arXiv preprint arXiv:1907.05634},
+  year={2019}
+}
+
+@article{ke2019imitation,
+  title={Imitation Learning as $ f $-Divergence Minimization},
+  author={Ke, Liyiming and Barnes, Matt and Sun, Wen and Lee, Gilwoo and Choudhury, Sanjiban and Srinivasa, Siddhartha},
+  journal={arXiv preprint arXiv:1905.12888},
+  year={2019}
+}
+
+@article{ross2014reinforcement,
+  title={Reinforcement and imitation learning via interactive no-regret learning},
+  author={Ross, St{\'{e}}phane and Bagnell, J Andrew},
+  journal={arXiv preprint arXiv:1406.5979},
+  year={2014}
+}
+
+@inproceedings{hester2018deep,
+  title={Deep q-learning from demonstrations},
+  author={Hester, Todd and Vecerik, Matej and Pietquin, Olivier and Lanctot, Marc and Schaul, Tom and Piot, Bilal and Horgan, Dan and Quan, John and Sendonaris, Andrew and Osband, Ian and others},
+  booktitle={Thirty-Second AAAI Conference on Artificial Intelligence},
+  year={2018}
+}
+
+@inproceedings{dann2018oracle,
+  title={On oracle-efficient PAC RL with rich observations},
+  author={Dann, Christoph and Jiang, Nan and Krishnamurthy, Akshay and Agarwal, Alekh and Langford, John and Schapire, Robert E},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={1422--1432},
+  year={2018}
+}
+
+@inproceedings{Laskey2018OnAO,
+  title={On and Off-Policy Deep Imitation Learning for Robotics},
+  author={Michael Laskey},
+  year={2018}
+}
+
+@article{kostrikov2020image,
+    title={Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels},
+    author={Ilya Kostrikov and Denis Yarats and Rob Fergus},
+    year={2020},
+    eprint={2004.13649},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@article{oord2018representation,
+  title={Representation learning with contrastive predictive coding},
+  author={Oord, Aaron van den and Li, Yazhe and Vinyals, Oriol},
+  journal={arXiv preprint arXiv:1807.03748},
+  year={2018}
+}
+
+@article{laskin2020reinforcement,
+  title={Reinforcement Learning with Augmented Data},
+  author={Laskin, Michael and Lee, Kimin and Stooke, Adam and Pinto, Lerrel and Abbeel, Pieter and Srinivas, Aravind},
+  journal={arXiv preprint arXiv:2004.14990},
+  year={2020}
+}
+
+@inproceedings{ijcai2018687,
+  title     = {Behavioral Cloning from Observation},
+  author    = {Faraz Torabi and Garrett Warnell and Peter Stone},
+  booktitle = {Proceedings of the Twenty-Seventh International Joint Conference on
+               Artificial Intelligence, {IJCAI-18}},
+  publisher = {International Joint Conferences on Artificial Intelligence Organization},             
+  pages     = {4950--4957},
+  year      = {2018},
+  month     = {7},
+  doi       = {10.24963/ijcai.2018/687},
+  url       = {https://doi.org/10.24963/ijcai.2018/687},
+}
+
+
+@inproceedings{
+peng2018variational,
+title={Variational Discriminator Bottleneck: Improving Imitation Learning, Inverse {RL}, and {GAN}s by Constraining Information Flow},
+author={Xue Bin Peng and Angjoo Kanazawa and Sam Toyer and Pieter Abbeel and Sergey Levine},
+booktitle={International Conference on Learning Representations},
+year={2019},
+url={https://openreview.net/forum?id=HyxPx3R9tm},
+}
+
+@inproceedings{
+qureshi2018adversarial,
+title={Adversarial Imitation via Variational Inverse Reinforcement Learning},
+author={Ahmed H. Qureshi and Byron Boots and Michael C. Yip},
+booktitle={International Conference on Learning Representations},
+year={2019},
+url={https://openreview.net/forum?id=HJlmHoR5tQ},
+}
+
+@inproceedings{
+fu2018learning,
+title={Learning Robust Rewards with Adverserial Inverse Reinforcement Learning},
+author={Justin Fu and Katie Luo and Sergey Levine},
+booktitle={International Conference on Learning Representations},
+year={2018},
+url={https://openreview.net/forum?id=rkHywl-A-},
+}
+
+@article{srinivas2020curl,
+  title={Curl: Contrastive unsupervised representations for reinforcement learning},
+  author={Srinivas, Aravind and Laskin, Michael and Abbeel, Pieter},
+  journal={arXiv preprint arXiv:2004.04136},
+  year={2020}
+}
+
+@article{heess2016learning,
+  title={Learning and transfer of modulated locomotor controllers},
+  author={Heess, Nicolas and Wayne, Greg and Tassa, Yuval and Lillicrap, Timothy and Riedmiller, Martin and Silver, David},
+  journal={arXiv preprint arXiv:1610.05182},
+  year={2016}
+}
+
+@article{zhu2020learning,
+    title={Learning Sparse Rewarded Tasks from Sub-Optimal Demonstrations},
+    author={Zhuangdi Zhu and Kaixiang Lin and Bo Dai and Jiayu Zhou},
+    year={2020},
+    eprint={2004.00530},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@article{li2018oil,
+  title={OIL: Observational Imitation Learning},
+  author={Li, Guohao and Mueller, Matthias and Casser, Vincent and Smith, Neil and Michels, Dominik L and Ghanem, Bernard},
+  journal={arXiv preprint arXiv:1803.01129},
+  year={2018}
+}
+
+@article{ghasemipour2019divergence,
+  title={A Divergence Minimization Perspective on Imitation Learning Methods},
+  author={Ghasemipour, Seyed Kamyar Seyed and Zemel, Richard and Gu, Shixiang},
+  journal={arXiv preprint arXiv:1911.02256},
+  year={2019}
+}
+
+@article{kostrikov2019imitation,
+    title={Imitation Learning via Off-Policy Distribution Matching},
+    author={Ilya Kostrikov and Ofir Nachum and Jonathan Tompson},
+    year={2019},
+    eprint={1912.05032},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@article{durugkar2019multi,
+  title={Multi-Preference Actor Critic},
+  author={Durugkar, Ishan and Hausknecht, Matthew and Swaminathan, Adith and MacAlpine, Patrick},
+  journal={arXiv preprint arXiv:1904.03295},
+  year={2019}
+}
+
+@inproceedings{ding2019goal,
+  title={Goal-conditioned imitation learning},
+  author={Ding, Yiming and Florensa, Carlos and Abbeel, Pieter and Phielipp, Mariano},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={15298--15309},
+  year={2019}
+}
+
+@article{haarnoja2018soft,
+  title={Soft actor-critic algorithms and applications},
+  author={Haarnoja, Tuomas and Zhou, Aurick and Hartikainen, Kristian and Tucker, George and Ha, Sehoon and Tan, Jie and Kumar, Vikash and Zhu, Henry and Gupta, Abhishek and Abbeel, Pieter and others},
+  journal={arXiv preprint arXiv:1812.05905},
+  year={2018}
+}
+
+@inproceedings{qureshi2020composing,
+  author    = {Ahmed H. Qureshi and
+               Jacob J. Johnson and
+               Yuzhe Qin and
+               Taylor Henderson and
+               Byron Boots and
+               Michael C. Yip},
+  title     = {Composing Task-Agnostic Policies with Deep Reinforcement Learning},
+  booktitle = {8th International Conference on Learning Representations,
+               Addis Ababa, Ethiopia, April 26-30, 2020},
+  publisher = {OpenReview.net},
+  year      = {2020},
+  url       = {https://openreview.net/forum?id=H1ezFREtwH},
+  timestamp = {Thu, 07 May 2020 17:11:47 +0200},
+  biburl    = {https://dblp.org/rec/conf/iclr/QureshiJQHBY20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{pinto2017asymmetric,
+  title={Asymmetric actor critic for image-based robot learning},
+  author={Pinto, Lerrel and Andrychowicz, Marcin and Welinder, Peter and Zaremba, Wojciech and Abbeel, Pieter},
+  journal={arXiv preprint arXiv:1710.06542},
+  year={2017}
+}
+
+@article{littman2009tutorial,
+  title={A tutorial on partially observable {M}arkov decision processes},
+  author={Littman, Michael L},
+  journal={Journal of Mathematical Psychology},
+  volume={53},
+  number={3},
+  pages={119--125},
+  year={2009},
+  publisher={Elsevier}
+}
+
+@article{lovejoy1991survey,
+  title={A survey of algorithmic methods for partially observed {M}arkov decision processes},
+  author={Lovejoy, William S},
+  journal={Annals of Operations Research},
+  volume={28},
+  number={1},
+  pages={47--65},
+  year={1991},
+  publisher={Springer}
+}
+
+@article{aastrom1965optimal,
+  title={Optimal control of {M}arkov processes with incomplete state information},
+  author={{\AA}str{\"o}m, Karl Johan},
+  journal={Journal of Mathematical Analysis and Applications},
+  volume={10},
+  number={1},
+  pages={174--205},
+  year={1965},
+  publisher={Academic Press}
+}
+
+@article{littman1995pomdp, 
+title={Learning policies for partially observable environments: Scaling up},
+DOI={10.1016/b978-1-55860-377-6.50052-9}, 
+journal={Seventh International Conference on Machine Learning}, 
+author={Littman, Michael L. and Cassandra, Anthony R. and Kaelbling, Leslie Pack},
+year={1995}, 
+pages={362–370}}
+
+@book{sutton1992reinforcement,
+  title={Reinforcement Learning},
+  author={Sutton, R.S.},
+  isbn={9780792392347},
+  lccn={92007567},
+  series={The Springer International Series in Engineering and Computer Science},
+  year={1992},
+  publisher={Springer US}
+}
+
+@article{wu2019imitation,
+  title={Imitation learning from imperfect demonstration},
+  author={Wu, Yueh-Hua and Charoenphakdee, Nontawat and Bao, Han and Tangkaratt, Voot and Sugiyama, Masashi},
+  journal={arXiv preprint arXiv:1901.09387},
+  year={2019}
+}
+
+@article{Schaal1999IsIL,
+  title={Is imitation learning the route to humanoid robots?},
+  author={Stefan Schaal},
+  journal={Trends in Cognitive Sciences},
+  year={1999},
+  volume={3},
+  pages={233-242}
+}
+
+@article{kononen2004asymmetric,
+  title={Asymmetric multiagent reinforcement learning},
+  author={K{\"o}n{\"o}nen, Ville},
+  journal={Web Intelligence and Agent Systems: An international journal},
+  volume={2},
+  number={2},
+  pages={105--121},
+  year={2004},
+  publisher={IOS Press}
+}
+
+@inproceedings{Dosovitskiy17,
+  title = {{CARLA}: {An} Open Urban Driving Simulator},
+  author = {Alexey Dosovitskiy and German Ros and Felipe Codevilla and Antonio Lopez and Vladlen Koltun},
+  booktitle = {Proceedings of the 1st Annual Conference on Robot Learning},
+  pages = {1--16},
+  year = {2017}
+}
+
+@article{Brockman2016gym,
+  Author = {Greg Brockman and Vicki Cheung and Ludwig Pettersson and Jonas Schneider and John Schulman and Jie Tang and Wojciech Zaremba},
+  Title = {{O}pen{AI} Gym},
+  Year = {2016},
+  Eprint = {arXiv:1606.01540},
+}
+
+@misc{pybullet,
+  author = {Benjamin Ellenberger},
+  title = {PyBullet Gym},
+  year = {2017},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+}
+
+@article{yarats2019improving,
+    title={Improving Sample Efficiency in Model-Free Reinforcement Learning from Images},
+    author={Denis Yarats and Amy Zhang and Ilya Kostrikov and Brandon Amos and Joelle Pineau and Rob Fergus},
+    year={2019},
+    eprint={1910.01741},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@article{murphy2000survey,
+  title={A survey of {POMDP} solution techniques},
+  author={Murphy, Kevin P},
+  journal={environment},
+  volume={2},
+  pages={X3},
+  year={2000},
+  publisher={Citeseer}
+}
+
+@article{lillicrap2015continuous,
+  title={Continuous control with deep reinforcement learning},
+  author={Lillicrap, Timothy P and Hunt, Jonathan J and Pritzel, Alexander and Heess, Nicolas and Erez, Tom and Tassa, Yuval and Silver, David and Wierstra, Daan},
+  journal={arXiv preprint arXiv:1509.02971},
+  year={2015}
+}
+
+@article{schulman2017proximal,
+  title={Proximal policy optimization algorithms},
+  author={Schulman, John and Wolski, Filip and Dhariwal, Prafulla and Radford, Alec and Klimov, Oleg},
+  journal={arXiv preprint arXiv:1707.06347},
+  year={2017}
+}
+
+@misc{gym_minigrid,
+  author = {Chevalier-Boisvert, Maxime and Willems, Lucas and Pal, Suman},
+  title = {Minimalistic Gridworld Environment for {O}pen{AI} Gym},
+  year = {2018},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/maximecb/gym-minigrid}},
+}
+
+@article{bertsekas1991analysis,
+  title={An analysis of stochastic shortest path problems},
+  author={Bertsekas, Dimitri P and Tsitsiklis, John N},
+  journal={Mathematics of Operations Research},
+  volume={16},
+  number={3},
+  pages={580--595},
+  year={1991},
+  publisher={INFORMS}
+}
+
+@misc{wandb,
+title = {{Experiment Tracking with Weights and Biases}},
+year = {2020},
+note = {Software available from wandb.com},
+url={https://www.wandb.com/},
+author = {Biewald, Lukas},
+}
+
+@inproceedings{
+Engstrom2020Implementation,
+title={Implementation Matters in Deep RL: A Case Study on PPO and TRPO},
+author={Logan Engstrom and Andrew Ilyas and Shibani Santurkar and Dimitris Tsipras and Firdaus Janoos and Larry Rudolph and Aleksander Madry},
+booktitle={International Conference on Learning Representations},
+year={2020},
+url={https://openreview.net/forum?id=r1etN1rtPB}
+}
+
+@article{bertsekas2011approximate,
+  title={Approximate policy iteration: A survey and some new methods},
+  author={Bertsekas, Dimitri P},
+  journal={Journal of Control Theory and Applications},
+  volume={9},
+  number={3},
+  pages={310--335},
+  year={2011},
+  publisher={Springer}
+}
+
+@book{bertsekas2019reinforcement,
+  title={Reinforcement learning and optimal control},
+  author={Bertsekas, Dimitri P},
+  year={2019},
+  publisher={Athena Scientific Belmont, MA}
+}
+
+@article{salter2019attentionprivileged,
+    title={Attention-Privileged Reinforcement Learning},
+    author={Sasha Salter and Dushyant Rao and Markus Wulfmeier and Raia Hadsell and Ingmar Posner},
+    year={2019},
+    eprint={1911.08363},
+    archivePrefix={arXiv},
+    primaryClass={cs.AI},
+    journal={arXiv preprint arXiv:1911.08363},
+}
+
+@article{pierrealex2020privileged,
+    title={Privileged Information Dropout in Reinforcement Learning},
+    author={Pierre-Alexandre Kamienny and Kai Arulkumaran and Feryal Behbahani and Wendelin Boehmer and Shimon Whiteson},
+    year={2020},
+    eprint={2005.09220},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    journal={arXiv:2005.09220},
+}
+
+@article{schwab2019simultaneously,
+  title={Simultaneously learning vision and feature-based control policies for real-world ball-in-a-cup},
+  author={Schwab, Devin and Springenberg, Tobias and Martins, Murilo and Lampe, Thomas and Neunert, Michael and Abdolmaleki, Abbas and Herkweck, Tim and Hafner, Roland and Nori, Francesco and Riedmiller, Martin},
+  journal={arXiv preprint arXiv:1902.04706},
+  year={2019}
+}
+
+@article{russell2002artificial,
+  title={Artificial Intelligence (A Modern Approach)},
+  author={Russell, Staurt J and Norvig, Peter},
+  year={1995},
+  publisher={Prentice Hall}
+}
+
+@inproceedings{lambert2018deep,
+  title={Deep learning under privileged information using heteroscedastic dropout},
+  author={Lambert, John and Sener, Ozan and Savarese, Silvio},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+  pages={8886--8895},
+  year={2018}
+}
+
+@inproceedings{Schwab2019,
+  author    = {Devin Schwab and
+               Jost Tobias Springenberg and
+               Murilo Fernandes Martins and
+               Michael Neunert and
+               Thomas Lampe and
+               Abbas Abdolmaleki and
+               Tim Hertweck and
+               Roland Hafner and
+               Francesco Nori and
+               Martin A. Riedmiller},
+  title     = {Simultaneously Learning Vision and Feature-Based Control Policies
+               for Real-World Ball-In-A-Cup},
+  booktitle = {Robotics: Science and Systems XV},
+  year      = {2019},
+  url       = {https://doi.org/10.15607/RSS.2019.XV.027},
+  doi       = {10.15607/RSS.2019.XV.027},
+  timestamp = {Wed, 18 Sep 2019 11:00:19 +0200},
+  biburl    = {https://dblp.org/rec/conf/rss/SchwabSMNLAHHNR19.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Hausknecht2015,
+abstract = {Deep Reinforcement Learning has yielded proficient controllers for complex tasks. However, these controllers have limited memory and rely on being able to perceive the complete game screen at each decision point. To address these shortcomings, this article investigates the effects of adding recurrency to a Deep Q-Network (DQN) by replacing the first post-convolutional fully-connected layer with a recurrent LSTM. The resulting Deep Recurrent Q-Network (DRQN), although capable of seeing only a single frame at each timestep, successfully integrates information through time and replicates DQN's performance on standard Atari games and partially observed equivalents featuring flickering game screens. Additionally, when trained with partial observations and evaluated with incrementally more complete observations, DRQN's performance scales as a function of observability. Conversely, when trained with full observations and evaluated with partial observations, DRQN's performance degrades less than DQN's. Thus, given the same length of history, recurrency is a viable alternative to stacking a history of frames in the DQN's input layer and while recurrency confers no systematic advantage when learning to play the game, the recurrent net can better adapt at evaluation time if the quality of observations changes.},
+archivePrefix = {arXiv},
+arxivId = {1507.06527},
+author = {Hausknecht, Matthew and Stone, Peter},
+eprint = {1507.06527},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1507.06527.pdf:pdf},
+isbn = {9781577357520},
+journal = {AAAI Fall Symposium - Technical Report},
+pages = {29--37},
+title = {{Deep recurrent q-learning for partially observable {MDP}s}},
+volume = {FS-15-06},
+year = {2015}
+}
+
+@article{Andrychowicz2020,
+abstract = {We use reinforcement learning (RL) to learn dexterous in-hand manipulation policies that can perform vision-based object reorientation on a physical Shadow Dexterous Hand. The training is performed in a simulated environment in which we randomize many of the physical properties of the system such as friction coefficients and an object's appearance. Our policies transfer to the physical robot despite being trained entirely in simulation. Our method does not rely on any human demonstrations, but many behaviors found in human manipulation emerge naturally, including finger gaiting, multi-finger coordination, and the controlled use of gravity. Our results were obtained using the same distributed RL system that was used to train {O}pen{AI} Five. We also include a video of our results: https://youtu.be/jwSbzNHGflM.},
+annote = {use an encoder to estimate the pose of the object, and then combine this with omniscient information on the location of the fingertips as input to a reccurent policy to produce actions. Very detailed paper.},
+author = {Andrychowicz, Open AI: Marcin and Baker, Bowen and Chociej, Maciek and J{\'{o}}zefowicz, Rafal and McGrew, Bob and Pachocki, Jakub and Petron, Arthur and Plappert, Matthias and Powell, Glenn and Ray, Alex and Schneider, Jonas and Sidor, Szymon and Tobin, Josh and Welinder, Peter and Weng, Lilian and Zaremba, Wojciech},
+doi = {10.1177/0278364919887447},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/0278364919887447.pdf:pdf},
+issn = {17413176},
+journal = {International Journal of Robotics Research},
+keywords = {Dexterous manipulation,adaptive control,humanoid robots,learning and adaptive systems,multifingered hands},
+number = {1},
+pages = {3--20},
+title = {{Learning dexterous in-hand manipulation}},
+volume = {39},
+year = {2020}
+}
+@article{Vapnik2015,
+abstract = {This paper describes a new paradigm of machine learning, in which Intelligent Teacher is involved. During training stage, Intelligent Teacher provides Student with information that contains, along with classification of each example, additional privileged information (for example, explanation) of this example. The paper describes two mechanisms that can be used for significantly accelerating the speed of Student's learning using privileged information: (1) correction of Student's concepts of similarity between examples, and (2) direct Teacher-Student knowledge transfer.},
+author = {Vapnik, Vladimir and Izmailov, Rauf},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/vapnik15b.pdf:pdf},
+issn = {15337928},
+journal = {Journal of Machine Learning Research},
+keywords = {Classification,Frames,Intelligent Teacher,Kernel functions,Knowledge representation,Knowledge transfer,Learning theory,Privileged information,Regression,SVM+,Similarity control,Similarity functions,Support vector machines},
+number = {2015},
+pages = {2023--2049},
+title = {{Learning using privileged information: Similarity control and knowledge transfer}},
+volume = {16},
+year = {2015}
+}
+@article{Zhu2018,
+abstract = {Deep Reinforcement Learning (RL) recently emerged as one of the most competitive approaches for learning in sequential decision making problems with fully observable environments, e.g., computer Go. However, very little work has been done in deep RL to handle partially observable environments. We propose a new architecture called Action-specific Deep Recurrent Q-Network (ADRQN) to enhance learning performance in partially observable domains. Actions are encoded by a fully connected layer and coupled with a convolutional observation to form an action-observation pair. The time series of action-observation pairs are then integrated by an LSTM layer that learns latent states based on which a fully connected layer computes Q-values as in conventional Deep Q-Networks (DQNs). We demonstrate the effectiveness of our new architecture in several partially observable domains, including flickering Atari games.},
+annote = {"However, very little work leverages deep reinforcement learning in partially observable environments." Instant facepalm. 
+
+conditions on embeddings of previous actions and obsevrations much as frank desires. Comments that including the action improves transfer performance from {MDP} to {POMDP}. Not especially surprising but still a nice little result. Not the best paper in the world otherwise.},
+archivePrefix = {arXiv},
+arxivId = {1804.06309},
+author = {Zhu, Pengfei and Li, Xin and Poupart, Pascal and Miao, Guanghui},
+eprint = {1804.06309},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1804.06309v1.pdf:pdf},
+title = {{On Improving Deep Reinforcement Learning for {POMDP}s}},
+url = {http://arxiv.org/abs/1804.06309},
+year = {2018}
+}
+@article{Finn2016,
+abstract = {Reinforcement learning provides a powerful and flexible framework for automated acquisition of robotic motion skills. However, applying reinforcement learning requires a sufficiently detailed representation of the state, including the configuration of task-relevant objects. We present an approach that automates state-space construction by learning a state representation directly from camera images. Our method uses a deep spatial autoencoder to acquire a set of feature points that describe the environment for the current task, such as the positions of objects, and then learns a motion skill with these feature points using an efficient reinforcement learning method based on local linear models. The resulting controller reacts continuously to the learned feature points, allowing the robot to dynamically manipulate objects in the world with closed-loop control. We demonstrate our method with a PR2 robot on tasks that include pushing a free-standing toy block, picking up a bag of rice using a spatula, and hanging a loop of rope on a hook at various positions. In each task, our method automatically learns to track task-relevant objects and manipulate their configuration with the robot's arm.},
+annote = {learns an encoder that turns images into real-valued estimates of important values in the scene.
+
+First train the {MDP}, then learn an encoder on rollouts under the MDP and fit an encoder to this regularizing the encoder under the known states for each state, finally the encoder is fixed and the {POMDP} is learned using the encoded states. This is essentially what frank was suggesting as the strongest baseline.
+
+The key is they use a deep spatial autoencoder and some kind of argmax operation to pick out the relevant location of each state. we might need to use a slightly smarter archiecture than just a pixel encoder to compare effectively to this, but equally we might not need to. looks like an absolute fucking ballache. Also isn't clear to me that a deep spatial autoencoder is a general architecture for this, it will just work especially well for long/thin robot arms...
+
+Very commanding results section.},
+archivePrefix = {arXiv},
+arxivId = {1509.06113},
+author = {Finn, Chelsea and Tan, Xin Yu and Duan, Yan and Darrell, Trevor and Levine, Sergey and Abbeel, Pieter},
+doi = {10.1109/ICRA.2016.7487173},
+eprint = {1509.06113},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1509.06113.pdf:pdf},
+isbn = {9781467380263},
+issn = {10504729},
+journal = {Proceedings - IEEE International Conference on Robotics and Automation},
+pages = {512--519},
+title = {{Deep spatial autoencoders for visuomotor learning}},
+volume = {2016-June},
+year = {2016}
+}
+
+@article{Lopez-Paz2016,
+abstract = {Distillation (Hinton et al., 2015) and privileged information (Vapnik {\&} Izmailov, 2015) are two techniques that enable machines to learn from other machines. This paper unifies the two into generalized distillation, a framework to learn from multiple machines and data representations. We provide theoretical and causal insight about the inner workings of generalized distillation, extend it to unsupervised, semisupervised and multitask learning scenarios, and illustrate its efficacy on a variety of numerical simulations on both synthetic and real-world data.},
+archivePrefix = {arXiv},
+arxivId = {1511.03643},
+author = {Lopez-Paz, David and Bottou, L{\'{e}}on and Sch{\"{o}}lkopf, Bernhard and Vapnik, Vladimir},
+eprint = {1511.03643},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1511.03643.pdf:pdf},
+journal = {4th International Conference on Learning Representations},
+pages = {1--10},
+title = {{Unifying distillation and privileged information}},
+year = {2016}
+}
+
+@article{Levine2016,
+abstract = {Policy search methods can allow robots to learn control policies for a wide range of tasks, but practical applications of policy search often require hand-engineered components for perception, state estimation, and low-level control. In this paper, we aim to answer the following question: does training the perception and control systems jointly end-to-end provide better performance than training each component separately? To this end, we develop a method that can be used to learn policies that map raw image observations directly to torques at the robot's motors. The policies are represented by deep convolutional neural networks (CNNs) with 92,000 parameters, and are trained using a guided policy search method, which transforms policy search into supervised learning, with supervision provided by a simple trajectory-centric reinforcement learning method. We evaluate our method on a range of real-world manipulation tasks that require close coordination between vision and control, such as screwing a cap onto a bottle, and present simulated comparisons to a range of prior policy search methods.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1504.00702v5},
+author = {Levine, Sergey and Finn, Chelsea and Darrell, Trevor and Abbeel, Pieter},
+eprint = {arXiv:1504.00702v5},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1504.00702.pdf:pdf},
+issn = {15337928},
+journal = {Journal of Machine Learning Research},
+keywords = {Neural networks,Optimal control,Reinforcement learning,Vision},
+pages = {1--40},
+title = {{End-to-end training of deep visuomotor policies}},
+volume = {17},
+year = {2016}
+}
+
+@article{Ilin2016,
+abstract = {Within the supervised machine learning framework, classifier performance is significantly affected by the size of training datasets. One of the ways to improve classification accuracy with small training datasets is to utilize additional knowledge about training data that is not present in testing data. In the Learning Using Privileged Information (LUPI) learning paradigm, this additional knowledge is represented by the privileged feature space, which is fused with the standard feature space during classifier training. In this paper, we study two new algorithmic realization of LUPI, based on knowledge transfer, and compare them with the original SVM+ LUPI algorithm, which is based on similarity control. We apply the algorithms to a wide area aerial video exploitation problem, and measure misclassification error rate and execution time of both algorithms. We use minor area motion imagery (MAMI) dataset, recently released by Air Force Research Laboratory (AFRL). High-resolution imagery is utilized as privileged information for low-resolution imagery. We demonstrate that an ensemble knowledge transfer approach that combines multiple knowledge transfer algorithms outperforms the original SVM+ approach with the error rate reduction of up to 25{\%}. We also show that knowledge transfer approach requires significantly less computational resources, making LUPI algorithms as scalable as SVM.},
+author = {Ilin, Roman and Izmailov, Rauf and Goncharov, Yuri and Streltsov, Simon},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/07528045.pdf:pdf},
+isbn = {9780996452748},
+journal = {FUSION 2016 - 19th International Conference on Information Fusion, Proceedings},
+keywords = {LUPI,SVM,SVM+,classification,ensemble learning,kernel functions,knowledge transfer,privileged information,regression,sensors,similarity control,support vector machines},
+pages = {1382--1389},
+publisher = {ISIF},
+title = {{Fusion of privileged features for efficient classifier training}},
+year = {2016}
+}
+
+@article{Hinton2015,
+  title={Distilling the knowledge in a neural network},
+  author={Hinton, Geoffrey and Vinyals, Oriol and Dean, Jeff},
+  journal={arXiv preprint arXiv:1503.02531},
+  year={2015}
+}
+
+@article{Sun2017,
+abstract = {Recently, researchers have demonstrated state-of-the-art performance on sequential prediction problems using deep neural networks and Reinforcement Learning (RL). For some of these problems, oracles that can demonstrate good performance may be available during training, but are not used by plain RL methods. To take advantage of this extra information, we propose AggreVaTeD, an extension of the Imitation Learning (IL) approach of Ross {\&} Bagnell (2014). AggreVaTeD allows us to use expressive differentiable policy representations such as deep networks, while leveraging training-time oracles to achieve faster and more accurate solutions with less training data. Specifically, we present two gradient procedures that can learn neural network policies for several problems, including a sequential prediction task and several high-dimensional robotics control problems. We also provide a comprehensive theoretical study of IL that demonstrates that we can expect up to exponentially-lower sample complexity for learning with AggreVaTeD than with plain RL algorithms. Our results and theory indicate that IL (and AggreVaTeD in particular) can be a more effective strategy for sequential prediction than plain RL.},
+archivePrefix = {arXiv},
+arxivId = {1703.01030},
+author = {Sun, Wen and Venkatraman, Arun and Gordon, Geoffrey J. and Boots, Byron and Bagnell, J. Andrew},
+eprint = {1703.01030},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/3305890.3306023.pdf:pdf},
+isbn = {9781510855144},
+journal = {34th International Conference on Machine Learning},
+pages = {5090--5108},
+title = {{Deeply AggreVaTeD: Differentiable imitation learning for sequential prediction}},
+volume = {7},
+year = {2017}
+}
+
+
+@article{Song2018,
+abstract = {We study the problem of learning a good search policy for combinatorial search spaces. We propose retrospective imitation learning, which, after initial training by an expert, improves itself by learning from $\backslash$textit{\{}retrospective inspections{\}} of its own roll-outs. That is, when the policy eventually reaches a feasible solution in a combinatorial search tree after making mistakes and backtracks, it retrospectively constructs an improved search trace to the solution by removing backtracks, which is then used to further train the policy. A key feature of our approach is that it can iteratively scale up, or transfer, to larger problem sizes than those solved by the initial expert demonstrations, thus dramatically expanding its applicability beyond that of conventional imitation learning. We showcase the effectiveness of our approach on a range of tasks, including synthetic maze solving and combinatorial problems expressed as integer programs.},
+archivePrefix = {arXiv},
+arxivId = {1804.00846},
+author = {Song, Jialin and Lanka, Ravi and Zhao, Albert and Bhatnagar, Aadyot and Yue, Yisong and Ono, Masahiro},
+eprint = {1804.00846},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1804.00846.pdf:pdf},
+title = {{Learning to Search via Retrospective Imitation}},
+url = {http://arxiv.org/abs/1804.00846},
+year = {2018}
+}
+
+@article{Song2019,
+abstract = {We study the problem of learning sequential decision-making policies in settings with multiple state-action representations. Such settings naturally arise in many domains, such as planning (e.g., multiple integer programming formulations) and various combinatorial optimization problems (e.g., those with both integer programming and graph-based formulations). Inspired by the classical co-training framework for classification, we study the problem of co-training for policy learning. We present sufficient conditions under which learning from two views can improve upon learning from a single view alone. Motivated by these theoretical insights, we present a meta-algorithm for co-training for sequential decision making. Our framework is compatible with both reinforcement learning and imitation learning. We validate the effectiveness of our approach across a wide range of tasks, including discrete/continuous control and combinatorial optimization.},
+archivePrefix = {arXiv},
+arxivId = {1907.04484},
+author = {Song, Jialin and Lanka, Ravi and Yue, Yisong and Ono, Masahiro},
+eprint = {1907.04484},
+file = {:Users/andrew/Documents/papers{\_}to{\_}read/1907.04484.pdf:pdf},
+journal = {35th Conference on Uncertainty in Artificial Intelligence},
+title = {{Co-training for policy learning}},
+year = {2019}
+}
+
+@InProceedings{pmlr-v80-kang18a,
+  title = 	 {Policy Optimization with Demonstrations},
+  author = 	 {Kang, Bingyi and Jie, Zequn and Feng, Jiashi},
+  booktitle = 	 {Proceedings of the 35th International Conference on Machine Learning},
+  year = 	 {2018},
+  volume = 	 {80},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {10--15 Jul},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v80/kang18a/kang18a.pdf},
+  url = 	 {http://proceedings.mlr.press/v80/kang18a.html},
+  abstract = 	 {Exploration remains a significant challenge to reinforcement learning methods, especially in environments where reward signals are sparse. Recent methods of learning from demonstrations have shown to be promising in overcoming exploration difficulties but typically require considerable high-quality demonstrations that are difficult to collect. We propose to effectively leverage available demonstrations to guide exploration through enforcing occupancy measure matching between the learned policy and current demonstrations, and develop a novel Policy Optimization from Demonstration (POfD) method. We show that POfD induces implicit dynamic reward shaping and brings provable benefits for policy improvement. Furthermore, it can be combined with policy gradient methods to produce state-of-the-art results, as demonstrated experimentally on a range of popular benchmark sparse-reward tasks, even when the demonstrations are few and imperfect.}
+}
+
+@article{kaelbling1998planning,
+  title={Planning and acting in partially observable stochastic domains},
+  author={Kaelbling, Leslie Pack and Littman, Michael L and Cassandra, Anthony R},
+  journal={Artificial intelligence},
+  volume={101},
+  number={1-2},
+  pages={99--134},
+  year={1998},
+  publisher={Elsevier}
+}
+
+@inproceedings{meng2019conditional,
+  title={Conditional teacher-student learning},
+  author={Meng, Zhong and Li, Jinyu and Zhao, Yong and Gong, Yifan},
+  booktitle={ICASSP 2019-2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={6445--6449},
+  year={2019},
+  organization={IEEE}
+}
+
+
+@article{choudhury2018data,
+  title={Data-driven planning via imitation learning},
+  author={Choudhury, Sanjiban and Bhardwaj, Mohak and Arora, Sankalp and Kapoor, Ashish and Ranade, Gireeja and Scherer, Sebastian and Dey, Debadeepta},
+  journal={The International Journal of Robotics Research},
+  volume={37},
+  number={13-14},
+  pages={1632--1672},
+  year={2018},
+  publisher={SAGE Publications Sage UK: London, England}
+}
+
+
+@Inbook{Spaan2012,
+author="Spaan, Matthijs T. J.",
+title="Partially Observable {M}arkov Decision Processes",
+bookTitle="Reinforcement Learning: State-of-the-Art",
+year="2012",
+publisher="Springer Berlin Heidelberg",
+pages="387--414",
+abstract="For reinforcement learning in environments in which an agent has access to a reliable state signal, methods based on the {M}arkov decision process (MDP) have had many successes. In many problem domains, however, an agent suffers from limited sensing capabilities that preclude it from recovering a {M}arkovian state signal from its perceptions. Extending the MDP framework, partially observable {M}arkov decision processes (POMDPs) allow for principled decision making under conditions of uncertain sensing. In this chapter we present the POMDP model by focusing on the differences with fully observable MDPs, and we show how optimal policies for POMDPs can be represented. Next, we give a review of model-based techniques for policy computation, followed by an overview of the available model-free methods for POMDPs. We conclude by highlighting recent trends in POMDP reinforcement learning.",
+isbn="978-3-642-27645-3",
+doi="10.1007/978-3-642-27645-3_12",
+url="https://doi.org/10.1007/978-3-642-27645-3_12"
+}
+
+@InProceedings{pmlr-v119-tangkaratt20a, title = {Variational Imitation Learning with Diverse-quality Demonstrations}, author = {Tangkaratt, Voot and Han, Bo and Khan, Mohammad Emtiyaz and Sugiyama, Masashi}, booktitle = {Proceedings of the 37th International Conference on Machine Learning}, pages = {9407--9417}, year = {2020}, editor = {Hal Daumé III and Aarti Singh}, volume = {119}, series = {Proceedings of Machine Learning Research}, month = {13--18 Jul}, publisher = {PMLR}, pdf = {http://proceedings.mlr.press/v119/tangkaratt20a/tangkaratt20a.pdf}, url = { http://proceedings.mlr.press/v119/tangkaratt20a.html }, abstract = {Learning from demonstrations can be challenging when the quality of demonstrations is diverse, and even more so when the quality is unknown and there is no additional information to estimate the quality. We propose a new method for imitation learning in such scenarios. We show that simple quality-estimation approaches might fail due to compounding error, and fix this issue by jointly estimating both the quality and reward using a variational approach. Our method is easy to implement within reinforcement-learning frameworks and also achieves state-of-the-art performance on continuous-control benchmarks.Our work enables scalable and data-efficient imitation learning under more realistic settings than before.} }
+
+@InProceedings{pmlr-v100-ghasemipour20a, title = {A Divergence Minimization Perspective on Imitation Learning Methods}, author = {Ghasemipour, Seyed Kamyar Seyed and Zemel, Richard and Gu, Shixiang}, booktitle = {Proceedings of the Conference on Robot Learning}, pages = {1259--1277}, year = {2020}, editor = {Leslie Pack Kaelbling and Danica Kragic and Komei Sugiura}, volume = {100}, series = {Proceedings of Machine Learning Research}, publisher = {PMLR}, pdf = {http://proceedings.mlr.press/v100/ghasemipour20a/ghasemipour20a.pdf}, url = {http://proceedings.mlr.press/v100/ghasemipour20a.html}, abstract = {In many settings, it is desirable to learn decision-making and control policies through learning or bootstrapping from expert demonstrations. The most common approaches under this Imitation Learning (IL) framework are Behavioural Cloning (BC), and Inverse Reinforcement Learning (IRL). Recent methods for IRL have demonstrated the capacity to learn effective policies with access to a very limited set of demonstrations, a scenario in which BC methods often fail. Unfortunately, due to multiple factors of variation, directly comparing these methods does not provide adequate intuition for understanding this difference in performance. In this work, we present a unified probabilistic perspective on IL algorithms based on divergence minimization. We present f-MAX, an f-divergence generalization of AIRL [1], a state-of-the-art IRL method. f-MAX enables us to relate prior IRL methods such as GAIL [2] and AIRL [1], and understand their algorithmic properties. Through the lens of divergence minimization we tease apart the differences between BC and successful IRL approaches,and empirically evaluate these nuances on simulated high-dimensional continuous control domains. Our findings conclusively identify that IRL’s state-marginal matching objective contributes most to its superior performance. Lastly, we apply our new understanding of IL method to the problem of state-marginal matching, where we demonstrate that in simulated arm pushing environments we can teach agents a diverse range of behaviours using simply hand-specified state distributions and no reward functions or expert demonstrations. For datasets and reproducing results please refer to https://github.com/KamyarGh/rl_swiss/blob/master/reproducing/fmax_paper.md.} }
+
+@inproceedings{
+sasaki2021behavioral,
+title={Behavioral Cloning from Noisy Demonstrations},
+author={Fumihiro Sasaki and Ryota Yamashina},
+booktitle={International Conference on Learning Representations},
+year={2021},
+url={https://openreview.net/forum?id=zrT3HcsWSAt}
+}
+
+@article{Achille_2018,
+   title={Information Dropout: Learning Optimal Representations Through Noisy Computation},
+   volume={40},
+   ISSN={1939-3539},
+   url={http://dx.doi.org/10.1109/TPAMI.2017.2784440},
+   DOI={10.1109/tpami.2017.2784440},
+   number={12},
+   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+   publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+   author={Achille, Alessandro and Soatto, Stefano},
+   year={2018},
+   month={Dec},
+   pages={2897–2905}
+}
+
+@article{vapnik2009new,
+  title={A new learning paradigm: Learning using privileged information},
+  author={Vapnik, Vladimir and Vashist, Akshay},
+  journal={Neural networks},
+  volume={22},
+  number={5-6},
+  pages={544--557},
+  year={2009},
+  publisher={Elsevier}
+}
+
+@article{qureshi2019composing,
+    title={Composing Task-Agnostic Policies with Deep Reinforcement Learning},
+    author={Ahmed H. Qureshi and Jacob J. Johnson and Yuzhe Qin and Taylor Henderson and Byron Boots and Michael C. Yip},
+    year={2019},
+    eprint={1905.10681},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+
+@incollection{littman1994markov,
+  title={{M}arkov games as a framework for multi-agent reinforcement learning},
+  author={Littman, Michael L},
+  booktitle={Machine learning proceedings 1994},
+  pages={157--163},
+  year={1994},
+  publisher={Elsevier}
+}
+
+@article{navarro2013introduction,
+  title={An introduction to swarm robotics},
+  author={Navarro, I{\~n}aki and Mat{\'\i}a, Fernando},
+  journal={International Scholarly Research Notices},
+  volume={2013},
+  year={2013},
+  publisher={Hindawi}
+}
+
+@article{bayindir2016review,
+  title={A review of swarm robotics tasks},
+  author={Bay{\i}nd{\i}r, Levent},
+  journal={Neurocomputing},
+  volume={172},
+  pages={292--321},
+  year={2016},
+  publisher={Elsevier}
+}
+
+@inproceedings{foerster2018counterfactual,
+  title={Counterfactual multi-agent policy gradients},
+  author={Foerster, Jakob N and Farquhar, Gregory and Afouras, Triantafyllos and Nardelli, Nantas and Whiteson, Shimon},
+  booktitle={Thirty-second AAAI conference on artificial intelligence},
+  year={2018}
+}
+
+@incollection{NIPS2018_7602,
+title = {Actor-Critic Policy Optimization in Partially Observable Multiagent Environments},
+author = {Srinivasan, Sriram and Lanctot, Marc and Zambaldi, Vinicius and Perolat, Julien and Tuyls, Karl and Munos, Remi and Bowling, Michael},
+booktitle = {Advances in Neural Information Processing Systems 31},
+pages = {3422--3435},
+year = {2018},
+publisher = {Curran Associates, Inc.},
+url = {http://papers.nips.cc/paper/7602-actor-critic-policy-optimization-in-partially-observable-multiagent-environments.pdf}
+}
+
+@inproceedings{igl2018dvrl,
+  title = 	 {Deep Variational Reinforcement Learning for {POMDP}s},
+  author = 	 {Igl, Maximilian and Zintgraf, Luisa and Le, Tuan Anh and Wood, Frank and Whiteson, Shimon},
+  booktitle = 	 {Proceedings of the 35th International Conference on Machine Learning},
+  pages = 	 {2117--2126},
+  year = 	 {2018},
+  volume = 	 {80},
+  series = 	 {Proceedings of Machine Learning Research},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v80/igl18a/igl18a.pdf},
+  url = 	 {http://proceedings.mlr.press/v80/igl18a.html},
+  abstract = 	 {Many real-world sequential decision making problems are partially observable by nature, and the environment model is typically unknown. Consequently, there is great need for reinforcement learning methods that can tackle such problems given only a stream of rewards and incomplete and noisy observations. In this paper, we propose deep variational reinforcement learning (DVRL), which introduces an inductive bias that allows an agent to learn a generative model of the environment and perform inference in that model to effectively aggregate the available information. We develop an n-step approximation to the evidence lower bound (ELBO), allowing the model to be trained jointly with the policy. This ensures that the latent state representation is suitable for the control task. In experiments on Mountain Hike and flickering Atari we show that our method outperforms previous approaches relying on recurrent neural networks to encode the past.}
+}
+
+@article{fang2019survey,
+  title={Survey of imitation learning for robotic manipulation},
+  author={Fang, Bin and Jia, Shidong and Guo, Di and Xu, Muhua and Wen, Shuhuan and Sun, Fuchun},
+  journal={International Journal of Intelligent Robotics and Applications},
+  volume={3},
+  number={4},
+  pages={362--369},
+  year={2019},
+  publisher={Springer}
+}
+
+@inproceedings{NIPS2016_cc7e2b87,
+ author = {Ho, Jonathan and Ermon, Stefano},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {D. Lee and M. Sugiyama and U. Luxburg and I. Guyon and R. Garnett},
+ pages = {4565--4573},
+ publisher = {Curran Associates, Inc.},
+ title = {Generative Adversarial Imitation Learning},
+ url = {https://proceedings.neurips.cc/paper/2016/file/cc7e2b878868cbae992d1fb743995d8f-Paper.pdf},
+ volume = {29},
+ year = {2016}
+}
+
+@inproceedings{rodriguez2000reinforcement,
+  title={Reinforcement learning using approximate belief states},
+  author={Rodriguez, Andres C and Parr, Ronald and Koller, Daphne},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={1036--1042},
+  year={2000}
+}
+
+@inproceedings{littman2002predictive,
+  title={Predictive representations of state},
+  author={Littman, Michael L and Sutton, Richard S},
+  booktitle={Advances in neural information processing systems},
+  pages={1555--1561},
+  year={2002}
+}
+
+@inproceedings{cassandra1994acting,
+  title={Acting optimally in partially observable stochastic domains},
+  author={Cassandra, Anthony R and Kaelbling, Leslie Pack and Littman, Michael L},
+  year={1994}
+}
+
+@inproceedings{allday2019auto,
+  title={Auto-Perceptive Reinforcement Learning (APRiL)},
+  author={Allday, Rebecca and Hadfield, Simon and Bowden, Richard},
+  booktitle={Proceedings of the 2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2019)},
+  year={2019},
+  organization={Institute of Electrical and Electronics Engineers (IEEE)}
+}
+
+@article{du2019good,
+  title={Is a Good Representation Sufficient for Sample Efficient Reinforcement Learning?},
+  author={Du, Simon S and Kakade, Sham M and Wang, Ruosong and Yang, Lin F},
+  journal={arXiv preprint arXiv:1910.03016},
+  year={2019}
+}
+
+@book{bishop2006pattern,
+  title={Pattern recognition and machine learning},
+  author={Bishop, Christopher M},
+  year={2006},
+  publisher={springer}
+}
+
+@inproceedings{schulman2015trust,
+  title={Trust region policy optimization},
+  author={Schulman, John and Levine, Sergey and Abbeel, Pieter and Jordan, Michael and Moritz, Philipp},
+  booktitle={International conference on machine learning},
+  pages={1889--1897},
+  year={2015}
+}
+
+@misc{sutton2000comparing,
+  title={Comparing policy-gradient algorithms},
+  author={Sutton, Richard S and Singh, SP and McAllester, DA},
+  year={2001}
+}
+
+@misc{mccallum1997reinforcement,
+  title={Reinforcement learning with selective perception and hidden state},
+  author={McCallum, R},
+  year={1997}
+}
+
+@misc{carlachallenge,
+  title={The CARLA Autonomous Driving Challenge},
+  author={German, Ross and Koltun, Vladfen and Codevilla, Felipe and Lopez, Antonio},
+  url={https://carlachallenge.org/},
+  year={2019}
+  }
+  
+  @article{doshi2013bayesian,
+  title={Bayesian nonparametric methods for partially-observable reinforcement learning},
+  author={Doshi-Velez, Finale and Pfau, David and Wood, Frank and Roy, Nicholas},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={37},
+  number={2},
+  pages={394--407},
+  year={2013},
+  publisher={IEEE}
+}
+  
+@article{weihs2020bridging,
+    title={Bridging the Imitation Gap by Adaptive Insubordination}, 
+    author={Luca Weihs and Unnat Jain and Jordi Salvador and Svetlana Lazebnik and Aniruddha Kembhavi and Alexander Schwing},
+    year={2020},
+    eprint={2007.12173},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    journal={arXiv preprint arXiv:2007.12173},
+}
+  
+@article{kingma2014adam,
+  title={Adam: A method for stochastic optimization},
+  author={Kingma, Diederik P and Ba, Jimmy},
+  journal={arXiv preprint arXiv:1412.6980},
+  year={2014}
+}
+
+@inproceedings{rainforth2018nesting,
+  title={On nesting {M}onte {C}arlo estimators},
+  author={Rainforth, Tom and Cornish, Rob and Yang, Hongseok and Warrington, Andrew and Wood, Frank},
+  booktitle={International Conference on Machine Learning},
+  pages={4267--4276},
+  year={2018},
+  organization={PMLR}
+}
+
+
+@inproceedings{anonymous_image_2020,
+  title = {An {{Image}} Is {{Worth}} 16x16 {{Words}}: {{Transformers}} for {{Image Recognition}} at {{Scale}}},
+  shorttitle = {An {{Image}} Is {{Worth}} 16x16 {{Words}}},
+  booktitle = {Submitted to {{International Conference}} on {{Learning Representations}}},
+  author = {Anonymous},
+  year = {2020},
+  month = sep,
+  abstract = {While the Transformer architecture has become the de-facto standard for natural language processing tasks, its applications to computer vision remain limited. In vision, attention is either applied...},
+  language = {en}
+}
+
+@inproceedings{bansal_combining_2020,
+  title = {Combining {{Optimal Control}} and {{Learning}} for {{Visual Navigation}} in {{Novel Environments}}},
+  booktitle = {Conference on {{Robot Learning}}},
+  author = {Bansal, Somil and Tolani, Varun and Gupta, Saurabh and Malik, Jitendra and Tomlin, Claire},
+  year = {2020},
+  month = may,
+  pages = {420--429},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  abstract = {Model-based control is a popular paradigm for robot navigation because it can leverage a known dynamics model to efficiently plan robust robot trajectories. However, it is challenging to use model-...},
+  language = {en}
+}
+
+@misc{biewald_experiment_2020,
+  title = {Experiment {{Tracking}} with {{Weights}} and {{Biases}}},
+  author = {Biewald, Lukas},
+  year = {2020}
+}
+
+@article{caesar_nuscenes_2020,
+  title = {{{nuScenes}}: {{A}} Multimodal Dataset for Autonomous Driving},
+  shorttitle = {{{nuScenes}}},
+  author = {Caesar, Holger and Bankiti, Varun and Lang, Alex H. and Vora, Sourabh and Liong, Venice Erin and Xu, Qiang and Krishnan, Anush and Pan, Yu and Baldan, Giancarlo and Beijbom, Oscar},
+  year = {2020},
+  month = may,
+  abstract = {Robust detection and tracking of objects is crucial for the deployment of autonomous vehicle technology. Image based benchmark datasets have driven development in computer vision tasks such as object detection, tracking and segmentation of agents in the environment. Most autonomous vehicles, however, carry a combination of cameras and range sensors such as lidar and radar. As machine learning based methods for detection and tracking become more prevalent, there is a need to train and evaluate such methods on datasets containing range sensor data along with images. In this work we present nuTonomy scenes (nuScenes), the first dataset to carry the full autonomous vehicle sensor suite: 6 cameras, 5 radars and 1 lidar, all with full 360 degree field of view. nuScenes comprises 1000 scenes, each 20s long and fully annotated with 3D bounding boxes for 23 classes and 8 attributes. It has 7x as many annotations and 100x as many images as the pioneering KITTI dataset. We define novel 3D detection and tracking metrics. We also provide careful dataset analysis as well as baselines for lidar and image based detection and tracking. Data, development kit and more information are available online.},
+  archivePrefix = {arXiv},
+  eprint = {1903.11027},
+  eprinttype = {arxiv},
+  journal = {arXiv:1903.11027 [cs, stat]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Computer Science - Robotics,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
+@article{chang_argoverse_2019,
+  title = {Argoverse: {{3D Tracking}} and {{Forecasting}} with {{Rich Maps}}},
+  shorttitle = {Argoverse},
+  author = {Chang, Ming-Fang and Lambert, John and Sangkloy, Patsorn and Singh, Jagjeet and Bak, Slawomir and Hartnett, Andrew and Wang, De and Carr, Peter and Lucey, Simon and Ramanan, Deva and Hays, James},
+  year = {2019},
+  month = nov,
+  abstract = {We present Argoverse -- two datasets designed to support autonomous vehicle machine learning tasks such as 3D tracking and motion forecasting. Argoverse was collected by a fleet of autonomous vehicles in Pittsburgh and Miami. The Argoverse 3D Tracking dataset includes 360 degree images from 7 cameras with overlapping fields of view, 3D point clouds from long range LiDAR, 6-DOF pose, and 3D track annotations. Notably, it is the only modern AV dataset that provides forward-facing stereo imagery. The Argoverse Motion Forecasting dataset includes more than 300,000 5-second tracked scenarios with a particular vehicle identified for trajectory forecasting. Argoverse is the first autonomous vehicle dataset to include "HD maps" with 290 km of mapped lanes with geometric and semantic metadata. All data is released under a Creative Commons license at www.argoverse.org. In our baseline experiments, we illustrate how detailed map information such as lane direction, driveable area, and ground height improves the accuracy of 3D object tracking and motion forecasting. Our tracking and forecasting experiments represent only an initial exploration of the use of rich maps in robotic perception. We hope that Argoverse will enable the research community to explore these problems in greater depth.},
+  archivePrefix = {arXiv},
+  eprint = {1911.02620},
+  eprinttype = {arxiv},
+  journal = {arXiv:1911.02620},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Robotics},
+  primaryClass = {cs}
+}
+
+@inproceedings{chen_learning_2020,
+  title = {Learning by {{Cheating}}},
+  booktitle = {Conference on {{Robot Learning}}},
+  author = {Chen, Dian and Zhou, Brady and Koltun, Vladlen and Kr{\"a}henb{\"u}hl, Philipp},
+  year = {2020},
+  month = may,
+  pages = {66--75},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  abstract = {Vision-based urban driving is hard. The autonomous system needs to learn to perceive the world and act in it. We show that this challenging learning problem can be simplified by decomposing it into...},
+  language = {en}
+}
+
+@article{ciaparrone_deep_2020,
+  title = {Deep {{Learning}} in {{Video Multi}}-{{Object Tracking}}: {{A Survey}}},
+  shorttitle = {Deep {{Learning}} in {{Video Multi}}-{{Object Tracking}}},
+  author = {Ciaparrone, Gioele and S{\'a}nchez, Francisco Luque and Tabik, Siham and Troiano, Luigi and Tagliaferri, Roberto and Herrera, Francisco},
+  year = {2020},
+  month = mar,
+  volume = {381},
+  pages = {61--88},
+  issn = {09252312},
+  doi = {10.1016/j.neucom.2019.11.023},
+  abstract = {The problem of Multiple Object Tracking (MOT) consists in following the trajectory of different objects in a sequence, usually a video. In recent years, with the rise of Deep Learning, the algorithms that provide a solution to this problem have benefited from the representational power of deep models. This paper provides a comprehensive survey on works that employ Deep Learning models to solve the task of MOT on single-camera videos. Four main steps in MOT algorithms are identified, and an in-depth review of how Deep Learning was employed in each one of these stages is presented. A complete experimental comparison of the presented works on the three MOTChallenge datasets is also provided, identifying a number of similarities among the top-performing methods and presenting some possible future research directions.},
+  archivePrefix = {arXiv},
+  eprint = {1907.12740},
+  eprinttype = {arxiv},
+  journal = {Neurocomputing},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Statistics - Machine Learning}
+}
+
+@inproceedings{dosovitskiy_carla_2017,
+  title = {{{CARLA}}: {{An Open Urban Driving Simulator}}},
+  shorttitle = {{{CARLA}}},
+  booktitle = {Conference on {{Robot Learning}}},
+  author = {Dosovitskiy, Alexey and Ros, German and Codevilla, Felipe and Lopez, Antonio and Koltun, Vladlen},
+  year = {2017},
+  month = oct,
+  pages = {1--16},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  abstract = {We introduce CARLA, an open-source simulator for autonomous driving research. CARLA has been developed from the ground up to support development, training, and validation of autonomous urban drivin...},
+  language = {en}
+}
+
+@article{filos_can_nodate,
+  title = {Can {{Autonomous Vehicles Identify}}, {{Recover From}},and {{Adapt}} to {{Distribution Shifts}}?},
+  author = {Filos, Angelos and Tigas, Panagiotis and McAllister, Rowan and Rhinehart, Nicholas and Levine, Sergey and Gal, Yarin},
+  pages = {16},
+  abstract = {Out-of-training-distribution (OOD) scenarios are a common challenge of learning agents at deployment, typically leading to arbitrary deductions and poorly-informed decisions. In principle, detection of and adaptation to OOD scenes can mitigate their adverse effects. In this paper, we highlight the limitations of current approaches to novel driving scenes and propose an epistemic uncertainty-aware planning method, called robust imitative planning (RIP). Our method can detect and recover from some distribution shifts, reducing the overconfident and catastrophic extrapolations in OOD scenes. If the model's uncertainty is too great to suggest a safe course of action, the model can instead query the expert driver for feedback, enabling sample-efficient online adaptation, a variant of our method we term adaptive robust imitative planning (AdaRIP). Our methods outperform current state-of-the-art approaches in the nuScenes prediction challenge, but since no benchmark evaluating OOD detection and adaption currently exists to assess control, we introduce an autonomous car novel-scene benchmark, CARNOVEL, to evaluate the robustness of driving agents to a suite of tasks with distribution shifts.},
+  language = {en}
+}
+
+@inproceedings{fremont_scenic_2019,
+  title = {Scenic: A Language for Scenario Specification and Scene Generation},
+  shorttitle = {Scenic},
+  booktitle = {Proceedings of the 40th {{ACM SIGPLAN Conference}} on {{Programming Language Design}} and {{Implementation}}},
+  author = {Fremont, Daniel J. and Dreossi, Tommaso and Ghosh, Shromona and Yue, Xiangyu and {Sangiovanni-Vincentelli}, Alberto L. and Seshia, Sanjit A.},
+  year = {2019},
+  month = jun,
+  pages = {63--78},
+  publisher = {{Association for Computing Machinery}},
+  address = {{New York, NY, USA}},
+  doi = {10.1145/3314221.3314633},
+  abstract = {We propose a new probabilistic programming language for the design and analysis of perception systems, especially those based on machine learning. Specifically, we consider the problems of training a perception system to handle rare events, testing its performance under different conditions, and debugging failures. We show how a probabilistic programming language can help address these problems by specifying distributions encoding interesting types of inputs and sampling these to generate specialized training and test sets. More generally, such languages can be used for cyber-physical systems and robotics to write environment models, an essential prerequisite to any formal analysis. In this paper, we focus on systems like autonomous cars and robots, whose environment is a scene, a configuration of physical objects and agents. We design a domain-specific language, Scenic, for describing scenarios that are distributions over scenes. As a probabilistic programming language, Scenic allows assigning distributions to features of the scene, as well as declaratively imposing hard and soft constraints over the scene. We develop specialized techniques for sampling from the resulting distribution, taking advantage of the structure provided by Scenic's domain-specific syntax. Finally, we apply Scenic in a case study on a convolutional neural network designed to detect cars in road images, improving its performance beyond that achieved by state-of-the-art synthetic data generation methods.},
+  isbn = {978-1-4503-6712-7},
+  keywords = {automatic test generation,deep learning,fuzz testing,probabilistic programming,scenario description language,synthetic data},
+  series = {{{PLDI}} 2019}
+}
+
+@article{friston_active_2016,
+  title = {Active Inference and Learning},
+  author = {Friston, Karl and FitzGerald, Thomas and Rigoli, Francesco and Schwartenbeck, Philipp and O⿿Doherty, John and Pezzulo, Giovanni},
+  year = {2016},
+  month = sep,
+  volume = {68},
+  pages = {862--879},
+  issn = {0149-7634},
+  doi = {10.1016/j.neubiorev.2016.06.022},
+  abstract = {This paper offers an active inference account of choice behaviour and learning. It focuses on the distinction between goal-directed and habitual behaviour and how they contextualise each other. We show that habits emerge naturally (and autodidactically) from sequential policy optimisation when agents are equipped with state-action policies. In active inference, behaviour has explorative (epistemic) and exploitative (pragmatic) aspects that are sensitive to ambiguity and risk respectively, where epistemic (ambiguity-resolving) behaviour enables pragmatic (reward-seeking) behaviour and the subsequent emergence of habits. Although goal-directed and habitual policies are usually associated with model-based and model-free schemes, we find the more important distinction is between belief-free and belief-based schemes. The underlying (variational) belief updating provides a comprehensive (if metaphorical) process theory for several phenomena, including the transfer of dopamine responses, reversal learning, habit formation and devaluation. Finally, we show that active inference reduces to a classical (Bellman) scheme, in the absence of ambiguity.},
+  journal = {Neuroscience \& Biobehavioral Reviews},
+  keywords = {Active inference,Bayesian inference,Bayesian surprise,Epistemic value,Exploitation,Exploration,Free energy,Goal-directed,Habit learning,Information gain},
+  language = {en}
+}
+
+@article{gao_intention-net_2017,
+  title = {Intention-{{Net}}: {{Integrating Planning}} and {{Deep Learning}} for {{Goal}}-{{Directed Autonomous Navigation}}},
+  shorttitle = {Intention-{{Net}}},
+  author = {Gao, Wei and Hsu, David and Lee, Wee Sun and Shen, Shengmei and Subramanian, Karthikk},
+  year = {2017},
+  month = oct,
+  abstract = {How can a delivery robot navigate reliably to a destination in a new office building, with minimal prior information? To tackle this challenge, this paper introduces a two-level hierarchical approach, which integrates model-free deep learning and model-based path planning. At the low level, a neural-network motion controller, called the intention-net, is trained end-to-end to provide robust local navigation. The intention-net maps images from a single monocular camera and "intentions" directly to robot controls. At the high level, a path planner uses a crude map, e.g., a 2-D floor plan, to compute a path from the robot's current location to the goal. The planned path provides intentions to the intention-net. Preliminary experiments suggest that the learned motion controller is robust against perceptual uncertainty and by integrating with a path planner, it generalizes effectively to new environments and goals.},
+  archivePrefix = {arXiv},
+  eprint = {1710.05627},
+  eprinttype = {arxiv},
+  journal = {arXiv:1710.05627},
+  keywords = {Computer Science - Artificial Intelligence},
+  primaryClass = {cs}
+}
+
+@inproceedings{herbert_fastrack_2017,
+  title = {{{FaSTrack}}: {{A}} Modular Framework for Fast and Guaranteed Safe Motion Planning},
+  shorttitle = {{{FaSTrack}}},
+  booktitle = {2017 {{IEEE}} 56th {{Annual Conference}} on {{Decision}} and {{Control}} ({{CDC}})},
+  author = {Herbert, S. L. and Chen, M. and Han, S. and Bansal, S. and Fisac, J. F. and Tomlin, C. J.},
+  year = {2017},
+  month = dec,
+  pages = {1517--1522},
+  doi = {10.1109/CDC.2017.8263867},
+  abstract = {Fast and safe navigation of dynamical systems through a priori unknown cluttered environments is vital to many applications of autonomous systems. However, trajectory planning for autonomous systems is computationally intensive, often requiring simplified dynamics that sacrifice safety and dynamic feasibility in order to plan efficiently. Conversely, safe trajectories can be computed using more sophisticated dynamic models, but this is typically too slow to be used for real-time planning. We present the new algorithm FaSTrack: Fast and Safe Tracking. A path or trajectory planner using simplified dynamics to plan quickly can be incorporated into the FaSTrack framework, which provides a safety controller for the vehicle along with a guaranteed tracking error bound. This bound captures all possible deviations due to high dimensional dynamics and external disturbances. FaSTrack is modular and can be used with most current path or trajectory planners. We demonstrate this framework using a 10D nonlinear quadrotor model tracking a 3D path obtained from an RRT planner.},
+  keywords = {a priori unknown cluttered environments,autonomous systems,collision avoidance,control system synthesis,dynamic feasibility,dynamical systems,FaSTrack framework,guaranteed safe motion planning,guaranteed tracking error,high dimensional dynamics,modular framework,motion control,nonlinear control systems,path,path planning,Planning,real-time planning,Real-time systems,Robustness,RRT planner,sacrifice safety,safe navigation,Safe Tracking,safe trajectories,Safety,safety controller,simplified dynamics,sophisticated dynamic models,Tracking,Trajectory,trajectory control,trajectory planners,trajectory planning,Vehicle dynamics}
+}
+
+@article{kappen_optimal_2012,
+  title = {Optimal Control as a Graphical Model Inference Problem},
+  author = {Kappen, Hilbert J. and G{\'o}mez, Vicen{\c c} and Opper, Manfred},
+  year = {2012},
+  month = may,
+  volume = {87},
+  pages = {159--182},
+  issn = {1573-0565},
+  doi = {10.1007/s10994-012-5278-7},
+  abstract = {We reformulate a class of non-linear stochastic optimal control problems introduced by Todorov (in Advances in Neural Information Processing Systems, vol.~19, pp.~1369\textendash 1376, 2007) as a Kullback-Leibler (KL) minimization problem. As a result, the optimal control computation reduces to an inference computation and approximate inference methods can be applied to efficiently compute approximate optimal controls. We show how this KL control theory contains the path integral control method as a special case. We provide an example of a block stacking task and a multi-agent cooperative game where we demonstrate how approximate inference can be successfully applied to instances that are too complex for exact computation. We discuss the relation of the KL control approach to other inference approaches to control.},
+  journal = {Machine Learning},
+  language = {en},
+  number = {2}
+}
+
+@article{kato_open_2015,
+  title = {An {{Open Approach}} to {{Autonomous Vehicles}}},
+  author = {Kato, S. and Takeuchi, E. and Ishiguro, Y. and Ninomiya, Y. and Takeda, K. and Hamada, T.},
+  year = {2015},
+  month = nov,
+  volume = {35},
+  pages = {60--68},
+  issn = {1937-4143},
+  doi = {10.1109/MM.2015.133},
+  abstract = {Autonomous vehicles are an emerging application of automotive technology. They can recognize the scene, plan the path, and control the motion by themselves while interacting with drivers. Although they receive considerable attention, components of autonomous vehicles are not accessible to the public but instead are developed as proprietary assets. To facilitate the development of autonomous vehicles, this article introduces an open platform using commodity vehicles and sensors. Specifically, the authors present algorithms, software libraries, and datasets required for scene recognition, path planning, and vehicle control. This open platform allows researchers and developers to study the basis of autonomous vehicles, design new algorithms, and test their performance using the common interface.},
+  journal = {IEEE Micro},
+  keywords = {automobiles,automotive engineering,automotive technology,autonomous vehicles,Autonomous vehicles,Cameras,commodity vehicles,datasets,hardware configuration,Hardware configuration,Laser radar,Mobile robots,object recognition,path planning,scene recognition,sensors,Sensors,software libraries,software platforms,Three-dimensional displays,traffic engineering computing,vehicle control},
+  number = {6}
+}
+
+@article{le_inference_2017,
+  title = {Inference {{Compilation}} and {{Universal Probabilistic Programming}}},
+  author = {Le, Tuan Anh and Baydin, Atilim Gunes and Wood, Frank},
+  year = {2017},
+  month = mar,
+  abstract = {We introduce a method for using deep neural networks to amortize the cost of inference in models from the family induced by universal probabilistic programming languages, establishing a framework that combines the strengths of probabilistic programming and deep learning methods. We call what we do "compilation of inference" because our method transforms a denotational specification of an inference problem in the form of a probabilistic program written in a universal programming language into a trained neural network denoted in a neural network specification language. When at test time this neural network is fed observational data and executed, it performs approximate inference in the original model specified by the probabilistic program. Our training objective and learning procedure are designed to allow the trained neural network to be used as a proposal distribution in a sequential importance sampling inference engine. We illustrate our method on mixture models and Captcha solving and show significant speedups in the efficiency of inference.},
+  archivePrefix = {arXiv},
+  eprint = {1610.09900},
+  eprinttype = {arxiv},
+  journal = {arXiv:1610.09900 [cs, stat]},
+  keywords = {68T37; 68T05,Computer Science - Artificial Intelligence,Computer Science - Machine Learning,G.3,I.2.6,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
+@article{levine_end--end_2016,
+  title = {End-to-{{End Training}} of {{Deep Visuomotor Policies}}},
+  author = {Levine, Sergey and Finn, Chelsea and Darrell, Trevor and Abbeel, Pieter},
+  year = {2016},
+  volume = {17},
+  pages = {1--40},
+  abstract = {Policy search methods can allow robots to learn control policies for a wide range of tasks, but practical applications of policy search often require hand-engineered components for perception, state estimation, and low-level control. In this paper, we aim to answer the following question: does training the perception and control systems jointly end-to-end provide better performance than training each component separately? To this end, we develop a method that can be used to learn policies that map raw image observations directly to torques at the robot's motors. The policies are represented by deep convolutional neural networks (CNNs) with 92,000 parameters, and are trained using a guided policy search method, which transforms policy search into supervised learning, with supervision provided by a simple trajectory-centric reinforcement learning method. We evaluate our method on a range of real-world manipulation tasks that require close coordination between vision and control, such as screwing a cap onto a bottle, and present simulated comparisons to a range of prior policy search methods.},
+  journal = {Journal of Machine Learning Research},
+  number = {39}
+}
+
+@article{levine_learning_2014,
+  title = {Learning {{Neural Network Policies}} with {{Guided Policy Search}} under {{Unknown Dynamics}}},
+  author = {Levine, Sergey and Abbeel, Pieter},
+  year = {2014},
+  volume = {27},
+  pages = {1071--1079},
+  journal = {Advances in Neural Information Processing Systems},
+  language = {en}
+}
+
+@misc{noauthor_disagreement-regularized_nodate,
+  title = {Disagreement-{{Regularized Imitation Learning}} | {{OpenReview}}},
+  howpublished = {https://openreview.net/forum?id=rkgbYyHtwB}
+}
+
+@misc{noauthor_george_nodate,
+  title = {George {{Hotz}}: 3 {{Problems}} of {{Autonomous Driving}}: {{Static}}, {{Dynamic}}, {{Counterfactual}} | {{AI Podcast Clips}}},
+  shorttitle = {George {{Hotz}}},
+  abstract = {This is a clip from a conversation with George Hotz on the Artificial Intelligence podcast. You can watch the full conversation here: http://bit.ly/2YLIPom If you enjoy these, consider subscribing, sharing, and commenting below. Full episode: http://bit.ly/2YLIPom Full episodes playlist: http://bit.ly/2EcbaKf Clips playlist: http://bit.ly/2JYkbfZ Podcast website: https://lexfridman.com/ai George Hotz is the founder of Comma.ai, a machine learning based vehicle automation company. He is an outspoken personality in the field of AI and technology in general. He first gained recognition for being the first person to carrier-unlock an iPhone, and since then has done quite a few interesting things at the intersection of hardware and software. Subscribe to this YouTube channel or connect on: - Twitter: https://twitter.com/lexfridman - LinkedIn: https://www.linkedin.com/in/lexfridman - Facebook: https://www.facebook.com/lexfridman - Instagram: https://www.instagram.com/lexfridman - Medium: https://medium.com/@lexfridman - Support on Patreon: https://www.patreon.com/lexfridman}
+}
+
+@misc{noauthor_traffic_nodate,
+  title = {{Traffic prediction with advanced Graph Neural Networks}},
+  abstract = {Working with our partners at Google Maps, we used advanced machine learning techniques including Graph Neural Networks, to improve the accuracy of real time ETAs by up to 50\%.},
+  howpublished = {/blog/article/traffic-prediction-with-advanced-graph-neural-networks},
+  journal = {Deepmind},
+  language = {ALL}
+}
+
+@article{pal_emergent_2020,
+  title = {Emergent {{Road Rules In Multi}}-{{Agent Driving Environments}}},
+  author = {Pal, Avik and Philion, Jonah and Liao, Yuan-Hong and Fidler, Sanja},
+  year = {2020},
+  month = nov,
+  abstract = {For autonomous vehicles to safely share the road with human drivers, autonomous vehicles must abide by specific "road rules" that human drivers have agreed to follow. "Road rules" include rules that drivers are required to follow by law -- such as the requirement that vehicles stop at red lights -- as well as more subtle social rules -- such as the implicit designation of fast lanes on the highway. In this paper, we provide empirical evidence that suggests that -- instead of hard-coding road rules into self-driving algorithms -- a scalable alternative may be to design multi-agent environments in which road rules emerge as optimal solutions to the problem of maximizing traffic flow. We analyze what ingredients in driving environments cause the emergence of these road rules and find that two crucial factors are noisy perception and agents' spatial density. We provide qualitative and quantitative evidence of the emergence of seven social driving behaviors, ranging from obeying traffic signals to following lanes, all of which emerge from training agents to drive quickly to destinations without colliding. Our results add empirical support for the social road rules that countries worldwide have agreed on for safe, efficient driving.},
+  language = {en}
+}
+
+@inproceedings{polack_kinematic_2017,
+  title = {The Kinematic Bicycle Model: {{A}} Consistent Model for Planning Feasible Trajectories for Autonomous Vehicles?},
+  shorttitle = {The Kinematic Bicycle Model},
+  author = {Polack, Philip and Altch{\'e}, Florent and Novel, Brigitte and {de La Fortelle}, Arnaud},
+  year = {2017},
+  month = jun,
+  pages = {812--818},
+  doi = {10.1109/IVS.2017.7995816}
+}
+
+@article{rhinehart_precog_2019,
+  title = {{{PRECOG}}: {{PREdiction Conditioned On Goals}} in {{Visual Multi}}-{{Agent Settings}}},
+  shorttitle = {{{PRECOG}}},
+  author = {Rhinehart, Nicholas and McAllister, Rowan and Kitani, Kris and Levine, Sergey},
+  year = {2019},
+  month = sep,
+  abstract = {For autonomous vehicles (AVs) to behave appropriately on roads populated by human-driven vehicles, they must be able to reason about the uncertain intentions and decisions of other drivers from rich perceptual information. Towards these capabilities, we present a probabilistic forecasting model of future interactions between a variable number of agents. We perform both standard forecasting and the novel task of conditional forecasting, which reasons about how all agents will likely respond to the goal of a controlled agent (here, the AV). We train models on real and simulated data to forecast vehicle trajectories given past positions and LIDAR. Our evaluation shows that our model is substantially more accurate in multi-agent driving scenarios compared to existing state-of-the-art. Beyond its general ability to perform conditional forecasting queries, we show that our model's predictions of all agents improve when conditioned on knowledge of the AV's goal, further illustrating its capability to model agent interactions.},
+  archivePrefix = {arXiv},
+  eprint = {1905.01296},
+  eprinttype = {arxiv},
+  journal = {arXiv:1905.01296 [cs, stat]},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Computer Science - Robotics,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
+@inproceedings{sadigh_planning_2016,
+  title = {Planning for {{Autonomous Cars}} That {{Leverage Effects}} on {{Human Actions}}},
+  booktitle = {Robotics: {{Science}} and {{Systems XII}}},
+  author = {Sadigh, Dorsa and Sastry, Shankar and Seshia, Sanjit A. and Dragan, Anca D.},
+  year = {2016},
+  month = jun,
+  volume = {12},
+  isbn = {978-0-262-70114-3}
+}
+
+@article{schrittwieser_mastering_2020,
+  title = {Mastering {{Atari}}, {{Go}}, {{Chess}} and {{Shogi}} by {{Planning}} with a {{Learned Model}}},
+  author = {Schrittwieser, Julian and Antonoglou, Ioannis and Hubert, Thomas and Simonyan, Karen and Sifre, Laurent and Schmitt, Simon and Guez, Arthur and Lockhart, Edward and Hassabis, Demis and Graepel, Thore and Lillicrap, Timothy and Silver, David},
+  year = {2020},
+  month = feb,
+  abstract = {Constructing agents with planning capabilities has long been one of the main challenges in the pursuit of artificial intelligence. Tree-based planning methods have enjoyed huge success in challenging domains, such as chess and Go, where a perfect simulator is available. However, in real-world problems the dynamics governing the environment are often complex and unknown. In this work we present the MuZero algorithm which, by combining a tree-based search with a learned model, achieves superhuman performance in a range of challenging and visually complex domains, without any knowledge of their underlying dynamics. MuZero learns a model that, when applied iteratively, predicts the quantities most directly relevant to planning: the reward, the action-selection policy, and the value function. When evaluated on 57 different Atari games - the canonical video game environment for testing AI techniques, in which model-based planning approaches have historically struggled - our new algorithm achieved a new state of the art. When evaluated on Go, chess and shogi, without any knowledge of the game rules, MuZero matched the superhuman performance of the AlphaZero algorithm that was supplied with the game rules.},
+  archivePrefix = {arXiv},
+  eprint = {1911.08265},
+  eprinttype = {arxiv},
+  journal = {arXiv:1911.08265 [cs, stat]},
+  keywords = {Computer Science - Machine Learning,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
+
+@article{teng_imitation_2020,
+  title = {Imitation {{Learning}} of {{Factored Multi}}-Agent {{Reactive Models}}},
+  author = {Teng, Michael and Le, Tuan Anh and Scibior, Adam and Wood, Frank},
+  year = {2020},
+  month = jun,
+  abstract = {We apply recent advances in deep generative modeling to the task of imitation learning from biological agents. Specifically, we apply variations of the variational recurrent neural network model to a multi-agent setting where we learn policies of individual uncoordinated agents acting based on their perceptual inputs and their hidden belief state. We learn stochastic policies for these agents directly from observational data, without constructing a reward function. An inference network learned jointly with the policy allows for efficient inference over the agent's belief state given a sequence of its current perceptual inputs and the prior actions it performed, which lets us extrapolate observed sequences of behavior into the future while maintaining uncertainty estimates over future trajectories. We test our approach on a dataset of flies interacting in a 2D environment, where we demonstrate better predictive performance than existing approaches which learn deterministic policies with recurrent neural networks. We further show that the uncertainty estimates over future trajectories we obtain are well calibrated, which makes them useful for a variety of downstream processing tasks.},
+  archivePrefix = {arXiv},
+  eprint = {1903.04714},
+  eprinttype = {arxiv},
+  journal = {arXiv:1903.04714},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Computer Science - Multiagent Systems},
+  primaryClass = {cs}
+}
+
+@inproceedings{todorov_general_2008,
+  title = {General Duality between Optimal Control and Estimation},
+  booktitle = {2008 47th {{IEEE Conference}} on {{Decision}} and {{Control}}},
+  author = {Todorov, E.},
+  year = {2008},
+  month = dec,
+  pages = {4286--4292},
+  issn = {0191-2216},
+  doi = {10.1109/CDC.2008.4739438},
+  abstract = {Optimal control and estimation are dual in the LQG setting, as Kalman discovered, however this duality has proven difficult to extend beyond LQG. Here we obtain a more natural form of LQG duality by replacing the Kalman-Bucy filter with the information filter. We then generalize this result to non-linear stochastic systems, discrete stochastic systems, and deterministic systems. All forms of duality are established by relating exponentiated costs to probabilities. Unlike the LQG setting where control and estimation are in one-to-one correspondence, in the general case control turns out to be a larger problem class than estimation and only a sub-class of control problems have estimation duals. These are problems where the Bellman equation is intrinsically linear. Apart from their theoretical significance, our results make it possible to apply estimation algorithms to control problems and vice versa.},
+  keywords = {Control systems,Costs,Density measurement,deterministic systems,discrete stochastic systems,discrete time systems,Equations,Gaussian noise,Information filtering,Information filters,Kalman filters,linear quadratic Gaussian control,LQG duality,nonlinear control systems,nonlinear stochastic systems,optimal control,Optimal control,stochastic systems,Stochastic systems}
+}
+
+@article{wang_human-like_2020,
+  title = {Human-like {{Decision Making}} for {{Autonomous Driving}} via {{Adversarial Inverse Reinforcement Learning}}},
+  author = {Wang, Pin and Liu, Dapeng and Chen, Jiayu and Li, Hanhan and Chan, Ching-Yao},
+  year = {2020},
+  month = feb,
+  abstract = {To make human-like decisions under complex driving environment is a challenging task for autonomous agents. Imitation Learning or learning-from-demonstration methods have seen great potential for achieving such a goal. Some state-of-the-art studies apply Generative Adversarial Imitation Learning (GAIL) to learn sequential decision-making and control policies. While GAIL can directly learn a policy, it lacks the ability to recover a reward function, which is considered robust and adaptable to environments changes. Adversarial Inverse Reinforcement Learning (AIRL) is another learning-from-demonstration method that can achieve similar benefits as GAIL but also learns the reward function with the policy simultaneously. In the original work of AIRL, it has been demonstrated in single-agent environments such as maze navigation and ant running tasks in OpenAI Gyms. In this paper, we augment AIRL by concatenating semantic reward terms in the learning framework to improve and stabilize its performance, and then extend it to a more practical but challenging situation, i.e. decision-making scenario in highly interactive driving environment. Four performance evaluation metrics are proposed and compared with some Imitation Learning based methods and Reinforcement Learning based methods. Simulation results show that the augmented AIRL outperforms all the other methods, and the trained vehicle agent can perform decision-making behaviors comparable with that of the experts.},
+  archivePrefix = {arXiv},
+  eprint = {1911.08044},
+  eprinttype = {arxiv},
+  journal = {arXiv:1911.08044},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning},
+  primaryClass = {cs}
+}
+
+@article{wood_new_2015,
+  title = {A {{New Approach}} to {{Probabilistic Programming Inference}}},
+  author = {Wood, Frank and {van de Meent}, Jan Willem and Mansinghka, Vikash},
+  year = {2015},
+  month = jul,
+  abstract = {We introduce and demonstrate a new approach to inference in expressive probabilistic programming languages based on particle Markov chain Monte Carlo. Our approach is simple to implement and easy to parallelize. It applies to Turing-complete probabilistic programming languages and supports accurate inference in models that make use of complex control flow, including stochastic recursion. It also includes primitives from Bayesian nonparametric statistics. Our experiments show that this approach can be more efficient than previously introduced single-site Metropolis-Hastings methods.},
+  archivePrefix = {arXiv},
+  eprint = {1507.00996},
+  eprinttype = {arxiv},
+  journal = {arXiv:1507.00996 [cs, stat]},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Programming Languages,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
+@misc{wymann_torcs_2014,
+  title = {{{TORCS}}: {{The Open Racing Car Simulator}}},
+  author = {Wymann, Bernhard and Espie, Christophe Guionneau and Dimitrakakis, Christos and Coulom, Remi and Sumner, Andrew},
+  year = {2014}
+}
+
+@article{xu_meta-gradient_2018,
+  title = {Meta-{{Gradient Reinforcement Learning}}},
+  author = {Xu, Zhongwen and {van Hasselt}, Hado and Silver, David},
+  year = {2018},
+  month = may,
+  abstract = {The goal of reinforcement learning algorithms is to estimate and/or optimise the value function. However, unlike supervised learning, no teacher or oracle is available to provide the true value function. Instead, the majority of reinforcement learning algorithms estimate and/or optimise a proxy for the value function. This proxy is typically based on a sampled and bootstrapped approximation to the true value function, known as a return. The particular choice of return is one of the chief components determining the nature of the algorithm: the rate at which future rewards are discounted; when and how values should be bootstrapped; or even the nature of the rewards themselves. It is well-known that these decisions are crucial to the overall success of RL algorithms. We discuss a gradient-based meta-learning algorithm that is able to adapt the nature of the return, online, whilst interacting and learning from the environment. When applied to 57 games on the Atari 2600 environment over 200 million frames, our algorithm achieved a new state-of-the-art performance.},
+  archivePrefix = {arXiv},
+  eprint = {1805.09801},
+  eprinttype = {arxiv},
+  journal = {arXiv:1805.09801 [cs, stat]},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Statistics - Machine Learning},
+  primaryClass = {cs, stat}
+}
+
+@article{zhan_interaction_2019,
+  title = {{{INTERACTION Dataset}}: {{An INTERnational}}, {{Adversarial}} and {{Cooperative moTION Dataset}} in {{Interactive Driving Scenarios}} with {{Semantic Maps}}},
+  shorttitle = {{{INTERACTION Dataset}}},
+  author = {Zhan, Wei and Sun, Liting and Wang, Di and Shi, Haojie and Clausse, Aubrey and Naumann, Maximilian and Kummerle, Julius and Konigshof, Hendrik and Stiller, Christoph and {de La Fortelle}, Arnaud and Tomizuka, Masayoshi},
+  year = {2019},
+  month = sep,
+  abstract = {Behavior-related research areas such as motion prediction/planning, representation/imitation learning, behavior modeling/generation, and algorithm testing, require support from high-quality motion datasets containing interactive driving scenarios with different driving cultures. In this paper, we present an INTERnational, Adversarial and Cooperative moTION dataset (INTERACTION dataset) in interactive driving scenarios with semantic maps. Five features of the dataset are highlighted. 1) The interactive driving scenarios are diverse, including urban/highway/ramp merging and lane changes, roundabouts with yield/stop signs, signalized intersections, intersections with one/two/all-way stops, etc. 2) Motion data from different countries and different continents are collected so that driving preferences and styles in different cultures are naturally included. 3) The driving behavior is highly interactive and complex with adversarial and cooperative motions of various traffic participants. Highly complex behavior such as negotiations, aggressive/irrational decisions and traffic rule violations are densely contained in the dataset, while regular behavior can also be found from cautious car-following, stop, left/right/U-turn to rational lane-change and cycling and pedestrian crossing, etc. 4) The levels of criticality span wide, from regular safe operations to dangerous, near-collision maneuvers. Real collision, although relatively slight, is also included. 5) Maps with complete semantic information are provided with physical layers, reference lines, lanelet connections and traffic rules. The data is recorded from drones and traffic cameras. Statistics of the dataset in terms of number of entities and interaction density are also provided, along with some utilization examples in a variety of behavior-related research areas. The dataset can be downloaded via https://interaction-dataset.com.},
+  archivePrefix = {arXiv},
+  eprint = {1910.03088},
+  eprinttype = {arxiv},
+  journal = {arXiv:1910.03088 [cs, eess]},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Computer Science - Robotics,Electrical Engineering and Systems Science - Systems and Control},
+  primaryClass = {cs, eess}
+}
+
+@article{zhang_causal_2020,
+  title = {Causal {{Imitation Learning With Unobserved Confounders}}},
+  author = {Zhang, Junzhe and Kumor, Daniel and Bareinboim, Elias},
+  year = {2020},
+  volume = {33},
+  journal = {Advances in Neural Information Processing Systems},
+  language = {en}
+}
+
+@article{zhao_tnt_2020,
+  title = {{{TNT}}: {{Target}}-{{driveN Trajectory Prediction}}},
+  shorttitle = {{{TNT}}},
+  author = {Zhao, Hang and Gao, Jiyang and Lan, Tian and Sun, Chen and Sapp, Benjamin and Varadarajan, Balakrishnan and Shen, Yue and Shen, Yi and Chai, Yuning and Schmid, Cordelia and Li, Congcong and Anguelov, Dragomir},
+  year = {2020},
+  month = aug,
+  pages = {12},
+  abstract = {Predicting the future behavior of moving agents is essential for real world applications. It is challenging as the intent of the agent and the corresponding behavior is unknown and intrinsically multimodal. Our key insight is that for prediction within a moderate time horizon, the future modes can be effectively captured by a set of target states. This leads to our target-driven trajectory prediction (TNT) framework. TNT has three stages which are trained end-to-end. It first predicts an agent's potential target states \$T\$ steps into the future, by encoding its interactions with the environment and the other agents. TNT then generates trajectory state sequences conditioned on targets. A final stage estimates trajectory likelihoods and a final compact set of trajectory predictions is selected. This is in contrast to previous work which models agent intents as latent variables, and relies on test-time sampling to generate diverse trajectories. We benchmark TNT on trajectory prediction of vehicles and pedestrians, where we outperform state-of-the-art on Argoverse Forecasting, INTERACTION, Stanford Drone and an in-house Pedestrian-at-Intersection dataset.},
+  archivePrefix = {arXiv},
+  eprint = {2008.08294},
+  eprinttype = {arxiv},
+  journal = {arXiv:2008.08294},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Robotics},
+  language = {en},
+  primaryClass = {cs}
+}
+
+@article{zhou_smarts_2020,
+  title = {{{SMARTS}}: {{Scalable Multi}}-{{Agent Reinforcement Learning Training School}} for {{Autonomous Driving}}},
+  shorttitle = {{{SMARTS}}},
+  author = {Zhou, Ming and Luo, Jun and Villella, Julian and Yang, Yaodong and Rusu, David and Miao, Jiayu and Zhang, Weinan and Alban, Montgomery and Fadakar, Iman and Chen, Zheng and Huang, Aurora Chongxi and Wen, Ying and Hassanzadeh, Kimia and Graves, Daniel and Chen, Dong and Zhu, Zhengbang and Nguyen, Nhat and Elsayed, Mohamed and Shao, Kun and Ahilan, Sanjeevan and Zhang, Baokuan and Wu, Jiannan and Fu, Zhengang and Rezaee, Kasra and Yadmellat, Peyman and Rohani, Mohsen and Nieves, Nicolas Perez and Ni, Yihan and Banijamali, Seyedershad and Rivers, Alexander Cowen and Tian, Zheng and Palenicek, Daniel and bou Ammar, Haitham and Zhang, Hongbo and Liu, Wulong and Hao, Jianye and Wang, Jun},
+  year = {2020},
+  month = oct,
+  abstract = {Multi-agent interaction is a fundamental aspect of autonomous driving in the real world. Despite more than a decade of research and development, the problem of how to competently interact with diverse road users in diverse scenarios remains largely unsolved. Learning methods have much to offer towards solving this problem. But they require a realistic multi-agent simulator that generates diverse and competent driving interactions. To meet this need, we develop a dedicated simulation platform called SMARTS (Scalable Multi-Agent RL Training School). SMARTS supports the training, accumulation, and use of diverse behavior models of road users. These are in turn used to create increasingly more realistic and diverse interactions that enable deeper and broader research on multi-agent interaction. In this paper, we describe the design goals of SMARTS, explain its basic architecture and its key features, and illustrate its use through concrete multi-agent experiments on interactive scenarios. We open-source the SMARTS platform and the associated benchmark tasks and evaluation metrics to encourage and empower research on multi-agent learning for autonomous driving. Our code is available at https://github.com/huawei-noah/SMARTS.},
+  archivePrefix = {arXiv},
+  eprint = {2010.09776},
+  eprinttype = {arxiv},
+  journal = {arXiv:2010.09776 [cs, eess]},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Science and Game Theory,Computer Science - Machine Learning,Computer Science - Multiagent Systems,Electrical Engineering and Systems Science - Systems and Control},
+  primaryClass = {cs, eess}
+}
+
+@inproceedings{maei2009convergent,
+  title={Convergent temporal-difference learning with arbitrary smooth function approximation.},
+  author={Maei, Hamid Reza and Szepesvari, Csaba and Bhatnagar, Shalabh and Precup, Doina and Silver, David and Sutton, Richard S},
+  booktitle={NIPS},
+  pages={1204--1212},
+  year={2009}
+}
+
+
+
+
+
+
+  
+  

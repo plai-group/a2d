@@ -1,0 +1,58 @@
+\label{sec:background}
+
+\subsection{Optimality \& MDPs}\label{mdp_background}
+An MDP, $\mathcal{M}_{\Theta}(\mathcal{S},\mathcal{A},\mathcal{R},\mathcal{T}_0,\mathcal{T},\Pi_{\Theta})$, is defined as a random process which produces a sequence $\tau_t := \{a_t,s_t,s_{t+1},r_t\}$, for a set of states $s_t \in \mathcal{S}$, actions $a_t \in \mathcal{A}$, initial state $p(s_0) \in \mathcal{T}_0$, transition dynamics $ p(s_{t+1}|s_t,a_t) \in \mathcal{T}$, reward function $r_t : \mathcal{S} \times \mathcal{A} \times \mathcal{S} \rightarrow  \mathbb{R}$, and policy $\pi_{\theta} \in \Pi_{\Theta} : \mathcal{S} \rightarrow \mathcal{A}$ parameterized by $\theta \in \Theta$. The generative model, shown in Figure \ref{fig:dpgm}, for a finite horizon process is defined as:
+\begin{align}
+    q_{\pi_{\theta}}(\tau) & = p(s_0)\prod\nolimits_{t=0}^{T}p(s_{t+1}|s_t,a_t)\pi_{\theta}(a_t|s_t).\label{equ:background:mdp}
+\end{align}
+We denote the marginal distribution over state $s_t \in \mathcal{S}$ at time $t$ as  $q_{\pi_{\theta}}(s_t)$.  The objective of RL is to recover the policy which maximizes the expected cumulative reward over a trajectory, $\theta^* = \argmax_{\theta \in \Theta} \mathbb{E}_{q_{\pi_{\theta}}} [\sum_{t=0}^T r_t(s_t,a_t,s_{t+1})]$. We consider an extension of this, instead maximizing the non-stationary, infinite horizon discounted return:
+\allowdisplaybreaks
+\begin{align}
+    & \theta^* = \argmax_{\theta \in \Theta} \ \mathbb{E}_{d^{\pi_{\theta}}(s) \pi_{\theta}(a|s)} [Q^{\pi_\theta}(a,s)], \label{equ:MDP:RL} \\
+    & \mathrm{where} \ \ d^{\pi_{\theta}}(s) = (1-\gamma) \sum\nolimits_{t=0}^{\infty} \gamma^t q_{\pi_{\theta}}(s_t=s), \label{eq:background:occ} \\
+    & Q^{\pi_{\theta}} (a, s) = \!\! \mathop{\mathbb{E}}_{p(s'|s,a)} \!\!
+    \big[ r(s,a,s') + \!\!\! \mathop{\gamma \ \mathbb{E}}_{\pi_{\theta}(a'|s')} \!\! [ Q^{\pi_{\theta}} (a', s') ] \big],
+\end{align}
+where $d^{\pi_{\theta}}(s)$ is referred to as the \emph{state occupancy}~\cite{pmlr-v125-agarwal20a}, and the \emph{Q function},  $Q^{\pi}$, defines the expected discounted sum of rewards ahead given a state-action pair. 
+
+\subsection{State Estimation and POMDPs}\label{pomdp_background}
+A POMDP extends an MDP by observing a random variable $o_t \in \mathcal{O}$, dependent on the state, $o_t \sim p(\cdot | s_t)$, instead of the state itself. The policy then samples actions conditioned on all previous observations and actions: $\pi_{\phi} ( a_t | a_{0:t-1}, o_{0:t})$.  In practice, a \emph{belief state}, $b_t \in \mathcal{B}$, is constructed from $(a_{0:t-1}, o_{0:t})$, as an estimate of the underlying state.  The policy, $\pi_{\phi} \in \Pi_{\Phi}\!:\! \mathcal{B} \rightarrow \mathcal{A}$, is then conditioned on this belief state~\citep{doshi2013bayesian, igl2018dvrl, kaelbling1998planning}. The resulting stochastic process, denoted $\mathcal{M}_{\Phi}(\mathcal{S},\mathcal{O},\mathcal{B},\mathcal{A},\mathcal{R},\mathcal{T}_0,\mathcal{T},\Pi_{\Phi})$, generates a sequence of tuples $\tau_t\!=\!\{ a_t,b_t,o_t,s_t,s_{t+1},r_t\}$. As before, we wish to find a policy, $\pi_{\phi^*}\in\Pi_{\Phi}$, which maximizes the expected cumulative reward under the generative model: 
+\begin{align}
+    \begin{aligned}
+       q_{\pi_{\phi}}(\tau) &= p(s_0) \prod\nolimits_{t=0}^{T} p(s_{t+1}|s_t,a_t) \times \\
+     & \quad \quad p(b_t| b_{t-1}, o_{t}, a_{t-1}) p(o_t|s_t) \pi_{\phi}(a_t|b_t).\label{equ:background:pomdp_dist}
+    \end{aligned}
+\end{align}
+It is common to instead condition the policy on the last $w$ observations and $w-1$ actions~\citep{laskin2020reinforcement, murphy2000survey}, i.e. $b_t := \left( a_{t-w:t-1}, o_{t-w:t} \right)$, rather than using the potentially infinite dimensional random variable~\citep{murphy2000survey}, defined recursively in Figure \ref{fig:dpgm}.  This ``windowed'' belief state representation is used throughout this paper.  
+
+We also note that $q_{\pi}$ is used to denote the distribution over trajectories under the subscripted policy (\eqref{equ:background:mdp} and \eqref{equ:background:pomdp_dist} for $\pi_{\theta}(\cdot|s_t)$ and $\pi_{\phi}(\cdot|b_t)$ respectively).  The occupancies $d^{\pi_{\phi}}(s)$ and $d^{\pi_{\phi}}(b)$ define marginals of $d^{\pi_{\phi}}(s, b)$ in a partially observed processes (as in \eqref{eq:background:occ}).  Later we discuss \emph{MDP-POMDP pairs}, defined as an MDP and a POMDP with identical state transition dynamics, reward generating functions and initial state distributions. However, these process pairs can, and often do, have different optimal policies. This discrepancy is the central issue addressed in this work.
+\begin{figure}
+    \centering 
+    \input{figure_tex/dpgm}
+    \caption{Graphical models of an MDP (top) and a POMDP (bottom) with identical initial and state transition dynamics, $p(s_t | s_{t-1}, a_{t})$, $p(s_0)$, and reward function $R(s_t, a_t,s_{t+1})$.}
+    \label{fig:dpgm}
+\end{figure}
+
+\subsection{Imitation Learning}
+Imitation learning (IL) assumes access to either an expert policy capable of solving a task, or example trajectories generated by such an expert.  Given example trajectories, the \emph{trainee} is learned by regressing onto the actions of the expert.  However, this approach can perform arbitrarily poorly for states not in the training set~\citep{laskey2017dart}.  Alternatively, online IL (OIL) algorithms, such as DAgger~\citep{Ross2011}, assume access to an expert that can be queried at any state.  DAgger rolls out under a mixture of the expert $\pi_{\theta}$ and trainee $\pi_{\phi}$ policies, denoted $\pi_{\beta}$.  The trainee is then updated to replicate the experts' actions at the visited states:
+\begin{align}
+    & \phi^* = \argmin_{\phi \in \Phi} \mathbb{E}_{d^{\pi_{\beta}}(s)} \left[ \mathbb{KL} \left[ \pi_{\theta}(a|s) || \pi_{\phi}(a|s) \right] \right],  \\
+    & \mathrm{where}\ \ \pi_{\beta}(a | s) = \beta \pi_{\theta}(a | s) + (1-\beta) \pi_{\phi}(a | s). \label{equ:background:dagger_mixture}
+\end{align}
+The coefficient $\beta$ is annealed to zero during training.  This provides supervision in states visited by the trainee, thereby avoiding compounding out of distribution error which grows with time horizon~\cite{Ross2011,pmlr-v70-sun17d}.  While IL provides higher sample efficiency than RL, it requires an expert or expert trajectories, and is thus not always applicable.  A trainee learned using IL from an imperfect expert can perform arbitrarily poorly~\cite{pmlr-v70-sun17d}, even in OIL.  Addition of asymmetry in OIL can cause similar failures.
+
+\subsection{Asymmetric Information}
+In many simulated environments, additional information is available during training that is not available at test time.  This additional \emph{asymmetric information} can often be exploited to accelerate learning~\citep{choudhury2018data, pinto2017asymmetric, vapnik2009new}. For example, \citet{pinto2017asymmetric} exploit asymmetry to learn a policy conditioned on noisy image-based observations which are available at test time, but where the value function (or \emph{critic}), is conditioned on a compact and noiseless state representation, only available during training.  The objective function for this \emph{asymmetric actor critic}~\citep{pinto2017asymmetric} algorithm is:
+\begin{align}
+    &J(\phi) = \mathbb{E}_{d^{\pi_{\phi}}(s,b)}\left[ \mathbb{E}_{\pi_{\phi}(a | b)}  \left[ A^{\pi_{\phi}}(s , a) \right] \right],  \\
+    & Q^{\pi_{\phi}} (a, s) = \mathbb{E}_{p(s'|s,a)} \left[ r(s,a,s') + \gamma V^{\pi_{\phi}}(s') \right], \\ 
+    &V^{\pi_{\phi}}(s) = \mathbb{E}_{\pi_{\phi}(a | b)} \left[ Q^{\pi_{\phi}} (a, s) \right], \label{equ:background:qv_b}
+\end{align}
+where the \emph{asymmetric advantage} is defined as $A^{\pi_{\phi}}(s , a)$ = $Q^{\pi_{\phi}}(a,s) - V^{\pi_{\phi}}(s)$, and $V^{\pi_{\phi}}(s)$ is the \emph{asymmetric value function}.  Asymmetric methods often outperform ``symmetric'' RL as $Q^{\pi_{\phi}}(a,s)$ and $V^{\pi_{\phi}}(s)$ are simpler to tune, train, and provide lower-variance gradient estimates. 
+
+Asymmetric information has also been used in a variety of other scenarios, including policy ensembles~\citep{sasaki2021behavioral, Song2019}, imitating attention-based representations~\citep{salter2019attentionprivileged}, multi-objective RL~\citep{Schwab2019}, direct state reconstruction~\citep{nguyen2020belief}, or privileged information dropout~\citep{pierrealex2020privileged, lambert2018deep}.  Failures induced by asymmetric information have also been discussed.  \citet{arora2018hindsight} identify an environment where a particular method fails.  \citet{choudhury2018data} use asymmetric information to improve policy optimization in model predictive control, but do not solve scenarios such as ``the trapped robot problem,'' referred to later as Tiger Door~\citep{littman1995pomdp}, and solved below. Notably, asymmetric environments are naturally suited to OIL~(AIL)~\citep{pinto2017asymmetric}:
+\begin{align}
+     &\phi^* = \argmin_{\phi}\ \mathbb{E}_{d^{\pi_{\beta}}(s,b)}  \left[ \mathbb{KL} \left[ \pi_{\theta}(a|s) || \pi_{\phi}(a|b) \right] \right], \\ 
+     &\mathrm{where}\ \ \pi_{\beta}(a | s, b) = \beta \pi_{\theta}(a | s) + (1-\beta) \pi_{\phi}(a | b). \label{equ:background:asym_dagger_mixture} %\\%
+\end{align}
+As the expert is not used at test time, AIL can take advantage of asymmetry to simplify learning~\citep{pinto2017asymmetric} or enable data augmentation~\citep{Chen2019}. However, naive application of AIL can yield trainees that perform arbitrarily poorly. Further work has addressed learning from imperfect experts~\citep{ross2014reinforcement, pmlr-v70-sun17d, meng2019conditional}, but does not consider issues arising from the use of asymmetric information.  We demonstrate, analyze, and then address both of these issues in the following sections. 

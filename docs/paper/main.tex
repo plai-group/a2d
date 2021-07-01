@@ -1,0 +1,91 @@
+\documentclass{article}
+\pdfoutput=1
+\input{common/preamble.tex}
+\usepackage{multicol}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{Robust Asymmetric Learning in POMDPs}
+
+\icmlsetsymbol{equal}{*}
+\begin{icmlauthorlist}
+\icmlauthor{Andrew Warrington}{equal,oxf}
+\icmlauthor{J. Wilder Lavington}{equal,ubc,iai}
+\icmlauthor{Adam \'Scibior}{ubc,iai}
+\icmlauthor{Mark Schmidt}{ubc,ami}
+\icmlauthor{Frank Wood}{ubc,iai,mil}
+\end{icmlauthorlist}
+\icmlaffiliation{oxf}{Department of Engineering Science, University of Oxford}
+\icmlaffiliation{ubc}{Department of Computer Science, University of British Columbia}
+\icmlaffiliation{iai}{Inverted AI}
+\icmlaffiliation{mil}{Montr\'eal Institute for Learning Algorithms (MILA)}
+\icmlaffiliation{ami}{Alberta Machine Learning Intelligence Institute (AMII)}
+\icmlcorrespondingauthor{Andrew Warrington}{andreww@robots.ox.ac.uk}
+\icmlkeywords{Machine Learning, ICML, Asymmetry, Reinforcement Learning, A2D, Imitation Learning}
+\vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+
+\renewcommand{\d}{\mathrm{d}}
+
+\begin{abstract}
+Policies for partially observed Markov decision processes can be efficiently learned by imitating expert policies learned using asymmetric information.  Unfortunately, existing approaches for this kind of imitation learning have a serious flaw: the expert does not know what the trainee cannot see, and may therefore encourage actions that are sub-optimal or unsafe under partial information.  To address this flaw, we derive an update that, when applied iteratively to an expert, maximizes the expected reward of the trainee's policy. Using this update, we construct a computationally efficient algorithm, adaptive asymmetric DAgger (A2D), that jointly trains the expert and trainee policies. We then show that A2D allows the trainee to safely imitate the modified expert, and outperforms policies learned either by imitating a fixed expert or direct reinforcement learning.
+\end{abstract}
+
+
+\section{Introduction}
+\input{01_intro}
+
+\section{Background}
+\input{02_background}
+
+\section{AIL as Posterior Inference}
+\input{04_preliminaries}
+
+\section{Correcting AIL with Expert Refinement}
+\input{05_a2d}
+
+\section{Experiments}
+\input{06_results}
+
+\section{Discussion}
+\input{07_discussion}
+
+
+\balance
+
+\section{Acknowledgements}
+We thank Frederik Kunstner for invaluable discussions and reviewing preliminary drafts; and the reviewers for their feedback and improvements to the paper.  AW is supported by the Shilston Scholarship, University of Oxford.  JWL is supported by Mitacs grant IT16342. We acknowledge the support of the Natural Sciences and Engineering Research Council of Canada (NSERC), the Canada CIFAR AI Chairs Program, and the Intel Parallel Computing Centers program.  This material is based upon work supported by the United States Air Force Research Laboratory (AFRL) under the Defense Advanced Research Projects Agency (DARPA) Data Driven Discovery Models (D3M) program (Contract No. FA8750-19-2-0222) and Learning with Less Labels (LwLL) program (Contract No.FA8750-19-C-0515). Additional support was provided by UBC's Composites Research Network (CRN), Data Science Institute (DSI) and Support for Teams to Advance Interdisciplinary Research (STAIR) Grants. This research was enabled in part by technical support and computational resources provided by WestGrid (https://www.westgrid.ca/) and Compute Canada (www.computecanada.ca).
+
+% The acknowledgments must go inside the 9-page limit, and references come afterwards.
+\clearpage
+\balance
+\bibliographystyle{icml2021}
+\bibliography{main}
+
+% Do not touch anything below this.  On pain of death.  It is _so_ sensitive.
+\clearpage
+
+\appendix
+
+\twocolumn[
+\icmltitle{Supplementary Materials: Robust Asymmetric Learning in POMDPs}
+\icmlsetsymbol{equal}{*}
+\begin{icmlauthorlist}
+\icmlauthor{Andrew Warrington}{equal,oxf}
+\icmlauthor{J. Wilder Lavington}{equal,ubc,iai}
+\icmlauthor{Adam \'Scibior}{ubc,iai}
+\icmlauthor{Mark Schmidt}{ubc,ami}
+\icmlauthor{Frank Wood}{ubc,iai,mil}
+\end{icmlauthorlist}
+\vskip 0.3in
+]
+
+\input{97_supp}
+
+% \bibliography{main}
+
+\end{document}

@@ -1,0 +1,424 @@
+\label{supp:thoery}
+
+\newcommand{\klbars}{\ ||\ }
+\newcommand{\lspsqb }{\left[ \hspace*{0.1em} }
+\newcommand{\rspsqb}{\hspace*{0.1em} \right]}
+
+In this section we provide full proofs for the material presented in the main text.  These proofs describe more completely how the A2D estimator is constructed.  We briefly give an overview of how the following proofs and details are laid out.
+
+We begin in Section \ref{supp:sec:occupancy} by discussing in more detail the occupancy $d^{\pi}(s,b)$.  This joint occupancy is a convenient term to define as it allows us to compactly denote the probability that an agent is in a particular state and belief state at any point in time.  We can then construct conditional and marginal occupancies by operating on this joint occupancy.  
+
+In Section \ref{supp:sec:ail} we analyze the behavior of AIL.  We first detail a full proof of Theorem \ref{supp:theorem:1_ail_target}, stating that the implicit policy is the solution to the minimization of the most conveniently defined AIL objective, where the trainee simply imitates the expert at each state-belief state pair.  This allows us to compactly write and analyze the solution to AIL as the implicit policy.  However, the implicit policy is defined by an intractable inference over the conditional occupancy, $d^{\pi}(s \mid b)$, from which we cannot sample.  
+
+We therefore show in Section \ref{supp:sec:vap} that we can define a variational approximation to the implicit policy, referred to as a \emph{trainee}, that is learned using the AIL objective.  We construct an estimator of the gradient of the trainee parameters to learn this trainee, under a fixed distribution over trajectories, directly targeting the result of the inference defined by the implicit policy.  Crucially, the trainee can be learned using samples from the joint occupancy, $d^{\pi}(s,b)$, from which we \emph{can} sample (instead of samples from the conditional $d^{\pi}( s \mid b )$ as per the implicit policy).  If the variational family is sufficiently expressive, this minimization can be performed exactly. 
+
+We then show that an iterative AIL approach, that updates the fixed distribution over trajectories at each iteration, recovers the desired trainee.  We then show that the limiting behavior of this iterative algorithm is equivalent to learning under the occupancy of the implicit policy.  Finally, using these results, we prove Theorem \ref{supp:def:fixed_point_variational}, which shows that for an identifiable MDP-POMDP pair, the iterative AIL approach outlined above recovers an optimal partially observing policy.  
+
+However, identifiability is a \emph{very} strong condition.  Therefore, mitigating unidentifiability in AIL is primary the motivation behind A2D.  In Section \ref{supp:sec:a2d} we provide a proof of the ``exact'' form of A2D.  We begin by providing additional detail on intermediate results, including a brief explanation of the policy bound stated in Equations \eqref{equ:bound:1}-\eqref{equ:bound:2}, a derivation of the Q-based A2D update in Equation \eqref{equ:expert-gradient}, and the advantage-based update in \eqref{equ:a2d:a2d_update}.  We then use the assumptions, intermediate lemmas, and theorems to prove exact A2D (using a similar strategy as we used to prove Theorem \ref{supp:def:fixed_point_variational}).  This verifies that, under exact updates, A2D converges to the optimal partially observing policy.  We then conclude by evaluating the requirements of this algorithm.  
+
+
+
+
+\subsection{Occupancy Measures}\label{supp:sec:occupancy}
+Throughout this paper we use $q_{\pi}(\tau)$ as general notation for the trajectory generation process, indicating which policy is used to generate the trajectory as a subscript (c.f. \eqref{equ:background:mdp} and \eqref{equ:background:pomdp_dist}).  We define the \emph{joint occupancy}, $d^{\pi}(s, b)$, as the time-marginal of $q_{\pi}(\tau)$ over all variables in the trajectory other than $s$ and $b$:
+\begin{align}
+    d^{\pi}(s,b) &= (1-\gamma) \int_{\tau \in \mathcal{T}} \sum_{t=0}^{\infty} \gamma^t q_{\pi} (\tau) \delta (s_t - s) \delta (b_t - b) \d \tau , \where \gamma \in [0, 1), \\
+    d^{\pi}(s) &= \int_{b' \in \mathcal{B}} d^{\pi}(s, b') \d b',  \quad d^{\pi}(s | b) = \int_{b' \in \mathcal{B}} d^{\pi}(s, b') \delta ( b' - b ) \d b' , \\
+    d^{\pi}(b) &= \int_{s \in \mathcal{S}} d^{\pi}(s', b) \d s' , \quad d^{\pi}(b | s) = \int_{s' \in \mathcal{S}} d^{\pi}(s', b) \delta ( s' - s ) \d s'.
+\end{align} 
+We refer the reader to \S 3 of \citet{pmlr-v125-agarwal20a} for more discussion on the occupancy (described instead as a \emph{discounted state visitation distribution}).  Despite the complex form of these expressions, we can sample from the joint occupancy $d^{\pi}(s, b)$ by simply rolling out under the policy $\pi$ according to $q_{\pi}(\tau)$, and taking a random state-belief state pair from the trajectory.  We can then trivially obtain a sample from either marginal occupancy, $d^{\pi}(s)$ or $d^{\pi}(b)$, by simply dropping the other variable.  We can also recover a \emph{single} sample, for a \emph{sampled} $b$, from the conditional occupancy $d^{\pi}(s \mid b)$ by taking the associated $s$ (and vice-versa for conditioning on a sampled $s$).  However, and critically for this work, sampling multiple states or belief states from either conditional occupancy is intractable.  Therefore, much of the technical work presented is carefully constructing and manipulating the learning task such that we can use samples from the joint occupancy (from which we can sample), in-place of samples from the conditional occupancy (from which we cannot sample). 
+
+
+
+
+
+
+\newpage
+
+\subsection{Analysis of AIL}
+\label{supp:sec:ail}
+
+We begin by analyzing the behavior of AIL.  This will allow us to subsequently define the behavior of A2D by building on these results.
+
+\subsubsection{Proof of Theorem \ref{supp:theorem:1_ail_target}}
+\label{supp:sec:t1}
+
+We first verify the claim that the implicit policy minimizes the AIL objective.
+
+\setcounter{sthe}{\value{theorem}}
+\setcounter{theorem}{0}                   % CHANGE THE COUNTER VALUES IN HERE.
+\begin{theorem}[Asymmetric IL Target, reproduced from Section \ref{sec:prelim}]\label{supp:theorem:1_ail_target}
+For any fully observing policy $\pi_{\theta} \in \Pi_{\Theta}$ and fixed policy $\pi_{\eta}$, the implicit policy $\hat{\pi}_{\theta}^{\eta} \in \hat{\Pi}_{\Theta}$, defined in Definition 1, minimizes the following asymmetric IL objective:
+\begin{equation}
+      \hat{\pi}_{\theta}^{\eta}(a|b) = \mathop{\argmin}_{\pi \in \Pi_{\Phi}}\ \mathbb{E}_{d^{\pi_{\eta}}(s,b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\theta}(a|s) \klbars{} \pi(a|b) \rspsqb{}  \rspsqb{} .
+\end{equation}
+\end{theorem}
+\setcounter{theorem}{\value{sthe}}
+\begin{proof}
+Considering first the optima of the right-hand side: 
+\begin{equation}
+    \pi^*(a|b) = \mathop{\argmin}_{\pi \in \Pi}\ \mathbb{E}_{d^{\pi_{\eta}}(s, b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\theta}(a|s) \klbars{} \pi(a|b) \rspsqb{}  \rspsqb{} ,
+\end{equation}
+and expanding the expectation and $\mathbb{KL}$ term:
+\begin{align}
+    \pi^*(a|b) &= \mathop{\argmin}_{\pi \in \Pi} \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \int_{s\in\mathcal{S}} \int_{a\in\mathcal{A}} \pi_{\theta}(a | s)  \log \left( \frac{\pi_{\theta}(a|s)}{\pi(a | b)} \right) \d a \ d^{\pi_{\theta}}(s | b) \d s \rspsqb{}  , \\%
+    %
+    &= \mathop{\argmin}_{\pi \in \Pi} \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{} \int_{s\in\mathcal{S}} \int_{a\in\mathcal{A}} \pi_{\theta}(a | s)  \log \pi_{\theta}(a|s) \d a \ d^{\pi_{\eta}}(s | b) \d s \rspsqb{}  - \\
+    & \hspace*{1.8cm} \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \int_{s\in\mathcal{S}} \int_{a\in\mathcal{A}} \pi_{\theta}(a | s)  \log \pi(a|b) \d a \ d^{\pi_{\eta}}(s | b) \d s \rspsqb{} , \\%
+    %
+    &= \mathop{\argmin}_{\pi \in \Pi} K - \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{} \int_{s\in\mathcal{S}} \int_{a\in\mathcal{A}} \pi_{\theta}(a | s)  \log \pi(a|b) \d a \ d^{\pi_{\eta}}(s | b) \d s \rspsqb{}  ,
+\end{align}
+where $K$ is independent of $\pi$.  Manipulating the rightmost term:
+\begin{align}
+    \pi^*(a|b) &= \mathop{\argmin}_{\pi \in \Pi} K - \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{} \int_{a\in\mathcal{A}} \int_{s\in\mathcal{S}} \pi_{\theta}(a | s) d^{\pi_{\eta}}(s | b) \d s \  \log \pi(a | b)  \d a \rspsqb{} , \\
+    &= \mathop{\argmin}_{\pi \in \Pi} K - \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{} \int_{a\in\mathcal{A}} \hat{\pi}_{\theta}^{\eta}(a | b) \log \pi(a | b)  \d a \rspsqb{}  , 
+\end{align}
+We are now free to set the value of $K$, which we denote as $K'$, so long as it remains independent of $\pi$, as this does not alter the minimizing argument:
+\begin{align}
+    K' &= \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \int_{a\in\mathcal{A}} \hat{\pi}_{\theta}^{\eta}(a | b) \log \hat{\pi}_{\theta}^{\eta}(a | b)  \d a \rspsqb{} , \\
+    \pi^*(a|b) &= \mathop{\argmin}_{\pi \in \Pi} K' - \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \int_{a\in\mathcal{A}} \hat{\pi}_{\theta}^{\eta}(a | b) \log \pi(a | b)  \d a \rspsqb{} , \\
+    &= \mathop{\argmin}_{\pi \in \Pi} \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \int_{a\in\mathcal{A}} \hat{\pi}_{\theta}^{\eta}(a | b) \log \hat{\pi}_{\theta}^{\eta}(a | b)  \d a - \int_{a\in\mathcal{A}} \hat{\pi}_{\theta}^{\eta}(a | b) \log \pi(a | b) \d a \rspsqb{}  .
+\end{align}
+Combining the logarithms:
+\begin{align}
+    \pi^*(a|b) &= \mathop{\argmin}_{\pi \in \Pi} \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \int_{a\in\mathcal{A}} \hat{\pi}_{\theta}^{\eta}(a | b) \log \left( \frac{\hat{\pi}_{\theta}^{\eta}(a | b)}{\pi(a | b)} \right) \d a \rspsqb{} ,\\
+    %
+    &= \mathop{\argmin}_{\pi \in \Pi} \mathbb{E}_{d^{\pi_{\eta}}(b)}\lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta}^{\eta}(a | b) \klbars{} \pi(a | b) \rspsqb{}  \rspsqb{}  .
+\end{align}
+Assuming that the policy class $\Pi$ is sufficiently expressive, this $\mathbb{KL}$ can be exactly minimized, and hence we arrive at the desired result:
+\begin{align}
+    \pi^*(a | b) = \hat{\pi}_{\theta}^{\eta}(a | b), \quad \forall\ a \in \mathcal{A},\ b \in \left\lbrace b' \in \mathcal{B} \mid d^{\pi_{\eta}}(b') > 0 \right\rbrace.
+\end{align}
+\end{proof}
+This proof shows that learning the trainee policy ($\pi$ here, $\pi_{\psi}$ later) using $\mathbb{KL}$ minimization imitation learning (as in \eqref{equ:prelim:ail_target}) recovers the policy defined as the implicit policy (as defined in Definition \ref{def:implicit_policy}), and hence our definition of the implicit policy is well founded. 
+
+\subsubsection{Variational Implicit Policy}\label{supp:sec:vap}
+However, the implicit policy is defined as an intractable inference problem, marginalizing the conditional occupancy, $d^{\pi}(s \mid b)$, from which we cannot sample.  Therefore, we can further define a variational policy, $\pi_{\psi} \in \Pi_{\Psi}$, to approximate this policy, from which evaluating densities and sampling is more tractable.  This policy can be learned using gradient descent:
+\begin{lemma}[Variational Implicit Policy Update, c.f. Section \ref{sec:prelim}, Equation \eqref{equ:def:variational:gradient}]
+For an MDP $\mathcal{M}_{\Theta}$, POMDP $\mathcal{M}_{\Phi}$, and implicit policy $\hat{\pi}_{\theta}$ (Definition 1), if we define a variational approximation to $\hat{\pi}_{\theta}$, parameterized by $\psi$, denoted $\pi_{\psi} \in \Pi_{\Psi}$, such that the following divergence is minimized:
+\begin{equation}
+    \psi^* = \mathop{\argmin}_{\psi \in \Psi} F(\psi) = \mathop{\argmin}_{\psi \in \Psi} \mathbb{E}_{d^{\hat{\pi}_{\theta}}(b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  {\hat{\pi}_{\theta}}(a|b) \klbars{}  \pi_{\psi}(a|b) \rspsqb{}  \rspsqb{} ,\label{supp:equ:l1:1}
+\end{equation}
+then an unbiased estimator for the gradient of this objective is given by the following expression:
+\begin{align}
+    \nabla_{\psi} F (\psi) &= - \mathbb{E}_{d^{\hat{\pi}_{\theta}}(s,b)} \lspsqb{}  \mathbb{E}_{\pi_{\theta}(a | s)} \lspsqb{}  \nabla_{\psi} \log \pi_{\psi} (a | b) \rspsqb{}  \rspsqb{} .
+\end{align}
+\end{lemma}
+\begin{proof}
+Note the objective in \eqref{supp:equ:l1:1} is corresponds to the original AIL objective via Theorem \ref{supp:theorem:1_ail_target}.  By manipulating the $\mathbb{KL}$ term, pulling out terms that are constant with respect to $\psi$, and rearranging the expectations we obtain:
+\begin{align}
+    F(\psi) &= \mathbb{E}_{d^{\hat{\pi}_{\theta}}(b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  {\hat{\pi}_{\theta}}(a|b) \klbars{}  \pi_{\psi}(a|b) \rspsqb{}  \rspsqb{} , \\
+    &= \mathbb{E}_{d^{\hat{\pi}_{\theta}}(b)} \lspsqb{}  \int_{a \in \mathcal{A}} \log \left(\frac{{\hat{\pi}_{\theta}}(a|b)}{{\pi_{\psi}}(a|b)}\right) {\hat{\pi}_{\theta}}(a|b) \d a \rspsqb{} , \\
+    &= \int_{b \in \mathcal{B}} \int_{a \in \mathcal{A}} - \log {\pi_{\psi}}(a|b) {\hat{\pi}_{\theta}}(a|b) \d a \ d^{\hat{\pi}_{\theta}}(b) \d b + C,\\
+    &= - \int_{b \in \mathcal{B}} \int_{a \in \mathcal{A}} \log {\pi_{\psi}}(a|b) \int_{s \in \mathcal{S}} \pi_{\theta}(a | s) d^{\hat{\pi}_{\theta}}(s | b) \d s \ \d a \ d^{\hat{\pi}_{\theta}}(b) \d b + C,\\
+    &= - \int_{b \in \mathcal{B}} \int_{a \in \mathcal{A}}  \int_{s \in \mathcal{S}} \log {\pi_{\psi}}(a|b)\pi_{\theta}(a | s) d^{\hat{\pi}_{\theta}}(s , b) \d s \ \d a \ \d b + C,\\
+    &= - \mathbb{E}_{d^{\hat{\pi}_{\theta}}(s, b)} \lspsqb{}  \int_{a \in \mathcal{A}} \log \pi_{\psi} (a | b) \pi_{\theta}(a | s) \d a \rspsqb{}  + C,  \\
+    &= - \mathbb{E}_{d^{\hat{\pi}_{\theta}}(s, b)} \lspsqb{}  \mathbb{E}_{\pi_{\theta}(a | s)} \lspsqb{}  \log \pi_{\psi} (a | b) \rspsqb{}  \rspsqb{}  + C . \label{OLD:supp:equ:a2d:expectation}
+\end{align}
+As neither distribution in the expectation is a function of $\psi$, we can pass the derivative with respect to $\psi$ through this objective to obtain the gradient:
+\begin{align}
+    \nabla_{\psi} F (\psi) &= - \mathbb{E}_{d^{\hat{\pi}_{\theta}}(s, b)} \lspsqb{}  \mathbb{E}_{\pi_{\theta}(a | s)} \lspsqb{}  \nabla_{\psi} \log \pi_{\psi} (a | b) \rspsqb{}  \rspsqb{} . \label{supp:equ:l1:grad}
+\end{align}
+\end{proof}
+Note here that in AIL $\theta$ is held constant.  In A2D we extend this by also updating the $\theta$, discussed later.  Importantly, the gradient estimator in \eqref{supp:equ:l1:grad} circumvents a critical issue in the initial definition of the implicit policy: we are unable to sample from the conditional occupancy, $d^{\hat{\pi}_{\theta}}(s \mid b)$.  However, and as is common in variational methods, the learning the variational policy only requires samples from the joint occupancy, $d^{\hat{\pi}_{\theta}}(s,b)$.  We can therefore train an approximator directly targeting the result of an intractable inference under the conditional density, and recover a variational policy that provides us with a convenient method of drawing (approximate) samples from the otherwise intractable implicit policy.  Under the relatively weak assumption that the variational family is sufficiently expressive, $\Pi_{\Psi} \supseteq \hat{\Pi}_{\Theta}$, this $\mathbb{KL}$ divergence can be exactly minimized, and exact samples from the implicit policy are recovered.  However, even if the expert policy is optimal under the MDP, and the divergence is minimized in the feasible set, this does not guarantee that the implicit policy (and hence the variational policy) is optimal under the partial information \emph{in terms of reward}, if the value of the divergence is not \emph{exactly} zero.  We therefore first build intermediate results by considering an identifiable process pair, where we show that we recover a sequence of updates which converges to the optimal partially observing policy, $\hat{\pi}_{\theta^*}(a \mid b)$, or its variational equivalent, $\pi_{\psi^*}(a \mid b)$.  In Section \ref{supp:sec:a2d} we then relax the identifiability requirement, and leverage these intermediate results to derive the A2D update in Theorem \ref{supp:def:exact_a2d}.
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Convergence of Iterative AIL}\label{supp:sec:convergence_of_occ}
+We first verify the convergence of AIL for identifiable processes.  We will also introduce an assumption and two lemmas which provide important intermediate results and intuition, and will make the subsequent presentation of both Theorem \ref{supp:def:fixed_point_variational} and Theorem \ref{supp:def:exact_a2d} more compact. The assumption simply states that the variational family is sufficiently expressive such that the implicit policy can be replicated, and that the implicit policy is sufficiently expressive such that the optimal partially observing policy, $\pi_{\phi^*} \in \Pi_{\Phi^*} \subseteq \Pi_{\Phi}$, can actually be found.  
+
+The first lemma shows that the solution to an iterative procedure, optimizing the trainee under the occupancy from the trainee policy at the previous iteration, actually converges to the solution of a single equivalent ``static'' optimization problem, directly optimizing over the trainee policy and the corresponding occupancy.  This will allow us to solve the challenging optimization over the trainee policy using a simple iterative procedure.  The second lemma shows that solving this static optimization is equivalent to an optimization under the occupancy induced by the implicit policy.  This will allow us to substitute the distribution under which we take expectations and will allow us to prove more complex relationships.  The assumption and both lemmas are then used in Theorem \ref{supp:def:fixed_point_variational} to show that iterative AIL will converge as required.
+
+\begin{assumption}[Sufficiency of Policy Representations]\label{supp:assump:suff_var}
+    We assume that for any behavioral policy, $\pi_{\eta} \in \Pi_{\Psi}$, the variational family is sufficiently expressive such that any implicit policy, $\hat{\pi}_{\theta} \in \hat{\Pi}_{\Theta}$, is exactly recovered in the regions of space where the occupancy under the occupancy under the behavioral policy places mass: 
+    \begin{equation}
+        \mathop{\min}_{\psi \in \Psi} \ \mathop{\mathbb{E}}_{d^{\pi_{\eta}}(b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  {\hat{\pi}_{\theta}}(a|b) \klbars{}  \pi_{\psi}(a|b) \rspsqb{}  \rspsqb{}  = 0. \label{supp:equ:a1:1}
+    \end{equation}
+    We also assume that there exists an implicit policy, $\hat{\pi}_{\theta}$, such that an optimal POMDP policy, $\pi_{\phi^*} \in \Pi_{\Phi^*} \subseteq \Pi_{\Phi}$ can be represented:
+    \begin{equation}
+        \mathop{\min}_{\theta \in \Theta} \ \mathop{\mathbb{E}}_{d^{\pi_{\eta}}(b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b) \klbars{} {\hat{\pi}_{\theta}}(a|b) \rspsqb{}  \rspsqb{}  = 0,\label{supp:equ:a1:2}
+    \end{equation}
+    and hence there is a variational policy that can represent the optimal POMDP policy in states visited under $\pi_{\eta}$.
+\end{assumption}
+
+The condition in Equation \eqref{supp:equ:a1:1} (and similarly the condition in Equation \eqref{supp:equ:a1:2}) can also be written as:
+\begin{equation}
+    \exists \psi \in \Psi \quad \text{such\ that} \quad \hat{\pi}_{\theta}(a|b) = \pi_{\psi}(a|b), \quad \forall\ a \in \mathcal{A},\ b \in \left\lbrace b' \in \mathcal{B} \mid d^{\pi_{\eta}}(b') > 0 \right\rbrace.
+\end{equation}
+These conditions are weaker than simply requiring $\hat{\pi}_{\theta} \in \hat{\Pi}_{\Theta} \subseteq \Pi_{\Psi}$, as this only requires that the policies are equal where the occupancy places mass.  These assumptions are often made implicitly by AIL methods.  We will use this assumption throughout.  Note that by definition if the divergence in \eqref{supp:equ:a1:2} is equal to zero at all $\hat{\pi}_{\theta^*}$, then the processes are identifiable.  
+
+% \setcounter{lemma}{1} 
+\begin{lemma}[Convergence of Iterative Procedure]\label{supp:lemma:2}
+    For an MDP $\mathcal{M}_{\Theta}$ and POMDP $\mathcal{M}_{\Phi}$, and implicit policy $\hat{\pi}_{\theta}$ (Definition \ref{def:implicit_policy}), if we define a variational approximation to $\hat{\pi}_{\theta}$, parameterized by $\psi$, denoted $\pi_{\psi} \in \Pi_{\Psi}$, then under Assumption \ref{supp:assump:suff_var}, and for the following AIL objective:
+    \begin{equation}
+       \quad \psi^* = \mathop{\argmin}_{\psi \in \Psi} \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} ,\label{supp:equ:t2:condition2}
+    \end{equation}
+    the iterative scheme:
+    \begin{align}
+        \label{supp:equ:t2:condition1}
+       \psi_{k+1} &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} ,  \quad \text{with} \quad \psi_{\infty} = \lim_{k \rightarrow \infty} \psi_k,
+    \end{align}
+    converges to the solution to the optimization problem in Equation \eqref{supp:equ:t2:condition2} such that:
+    \begin{align}
+        \mathop{\mathbb{E}}_{d^{\pi_{\psi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\psi^*}(a|b) \klbars{} \pi_{\psi_{\infty}}(a|b) \rspsqb{}  \rspsqb{}  = 0 \label{supp:equ:l2:result}
+    \end{align}
+\end{lemma}
+\begin{proof}
+    We show this convergence by showing that the total variation between $d^{_{\psi^*}}(b)$ and $d^{_{\psi_k}}(b)$, over the set of belief states visited in Equation \eqref{supp:equ:l2:result}, denoted $b \in \hat{\mathcal{B}} = \left\lbrace b' \in \mathcal{B} \mid d^{\pi_{\psi^*}}(b') > 0 \right\rbrace$, converges to zero as $k \tends \infty$.  We begin by expressing the total variation at the $k^{\mathrm{th}}$ iteration:
+    \begin{align}
+        \sup_{b \in \hat{\mathcal{B}}} \left|d^{\pi_{\psi_k}}(b)-d^{\pi_{\psi^*}}(b)\right| &= \sup_{b \in \hat{\mathcal{B}}} \left|(1-\gamma) \sum_{t=0}^{\infty} \gamma^t q_{\pi_{\psi_k}}(b_t)-(1-\gamma) \sum_{t=0}^{\infty} \gamma^t q_{\pi_{\psi^*}}(b_t)\right|, \\
+        &= (1-\gamma) \sup_{b \in \hat{\mathcal{B}}} \left| \sum_{t=0}^{\infty} \gamma^t q_{\pi_{\psi_k}}(b_t)- \sum_{t=0}^{\infty} \gamma^t q_{\pi_{\psi^*}}(b_t)\right|, \\
+        &= (1-\gamma) \sup_{b \in \hat{\mathcal{B}}} \left| \sum_{t=0}^{k} \gamma^t q_{\pi_{\psi_k}}(b_t) + \sum_{t=k+1}^{\infty} \gamma^t q_{\pi_{\psi_k}}(b_t) - \sum_{t=0}^{k} \gamma^t q_{\pi_{\psi^*}}(b_t) - \sum_{t=k+1}^{\infty} \gamma^t q_{\pi_{\psi^*}}(b_t)\right| .
+    \end{align}
+    where $\gamma \in [0,1)$, and where we use the notational shorthand by defining $b_0, b_1, b_2, \ldots = b$.  
+    
+    We can then note that at the $k^{\mathrm{th}}$ iteration, the distribution over the first $k$ state-belief state pairs must be identical: $q_{\pi_{\psi_k}}(\tau_{0:k-1}) = q_{\pi_{\psi^*}}(\tau_{0:k-1})$ (recalling that $\tau$ contains both belief state and actions).  To verify this, consider the following inductive argument: If after a single iteration ($k=1$) we have exactly minimized the $\mathbb{KL}$ divergence between $\hat{\pi}_{\theta}$ and $\pi_{\psi_1}$ (and hence the divergence between $\pi_{\psi_1}$ and $\pi_{\psi^*}$) for all $b_0 \in \left\lbrace b_0 \in \mathcal{B} \mid q_{\pi_{\psi_k}}(b_0)>0 \right\rbrace$., then at time step zero the following equality must hold $q_{\pi_{\psi_1}}(\tau_0) = q_{\pi_{\psi^*}}(\tau_0)$, because the distribution over actions and the underlying dynamics are the same at the initial state and belief state. Therefore, because both the distribution over the initial state and belief state, as well as the action distributions must also be the same for $q_{\pi_{\psi^*}}$ and $q_{\pi_{\psi_1}}$ (i.e. $q_{\pi_{\psi_1}}(a_0,b_{0}) = q_{\pi_{\psi^*}}(a_{0},b_{0})$) then necessarily we have that $q_{\pi_{\psi_1}}(b_{1}) = q_{\pi_{\psi^*}}(b_{1})$.
+    
+    Next, using the inductive hypothesis $q_{\pi_{\psi_k}}(b_{k-1}) = q_{\pi_{\psi^*}}(b_{k-1})$, we can see that provided \eqref{supp:equ:a1:1} is exactly minimized, then $\pi_{\psi_{k-1}}(a_{k-1}|b_{k-1}) = \pi_{\psi^*}(a_{k-1}|b_{k-1})$. This then means that again we have $q_{\pi_{\psi_k}}(a_{k-1},b_{k-1}) = q_{\pi_{\psi^*}}(a_{k-1},b_{k-1})$, which by definition gives $q_{\pi_{\psi_k}}(b_{k}) = q_{\pi_{\psi^*}}(b_{k})$, which concludes our inductive proof. This allows us to make the following substitution and simplification:
+    \begin{align}
+        \sup_{b \in \hat{\mathcal{B}}} \left|d^{\pi_{\psi_k}}(b)-d^{\pi_{\psi^*}}(b)\right| &= (1-\gamma) \sup_{b \in \hat{\mathcal{B}}} \left| \sum_{t=0}^{k} \gamma^t q_{\pi_{\psi^*}}(b_t) + \sum_{t=k+1}^{\infty} \gamma^t q_{\pi_{\psi_k}}(b_t) - \sum_{t=0}^{k} \gamma^t q_{\pi_{\psi^*}}(b_t) - \sum_{t=k+1}^{\infty} \gamma^t q_{\pi_{\psi^*}}(b_t)\right|, \\
+        &= (1-\gamma) \sup_{b \in \hat{\mathcal{B}}} \left| \sum_{t=k+1}^{\infty} \gamma^t q_{\pi_{\psi_k}}(b_t) - \sum_{t=k+1}^{\infty} \gamma^t q_{\pi_{\psi^*}}(b_t)\right| ,\\
+        &= (1-\gamma) \sup_{b \in \hat{\mathcal{B}}} \left| \sum_{t=k+1}^{\infty} \gamma^t (q_{\pi_{\psi_k}}(b_t) - q_{\pi_{\psi^*}}(b_t)) \right|, \\
+        &\leq (1-\gamma) \sup_{b \in \hat{\mathcal{B}}} \left| \sum_{t=k+1}^{\infty} \gamma^t C \right|
+        = C (1-\gamma) \sum_{t=k+1}^{\infty} \gamma^t = C (1-\gamma) \left(\frac{1}{1-\gamma} - \frac{1-\gamma^{k+1}}{1-\gamma} \right)
+        \\
+        &= C(1 - 1 + \gamma^{k+1}) = C\gamma^{k+1} = O(\gamma^{k}),
+    \end{align}
+    where we assume that the maximum variation between the densities is bounded by $C \in \mathbb{R}_+$.  Hence, as $\gamma \in [0, 1)$, as $k\tends\infty$ the occupancy induced by the trainee learned through the iterative procedure, $d^{\pi_{\psi_{\infty}}}$, converges to the occupancy induced by the optimal policy recovered through direct, static optimization, $d^{\pi_{\psi^*}}$.  As a result of this, and the expressivity assumption in \eqref{supp:equ:a1:1}, we can state that the iterative procedure must recover a perfect variational approximation to the implicit policy $\hat{\pi}_{\theta}$, in belief states with finite mass under $d^{\hat{\pi}_{\theta}}$. 
+\end{proof}
+
+This lemma verifies that we can solve for a variational approximation to a particular implicit policy, defined by the static-but-difficult optimization defined in \eqref{supp:equ:t2:condition2}, by using the tractable iterative procedure defined in \eqref{supp:equ:t2:condition1}. However, the distribution under which we take the expectation is the trainee policy.  We therefore show now that this can be replaced with the occupancy under the implicit policy, which will allow us to utilize the identifiability condition defined in the main text.
+
+\begin{lemma}[Equivalence of Objectives]\label{supp:lemma:3}
+    For an MDP $\mathcal{M}_{\Theta}$, POMDP $\mathcal{M}_{\Phi}$, and implicit policy $\hat{\pi}_{\theta}$ (Definition \ref{def:implicit_policy}), if we define a variational approximation to $\hat{\pi}_{\theta}$, parameterized by $\psi$, denoted $\pi_{\psi} \in \Pi_{\Psi}$, and define: 
+    \begin{align}
+       \psi^*_1 &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} ,  \label{supp:equ:make_it_stop_before}\\
+       \psi^*_2 &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\hat{\pi}_{\theta}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta}(a|b)\klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} , \label{supp:equ:make_it_stop}
+    \end{align}
+    then, under Assumption \ref{supp:assump:suff_var}, we are able to show that:
+    \begin{align}
+        \mathop{\mathbb{E}}_{d^{\pi_{\psi^*_2}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\psi^*_2}(a|b) \klbars{} \pi_{\psi^*_1}(a|b) \rspsqb{}  \rspsqb{} = 0
+    \end{align}
+\end{lemma}
+\begin{proof}
+    We show this result by way of contradiction.  First assume that there exists some $t \in \mathbb{N}$ such that $q_{\hat{\pi}_{\theta}}(b_t) \neq q_{\pi_{\psi_k}}(b_t)$.  As a result of Assumption \ref{supp:assump:suff_var} we can state that:
+    \begin{equation}
+            \min_{\psi \in \Psi} \ \mathbb{E}_{d^{\pi_{\psi}}(b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  {\hat{\pi}_{\theta}}(a|b) \klbars{}  \pi_{\psi}(a|b) \rspsqb{}  \rspsqb{}  = 0.
+    \end{equation}
+    We now use a similar approach to the one used in Lemma \ref{supp:lemma:2}, and consider initially the first time step.  We note that $q_{\hat{\pi}_{\theta}}(b_0) = q_{\pi_{\psi}}(b_0)$ because the initial state distribution is independent of the policy.  Because both \eqref{supp:equ:make_it_stop_before} and \eqref{supp:equ:make_it_stop} target the same density, by Assumption \ref{supp:assump:suff_var}, after the first iteration we again have that $q_{\hat{\pi}_{\theta}}(b_0)\hat{\pi}_{\theta}(a_0|b_0) = q_{\pi_{\psi}}(b_0)\pi_{\psi}(a_0|b_0)$. Because the dynamics are the same for both $q_{\pi_{\psi}}$ and $q_{\hat{\pi}_{\theta}}$, this result directly implies that $q_{\hat{\pi}_{\theta}}(b_{1}) = q_{\pi_{\psi}}(b_{1})$.
+    
+    Inductively extending this to $t-1$, we have that $q_{\hat{\pi}_{\theta}}(b_{t-1}) = q_{\pi_{\psi}}(b_{t-1})$, and further, that our action distribution again satisfies  $\pi_{\psi_t}(a_{t-1}|b_{t-1}) = \hat{\pi}_{\theta}(a_{t-1}|b_{t-1})$ due to Assumption \ref{supp:assump:suff_var}. Here we again have that $\pi_{\psi_t}(a_{t-1}|b_{t-1})q_{\pi_{\psi}}(b_{t-1}) = \hat{\pi}_{\theta}(a_{t-1}|b_{t-1})q_{\hat{\pi}_{\theta}}(b_{t-1})$, which directly implies that $q_{\hat{\pi}_{\theta}}(b_{t}) = q_{\pi_{\psi}}(b_{t})$ must also hold. However this contradicts our assumption that $\exists t \in \mathbb{N}$ such that  $q_{\hat{\pi}_{\theta}}(b_t) \neq q_{\pi_{\psi_k}}(b_t)$. Thus under the assumptions stated above, $q_{\hat{\pi}_{\theta}}(b_t) = q_{\pi_{\psi}}(b_t)$ for all $t$, and by extension, $d^{\hat{\pi}_{\theta}}(b) = d^{\pi_{\psi^*}}(b)$, where $\pi_{\psi^*}$ represents a solution to the right hand side of Equation \eqref{supp:equ:make_it_stop}. 
+\end{proof}
+
+This lemma allows us to exchange the distribution under which we take expectations.  We can now use Assumption \ref{supp:assump:suff_var}, Lemma \ref{supp:lemma:2} and Lemma \ref{supp:lemma:3} to show that for an identifiable process pair an iterative AIL procedure converges to the correct POMDP policy as desired.
+
+% \todo{this needs cleaning with the $t$'s removed}
+\setcounter{sthe}{\value{theorem}}
+\setcounter{theorem}{1}                   % CHANGE THE COUNTER VALUES IN 
+\begin{theorem}[Convergence of AIL, expanded from Section \ref{sec:il-failure}]\label{supp:def:fixed_point_variational}
+Consider an \emph{identifiable} MDP-POMDP process pair ($\mathcal{M}_{\Theta}$, $\mathcal{M}_{\Phi}$), with optimal expert policy, $\pi_{\theta^*}$, and optimal partially observing policy $\pi_{\phi^*} \in \Pi_{\Phi^*} \subseteq \Pi_{\Phi}$.  For a variational policy $\pi_{\psi} \in \Pi_{\Psi}$, and assuming Assumption \ref{supp:assump:suff_var} holds, the following iterative procedure:
+\begin{equation}
+    \psi_{k+1} = \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(s,b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\theta^*}(a|s) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} , \label{supp:equ:t1:1}
+\end{equation}
+converges to parameters $\psi^* = \lim_{k\tends\infty} \psi_{k}$ that define a policy equal to an optimal partially observing policy in visited regions of state-space: 
+\begin{equation}
+    \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b) \klbars{} \pi_{\psi^*}(a|b) \rspsqb{}  \rspsqb{}  = 0 \label{supp:equ:please_make_it_stop}
+\end{equation}
+\end{theorem}
+\setcounter{theorem}{\value{sthe}}
+\begin{proof}
+For brevity, we present this proof for the case that there is a unique optimal parameter value, $\psi^*$.  However, this is not a \emph{requirement}, and can easily be relaxed to consider a set of equivalent parameters, $\psi^*_{1:N}$, that yield the same policy over the relevant occupancy distribution, i.e. $\pi_{\psi^*_1}(a | b) = \ldots = \pi_{\psi^*_N}(a | b) \ \forall b \in \hat{B}$.  In this case, we would instead require that the $\mathbb{KL}$ divergence between the resulting policies is zero (analogous to \eqref{supp:equ:please_make_it_stop}), as opposed to requiring that the parameters recovered are \emph{equal} to $\psi^*$.  However, including this dramatically complicates the exposition and hence we do not include such a proof here. We begin by considering the limiting behavior of \eqref{supp:equ:t1:1} as $k \tends \infty$:
+\begin{align}
+    \psi^* = \lim_{k \rightarrow \infty} \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(s,b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\theta^*}(a|s) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} .
+\end{align}
+Application of Theorem \ref{supp:theorem:1_ail_target} to replace the expert policy with the implicit policy yields:
+\begin{align}
+    = \lim_{k \rightarrow \infty} \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta^*}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} .  \label{supp:equ:iterative_conv_1}
+\end{align}
+Application of Lemma \ref{supp:lemma:2} to \eqref{supp:equ:iterative_conv_1} then recovers the limiting behavior as $k\tends \infty$:
+\begin{align}
+    = \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta^*}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} .
+\end{align}
+Application of Lemma \ref{supp:lemma:3} to change the distribution under which the expectation is taken yields: 
+\begin{align}
+    = \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\hat{\pi}_{\theta^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\theta^*}(a|b)\klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} , \label{supp:equ:murh}
+\end{align}
+Identifiability then directly implies that the implicit policy defined by the optimal expert policy \emph{is} an optimal partially observing policy:
+\begin{align}
+    \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b) \klbars{} \hat{\pi}_{\theta^*}(a|b)  \rspsqb{}  \rspsqb{}  = 0,  
+\end{align}
+and therefore we can replace $\hat{\pi}_{\theta^*}$ with $\pi_{\phi^*}$ in \eqref{supp:equ:murh} to yield:
+\begin{align}
+    \psi^* = \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b) \klbars{} \pi_{\psi}(a|b) \rspsqb{}  \rspsqb{} , 
+\end{align}
+Finally, under Assumption \ref{supp:assump:suff_var}, the expected $\mathbb{KL}$ divergence in \eqref{supp:equ:murh} can be exactly minimized, such that:
+\begin{equation}
+    \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b) \klbars{} \pi_{\psi^*}(a|b) \rspsqb{}  \rspsqb{}  = 0
+\end{equation}
+\end{proof}
+
+This proof shows that, if Assumption \ref{supp:assump:suff_var} holds and for an identifiable MDP-POMDP pair, we can use a convenient iterative scheme defined in \eqref{supp:equ:t1:1} to recover an optimal trainee (variational) policy that is exactly equivalent to an optimal partially observing policy.  This iterative process is more tractable than the directly solving the equivalent static optimization; instead gathering trajectories under the current trainee policy, regressing the trainee onto the expert policy at each state, and then rolling out under the new trainee policy until convergence.  However, assuming that processes are identifiable is a \emph{very} restrictive assumption.  This fact motivates our A2D algorithm, which exploits AIL to recover an optimal partially observing policy for any process pair by adaptively modifying the expert that is imitated by the trainee.
+
+
+
+
+
+\subsection{A2D Proofs}\label{supp:sec:a2d}
+In this section we provide the proofs, building on the results given above, that underpin our A2D method and facilitate robust exploitation of AIL in non-identifiable process pairs.  We begin this section by giving a proof of the bound described in \eqref{equ:bound:1}-\eqref{equ:bound:2}.  We then give proofs of the A2D gradient estimator given in \eqref{equ:expert-gradient}.  We then conclude with a proof of Theorem \ref{supp:def:exact_a2d}, which closely follows the proof for Theorem \ref{supp:def:fixed_point_variational}, and provides the theoretical underpinning of the A2D algorithm.  We conclude by discussing briefly the practical repercussions of this result, as well as some additional assumptions that can be made to simplify the analysis. 
+
+\subsubsection{Objectives and Gradients Estimators}
+
+We begin by expanding on the policy gradient bound given in \eqref{equ:bound:1}-\eqref{equ:bound:2}.
+\begin{lemma}[Policy gradients bound, c.f. Section \ref{sec:algorithm}, Equations \eqref{equ:bound:1}-\eqref{equ:bound:2}]
+Consider an expert policy, $\pi_{\theta}$, and a trainee policy learned through $\mathbb{KL}$-minimization, $\pi_{\psi}$, targeting the implicit policy, $\hat{\pi}_{\theta}$. If \eqref{supp:equ:a1:2} in Assumption \ref{supp:assump:suff_var} holds, the following bound holds:
+\begin{align}
+    \max_{\theta \in \Theta} J_{\psi}(\theta) = \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{{\hat{\pi}_\theta(a|b) d^{{\pi_{\psi}}}(b)}} \lspsqb{}  Q^{{\pi_{\psi}}}(a,b) \rspsqb{}  
+    \leq \max_{\theta \in \Theta}  \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b) d^{{\pi_{\psi}}}(b)} \lspsqb{}  Q^{{\hat{\pi}_{\theta}}}(a,b) \rspsqb{}  = \max_{\theta \in \Theta} J(\theta) . \label{supp:equ:bound}
+\end{align}
+\end{lemma}
+\begin{proof}
+For a more extensive discussion on this form of policy improvement we refer the reader to \citet{pmlr-v125-agarwal20a,bertsekas1991analysis,bertsekas2011approximate}. Assumption \ref{supp:assump:suff_var} states that the optimal partially observing policy (or policies) is representable by an implicit policy for any occupancy distribution.  We denote the optimal value function as $V^*(b)$, where this value function is realizable by the implicit policy.  Considering the right hand side of \eqref{supp:equ:bound}, we can write, by definition, the following equality: 
+\begin{align}
+    \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b) d^{\pi_{\psi}}(b)} \lspsqb{}  Q^{{\hat{\pi}_{\theta}}}(a,b) \rspsqb{} 
+    &= 
+    \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)} \lspsqb{}  
+    \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b)}\lspsqb{}  
+    \mathop{\mathbb{E}}_{p(b'|a,b)}[r(b,a,b')] + \gamma  \mathop{\mathbb{E}}_{p(b'|a,b)}[V^{\hat{\pi}_{\theta}}(b')] \rspsqb{} \rspsqb{}  
+    \\
+    &=
+    \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)} \lspsqb{}  
+    \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b)}\lspsqb{}  
+    \mathop{\mathbb{E}}_{p(b'|a,b)}[r(b,a,b')] + \gamma  \mathop{\mathbb{E}}_{p(b'|a,b)}[V^{*}(b')] \rspsqb{} \rspsqb{} 
+\end{align}
+We then repeat this for the expression on the left side of \eqref{supp:equ:bound}, noting that instead of equality there is an inequality, as by definition the value function induced by $\pi_{\psi}(a|b)$, denoted $V^{\pi_{\psi}}(b)$, cannot be \emph{greater} than $V^*(b)$:
+\begin{align}
+     \quad V^{\pi_{\psi}}(b) &\leq  V^{*}(b) \quad \forall \ b \in \left\lbrace \tilde{b} \in \mathcal{B} \mid d^{\pi_{\psi}}(\tilde{b}) > 0 \right\rbrace, \\
+    \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b) d^{\pi_{\psi}}(b)} \lspsqb{}  Q^{{\pi_\psi}}(a,b) \rspsqb{} 
+    &= 
+    \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)} \lspsqb{}  
+    \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b)}\lspsqb{}  
+    \mathop{\mathbb{E}}_{p(b'|a,b)}[r(b,a,b')] + \gamma \mathop{\mathbb{E}}_{p(b'|a,b)} \lspsqb{}  V^{\pi_{\psi}}(b')\rspsqb{}  \rspsqb{} \rspsqb{}  \\
+    &\leq \max_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)} \lspsqb{}  
+    \mathop{\mathbb{E}}_{\hat{\pi}_\theta(a|b)}\lspsqb{}  
+    \mathop{\mathbb{E}}_{p(b'|a,b)}[r(b,a,b')] + \gamma  \mathop{\mathbb{E}}_{p(b'|a,b)}[V^{*}(b')] \rspsqb{} \rspsqb{} ,
+\end{align}
+and hence the inequality originally stated in \eqref{supp:equ:bound} must hold.
+\end{proof}
+
+This form of improvement over a behavioral policy is well studied in the approximate dynamic programming literature~\cite{bertsekas2019reinforcement}, and is a useful tool in analyzing classical methods such as approximate policy iteration. As was discussed in Section \ref{sec:algorithm}, it is also implicitly used in many policy gradient algorithms to avoid differentiating through the Q function, especially when a differentiable Q function is not available. In these cases (i.e. \citet{schulman2017proximal,schulman2015trust,schulman2015high,williams1992simple}) the behavioral policy is defined as the policy under which samples are gathered for Q function estimation. Then, as in the classical policy gradient theorem~\citep{bertsekas2019reinforcement,sutton1992reinforcement,williams1992simple}, the discounted sum of rewards ahead does not need to be differentiated through.  We can then exploit this lower bound to construct an estimator of the gradient of the expert parameters with respect to the reward garnered by the implicit policy. 
+
+\begin{lemma}[A2D Q-based gradient estimator, c.f. Section \ref{sec:algorithm}, Equation \eqref{equ:expert-gradient}] 
+For an expert policy, $\pi_{\theta}$, and a trainee policy learned through $\mathbb{KL}$-minimization, $\pi_{\psi}$, targeting the implicit policy, $\hat{\pi}_{\theta}$, we can transform the following policy gradient update applied directly to the trainee policy lower bound in \eqref{supp:equ:bound}:
+\begin{align}
+    \nabla_{\theta} J_{\psi}(\theta) =  \nabla_{\theta} \mathop{\mathbb{E}}_{{\hat{\pi}_\theta(a|b) d^{{\pi_{\psi}}}(b)}} \left[ Q^{{\pi_{\psi}}}(a,b) \right], \label{supp:equ:a2d_q_1}
+\end{align}
+into a policy gradient update applied to the expert:
+\begin{align}
+    \nabla_{\theta} J_{\psi}(\theta) &= \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \mathop{\mathbb{E}}_{\pi_{\theta}(a | s)} \lspsqb{}  Q^{\pi_{\psi}}(a,b)  \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{} , 
+\end{align}
+\end{lemma}
+\begin{proof}
+To prove this we simply expand and rearrange \eqref{supp:equ:a2d_q_1}:
+\begin{align}
+    \nabla_{\theta} J_{\psi}(\theta) &= \nabla_{\theta} \mathop{\mathbb{E}}_{{\hat{\pi}_{\theta}(a|b) d^{{\pi_{\psi}}}(b)}} \lspsqb{}  Q^{\pi_{\psi}}(a,b) \rspsqb{} , \\%
+    %
+    &= \nabla_{\theta} \int_{b\in\mathcal{B}} \int_{a\in\mathcal{A}} Q^{\pi_{\psi}}(a,b) \hat{\pi}_{\theta}(a | b) \d a \ d^{\pi_{\psi}}(b) \d b, \\%
+    %
+    &= \nabla_{\theta} \int_{b\in\mathcal{B}} \int_{a\in\mathcal{A}} Q^{\pi_{\psi}}(a,b) \int_{s\in\mathcal{S}} \pi_{\theta}(a | s) d^{\pi_{\psi}}(s | b) \d s \ \d a \  d^{\pi_{\psi}}(b) \d b, \\%
+    %
+    &= \nabla_{\theta} \int_{s\in\mathcal{S}} \int_{b\in\mathcal{B}} \int_{a\in\mathcal{A}} Q^{\pi_{\psi}}(a,b) \pi_{\theta}(a | s) d^{\pi_{\psi}}(s, b) \d a \ \d s \  \d b , \\%
+    %
+    &= \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \nabla_{\theta} \int_{a\in\mathcal{A}} Q^{\pi_{\psi}}(a,b) \pi_{\theta}(a | s) \d a \rspsqb{} , \\ %
+    %
+    &= \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \nabla_{\theta} \mathop{\mathbb{E}}_{\pi_{\theta}(a | s)} \lspsqb{}  Q^{\pi_{\psi}}(a,b) \rspsqb{}  \rspsqb{} , \\ %
+    %
+    &= \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \mathop{\mathbb{E}}_{\pi_{\theta}(a | s)} \lspsqb{}  Q^{\pi_{\psi}}(a,b)  \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{} , \label{supp:equ:aaaarrhhh}%
+\end{align}
+\end{proof}
+The A2D gradient estimator given in \eqref{equ:expert-gradient} then adds an importance weight to the inner expectation, as we rollout under $\pi_{\psi}$.  This allows us to instead weight actions sampled under the current trainee policy, $\pi_{\psi}$, without biasing the gradient estimator.  We can then cast this estimator in terms of advantage, where the Q function with the value function subtracted as a baseline to reduce the variance of the estimator.
+
+
+\begin{lemma}[A2D Advantage-based gradient estimator, c.f. Section \ref{sec:algorithm}, Equation \eqref{equ:a2d:a2d_update}] 
+We can construct a gradient estimator from \eqref{supp:equ:aaaarrhhh} that uses the advantage by subtracting the value function as a \emph{baseline}~\cite{bertsekas2019reinforcement, sutton1992reinforcement,williams1992simple}:
+\begin{align}
+    \nabla_{\theta} J_{\psi}(\theta) &= \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \mathop{\mathbb{E}}_{\pi_{\theta}(a | s)} \lspsqb{}  Q^{\pi_{\psi}}(a,b)  \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{}, \\
+    &= \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \mathbb{E}_{\pi_{\theta}(a | s)} \lspsqb{}  (Q^{\pi_{\psi}}(a,b)-V^{\pi_{\psi}}(b))  \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{} .
+\end{align}
+\end{lemma}
+\begin{proof}
+It is sufficient to show that:
+\begin{equation}
+    \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \mathop{\mathbb{E}}_{\pi_{\theta}(a | s)} \lspsqb{}  V^{\hat{\pi}_{\theta}}(b) \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{}  = 0,
+\end{equation}
+which can be shown easily as:
+\begin{align}
+    \mathbb{E}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  \mathbb{E}_{\pi_{\theta}(a | s)} \lspsqb{}  V^{\hat{\pi}_{\theta}}(b) \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{} &= \mathbb{E}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  V^{\hat{\pi}_{\theta}}(b) \mathbb{E}_{\pi_{\theta}(a | s)} \lspsqb{}   \nabla_{\theta} \log \pi_{\theta}(a|s) \rspsqb{}  \rspsqb{}  \\
+    &= \mathbb{E}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  V^{\hat{\pi}_{\theta}}(b) \int_{a \in \mathcal{A}} \nabla_{\theta} \pi_{\theta}(a|s) \d a \rspsqb{} ,\\
+    &= \mathbb{E}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  V^{\hat{\pi}_{\theta}}(b) \nabla_{\theta} \int_{a \in \mathcal{A}} \pi_{\theta}(a|s) \d a \rspsqb{},  \\
+    &= \mathbb{E}_{d^{\pi_{\psi}}(s, b)} \lspsqb{}  V^{\hat{\pi}_{\theta}}(b) \nabla_{\theta} 1 \rspsqb{}  = 0,
+\end{align}
+Noting that this is an example of the \emph{baseline} trick used throughout RL~\cite{bertsekas2019reinforcement, sutton1992reinforcement, williams1992simple}.
+\end{proof}
+This allows us to construct a gradient estimator using the advantage, which in conventional RL, is observed to reduce the variance of the gradient estimator compared to directly using the Q values.  
+
+We are now able to prove an exact form of the A2D update.  This proof is similar to Theorem \ref{supp:def:fixed_point_variational}, however, no longer assumes identifiability of the POMDP-MDP process pair by instead updating the expert at each iteration.  
+
+\subsubsection{Theorem 3}
+
+\setcounter{theorem}{2}  
+\begin{theorem}[Convergence of Exact A2D, reproduced from Section \ref{sec:algorithm}]
+\label{supp:def:exact_a2d}
+Under exact intermediate updates to the expert policy (see \eqref{supp:equ:i_want_to_cry}), the following iteration converges to an optimal partially observed policy $\pi_{\psi^*}(a|b)\in\Pi_{\phi}$, provided Assumption \ref{supp:assump:suff_var} holds:
+\begin{align}
+    \psi_{k+1}  &= \mathop{\argmin}_{\psi \in \Psi} \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(s,b)} \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\theta^*_k}(a|s) \klbars{} \pi_\psi(a|b) \rspsqb{} \rspsqb{} , \label{supp:equ:why_wont_it_stop}\\
+    \where  \hat{\theta}^*_k &= \mathop{\argmax}_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{{\pi_{\psi_k}}}(b) \hat{\pi}_{\theta}(a | b)} \lspsqb{} Q^{{\hat{\pi}_{\theta}}}(a,b) \rspsqb{} . \label{supp:equ:i_want_to_cry}
+\end{align}
+\end{theorem}
+\setcounter{theorem}{\value{sthe}}
+\begin{proof}
+We will again, for ease of exposition assume that a unique optimal policy exists, as in Theorem \ref{supp:def:fixed_point_variational}. We again reinforce that this is not a \emph{requirement}.  Extending this proof to include multiple optimal partially observable policies only requires that we reason about the $\mathbb{KL}$ divergence between $\pi_{\psi_k}$ and $\pi_{\phi^*}$ at each step in the proof, instead of showing that the optimal parameters are equal.  This alteration is technically simple, but is algebraically and notationally onerous.   Similar to Theorem \ref{supp:def:fixed_point_variational}, we begin by examining the limiting behavior of \eqref{supp:equ:why_wont_it_stop} as $k \tends \infty$, and apply Theorem \ref{supp:theorem:1_ail_target} to replace the expert policy with the implicit policy:
+\begin{align}
+    \psi^* &= \lim_{k \rightarrow \infty} \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(s,b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\hat{\theta}^*_k}(a|s) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{}, \\
+    &= \lim_{k \rightarrow \infty} \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\hat{\theta}^*_k}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{}
+\end{align}
+We can then apply a direct extension of Lemma \ref{supp:lemma:2}, where the parameters of the expert policy are also updated in each iteration of the $\mathbb{KL}$ minimization, now denoted $\hat{\theta}^*(\psi)$.  The induction in Lemma \ref{supp:lemma:2} then proceeds as before.  Application of this extended Lemma \ref{supp:lemma:2} yields:
+\begin{align}
+    \psi^* &= \lim_{k \rightarrow \infty} \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\hat{\theta}^*_k}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} ,  \\
+    &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\hat{\theta}^*(\psi)}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} ,\ \ \ \where  \hat{\theta}^*(\psi) = \mathop{\argmax}_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{{\pi_{\psi}}}(b) \hat{\pi}_{\theta}(a | b)} \lspsqb{} Q^{{\hat{\pi}_{\theta}}}(a,b) \rspsqb{} \label{supp:equ:mahh}
+\end{align}
+We can then apply a similarly extended a version of Lemma \ref{supp:lemma:3}, by using the same logic to allow the parameters of the expert policy to be updated as a function of $\psi$ in the $\mathbb{KL}$ minimization.  Now $\hat{\theta}^*(\psi)$ is defined as the expectation under the optimal POMDP policy.  To clarify, this update is, of course, intractable; however, here we are deriving what the equivalent and tractable iterative scheme outlined in \eqref{supp:equ:why_wont_it_stop} converges to, and hence we never actually need to evaluate $\hat{\theta}^*(\psi)$ as it is defined in Equation \eqref{supp:equ:mahh}.  Application of this extended lemma yields:
+\begin{align}
+    \psi^* &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\hat{\theta}^*(\psi)}(a|b) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} , 
+    \\
+    &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\hat{\theta}^*(\psi)}(a|b)\klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{} , \ \ \  \where  \hat{\theta}^*(\psi) = \mathop{\argmax}_{\theta \in \Theta} \mathop{\mathbb{E}}_{d^{{\pi_{\phi^*}}}(b) \hat{\pi}_{\theta}(a | b)} \lspsqb{} Q^{{\hat{\pi}_{\theta}}}(a,b) \rspsqb{}
+\end{align}
+Lastly, Assumption \ref{supp:assump:suff_var} states that $\pi_{\phi^*} \in \hat{\Pi}_{\hat{\theta}^*}$, and so we can replace $\hat{\pi}_{\hat{\theta}^*}$ with the optimal partially observing policy ${\pi_{\phi^*}}$.  As a result, we have shown that we are implicitly solving a symmetric imitation learning problem, imitating the optimal partially observing policy:
+\begin{align}
+    \psi^* &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \hat{\pi}_{\hat{\theta}^*(\psi)}(a|b) \klbars{} \pi_{\psi}(a|b) \rspsqb{}  \rspsqb{} , 
+    \\
+    &= \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\phi^*}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b)\klbars{} \pi_\psi(a|b) \rspsqb{} \rspsqb{} ,
+\end{align}
+where this optima can be achieved by our variational policy, yielding the initially stated result:
+\begin{align}
+    \psi^* &= \lim_{k \rightarrow \infty} \mathop{\argmin}_{\psi \in \Psi}  \mathop{\mathbb{E}}_{d^{\pi_{\psi_k}}(s,b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\hat{\theta}_k^*}(a|s) \klbars{} \pi_\psi(a|b) \rspsqb{}  \rspsqb{}
+    = \mathop{\argmin}_{\psi \in \Psi} \mathop{\mathbb{E}}_{d^{\pi_{\phi^*}}(b)}  \lspsqb{}  \mathbb{KL} \lspsqb{}  \pi_{\phi^*}(a|b) \klbars{} \pi_{\psi}(a|b)  \rspsqb{}  \rspsqb{} \label{supp:equ:last_one}
+\end{align}
+which can be exactly minimized, as per Assumption \ref{supp:assump:suff_var}.  Directly performing the imitation in the right hand side of Equation \eqref{supp:equ:last_one}, although practically intractable, is guaranteed to recover a performant trainee.  We have therefore shown that the iterative procedure outlined in Equations \eqref{supp:equ:why_wont_it_stop} and \eqref{supp:equ:i_want_to_cry} recovers a trainee that is equivalent to an optimal partially observing policy as desired.  
+\end{proof}
+
+We conclude by noting that if we assume that $d^{\pi_{\psi}} > 0$ for all $\pi_{\psi} \in \Pi_{\psi}$, then each of the steps given in Theorems \ref{supp:def:fixed_point_variational} and \ref{supp:def:exact_a2d} can be shown trivially. If we assume at each iteration we successfully minimize the $\mathbb{KL}$ divergence, we obtain a variational policy which perfectly matches the updated expert everywhere.  In Theorem \ref{supp:def:fixed_point_variational} this directly implies the result, and by definition the algorithm must have converged after just a single iteration. In Theorem \ref{supp:def:exact_a2d}, we need only note that the $\argmax$ that produces the updated expert policy parameters must itself by definition match the optimal partially observed policy everywhere, and thus Theorem \ref{supp:def:exact_a2d} collapses to the same logic from Theorem \ref{supp:def:fixed_point_variational}. 
+
+
+
+\subsubsection{Discussion}
+In this section we presented a derivation of exact A2D, where the expert is defined through the exact internal maximization step defined in \eqref{supp:equ:i_want_to_cry}.  We include these derivations to show the fundamental limitations of imitation learning and thus A2D under ideal settings.  Exactly performing this maximization is difficult unto itself, and therefore the A2D algorithm presented in Algorithm \ref{alg:a2d} simply assumes that this maximization is performed sufficiently accurately to produce meaningful progress in policy space.  Although we note that empirically A2D is robust to inexact updates, we defer the challenging task of formally and precisely quantifying the convergence properties of A2D under inexact internal updates to future work.  
+
+
+
