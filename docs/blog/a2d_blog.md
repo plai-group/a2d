@@ -14,6 +14,8 @@
 <a name="fig1"></a> _Figure 1: The agent does not know there is an occluded hazard, and hence the policy is unsafe._ NOTE -- .
 </small>
 </center>--> 
+
+NOTE: I am having some trouble getting this to render on GitHub.  This will be moved and hosted somewhere else soon.
  
 # Robust Asymmetric Learning in POMDPs
 _Blog post by [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://www.scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://www.github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://www.github.com/plai-group/a2d)._
@@ -78,7 +80,7 @@ In the next couple of sections we will briefly survey the core results that enab
 
 <center>
 <a name="fig1"></a> 
-![Simple comparison of DAgger and A2D.](/Users/andrew/Documents/Public_repos/a2d/docs/figures/banner.png)
+![Simple comparison of DAgger and A2D.](https://github.com/plai-group/a2d/tree/master/docs/figures/banner.png)
 
 <small>
 _**Figure 1**: High-level comparison of imitation learning (here we consider DAgger [[ros2011a]](#ros2011a)), shown in black, and our algorithm, Adaptive Asymmetric DAgger (A2D), which adds an additional feedback loop to IL, shown in blue.  The additional feedback loop is implemented by lines 10 & 11 in [Algorithm 1](#alg1), also highlighted in blue._ 
@@ -274,7 +276,7 @@ In [Algorithm 1](#alg1) we show the main A2D algorithm.  Crucially, we highlight
 
 <center>
 <a name="alg1"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/algorithm.png" width="40%">
+<embed src="/https://github.com/plai-group/a2d/tree/master/docs/figures/algorithm.png" width="40%">
 
 <small>
 _**Algorithm 1**: A2D algorithm.  Highlighted in blue are the lines that differentiate A2D from asymmetric imitation learning (AIL), such as asymmetric DAgger.  Note here we do not explicitly learn the Q-function.  To do this, Line 10 is converted to target the Q-function and is used to evaluate the reward-to-go in \\(\mathtt{RLSTEP}\\)._
@@ -327,10 +329,10 @@ In both scenarios, the agent observes the noisy, high-dimensional image shown in
 
 <center>
 <a name="fig2"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-LavaGapS7-v0_observe.png" width="20%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-LavaGapS7-v0_full_observe.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-TigerDoorEnv-v0_observe.png" width="20%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-TigerDoorEnv-v0_full_observe.png" width="20%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/MiniGrid-LavaGapS7-v0_observe.png" width="20%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figuresgridworld/MiniGrid-LavaGapS7-v0_full_observe.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figuresgridworld/MiniGrid-TigerDoorEnv-v0_observe.png" width="20%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figuresgridworld/MiniGrid-TigerDoorEnv-v0_full_observe.png" width="20%"> &nbsp;
 
 <small>
 _**Figure 2**: Gridworld environments.  **Left pair**: Frozen Lake.  **Right pair**: Tiger Door.  The left figure in each pair is the high-dimensional observation as seen by the agent.  The right figure in each pair shows the true underlying state.  In Frozen Lake, the agent (red) can never reveal the location of the weak ice (dark blue), and the location of the goal (green) is fixed.  The weak ice can be in any of the interior nine squares, and its location is never revealed to the agent.  In Tiger Door, the agent can step on the button (purple) to reveal the location of the goal and the (dark blue...?_ 🤔_) tiger, essentially allowing the agent to see the rightmost figure.  The tiger and goal are swapped from the shown configuration 50% of the time._
@@ -348,9 +350,9 @@ We then show our A2D method, when the trainee is provided with a compact-but-par
 <br>
 <center>
 <a name="fig3"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_results_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_results_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/legend_sec4_results.png" width="16.5%">
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_results_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_results_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/legend_sec4_results.png" width="16.5%">
 
 <small>
 _**Figure 3**: Results for the two Gridworld experiments.  **Left**: Frozen Lake.  **Right**: Tiger Door. Results are normalized such that the optimal reward obtainable in the MDP is -1.0 (= -10<sup>0</sup>)._
@@ -363,8 +365,8 @@ We also show in [Figure 4](#fig4) the KL-divergence between expert and trainee d
 <br>
 <center>
 <a name="fig4"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_divergence_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_divergence_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%">
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_divergence_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_divergence_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%">
 
 <small>
 _**Figure 4**: Divergence results for the two Gridworld experiments.  **Left**: Frozen Lake.  **Right**: Tiger Door.  Note the log-scale on the y-axis._
@@ -437,7 +439,7 @@ We have released all of these resources under the [Creative Commons Attribution-
 <br>
 <center>
 <a name="tab_a1"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/notation.png" width="100%"> 
+<embed src="/https://github.com/plai-group/a2d/tree/master/docs/figures/notation.png" width="100%"> 
 
 <small>
 _**Table A.1**: Table of the notation we use throughout the paper and this post._
@@ -472,9 +474,9 @@ _**Table A.1**: Table of the notation we use throughout the paper and this post.
 © Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License, Andrew Warrington & J. Wilder Lavington.
 
 <center>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/oxford.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/ubc.png" width="28%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/iai.png" width="27%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/plai.png" width="9%">
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/oxford.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/ubc.png" width="28%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/iai.png" width="27%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/plai.png" width="9%">
 </center>
 ---
