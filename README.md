@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 This repository contains three things: the gridwold implementation; the AV implementation; and the accompanying materials.
 
-The gridworld and AV implementations are essentially standalone codebases contained within this "root" repository.  The root repository contains the materials the accompanying materials, including the LaTeX source code for the paper, figures, [poster](), materials used in the [talk](), and an informal [blog post]().  Each implementation is individually documented within the respective directory. 
+The gridworld and AV implementations are essentially standalone codebases contained within this "root" repository.  The root repository contains the materials the accompanying materials, including the LaTeX source code for the paper, figures, [poster](https://github.com/plai-group/a2d/blob/master/docs/poster/a2d_poster_v2.pptx), materials used in the [talk](https://github.com/plai-group/a2d/tree/master/docs/talk), and an informal [blog post](https://github.com/plai-group/a2d/tree/master/docs/blog).  Each implementation is individually documented within the respective directory. 
 
 The gridworld implementation is contained in `a2d_gridworld`.  The gridworld implementation requires no further installation beyond installing the `requirements.txt` through pip.
 
@@ -67,58 +67,6 @@ Andy & Wilder
 <embed src="/Users/andrew/Documents/Public_repos/a2d/docs/blog/figures/logos/plai.png" width="9%">
 </center>
 ---
-
-
-
-
-
-<!-- 
-
-##### Basic Usage:
-If you are only interested in inspecting the code, running small experiments locally, or making temporary or small changes to the code, then pulling the code directly should be sufficient.  To download this repository in full run:
-
-```
-git clone --recurse-submodules  https://github.com/plai-group/a2d
-```
-
-This will automatically pull in both the submodules implementation.  If a substantive change is pushed to either of the submodules, we will also push a note to the changelog in this repository.  In this case, to update all submodules and this repository run:
-
-```
-git fetch --all
-git pull
-git submodule foreach git pull origin main
-```
-
-Making changes to submodules can cause some heartache, and so if you wish to make substantive and version controlled changes, then forking the repository is the best idea.
-
-
-##### Forking Whole Repositories:
-
-If you have made changes to the code in a submodule, then it is best to navigate into that submodule and use Git as normal to control merges etc.  
-
-Alternatively, fork this entire repository and manually pull in each repository.  This will "detach" you from further updates and will ensure that your modifications are not clobbered.  Any future updates can then be manually merged in.  We don't foresee a huge number of changes to the repo or submodules (and certainly not on `main`) and so this may be the best course of action if you intend to heavily modify the code. 
-
-
-##### Individual Repositories:
-
-If you are also only interested in one of the examples, then you can pull just that submodule in isolation.  I.e. you are an AV researcher interested in digging into RL in CARLA), then you can pull just the [AV submodule](), which includes extensive additional support for using CARLA in an RL context.   If you are an RL researcher looking to understand the A2D method without the _immense_ overhead that CARLA brings, then download just the [gridworld submodule]().
-
-If you have further questions or comments, or would like additional guidance on using this repo, then please out to us at `andrew (dot) warrington (at) keble (dot) ox (dot) ac (dot) uk`.
-
-!-->
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
