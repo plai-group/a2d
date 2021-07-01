@@ -3,22 +3,24 @@
 </script>
 <!-- -->   
  
-add back \<video autoplay playsinline... 
+<!-- add back \<video autoplay playsinline... 
 <figure class="video_container">
   <video playsinline style="pointer-events: none;" allowfullscreen="true" width="100%" allowfullscreen="true" loop="true" muted="true">
     <source src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/occluded-pedestrian.mp4" type="video/mp4">
   </video>
-</figure>
+</figure> -->
 <!--<center>
 <small>
 <a name="fig1"></a> _Figure 1: The agent does not know there is an occluded hazard, and hence the policy is unsafe._ NOTE -- .
 </small>
 </center>--> 
+
+NOTE: I am having some trouble getting this to render on GitHub.  This will be moved and hosted somewhere else soon.
  
 # Robust Asymmetric Learning in POMDPs
-<small>
-Blog post by [Andrew Warrington](https://scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://github.com/plai-group/a2d).
-</small>
+_Blog post by [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) [Andrew Warrington](https://www.scholar.google.com/citations?user=MDj3OS4AAAAJ&hl=en) & [J. Wilder Lavington](https://www.scholar.google.com/citations?user=Ae2Qc0gAAAAJ&hl=en).  Full paper available [here](https://arxiv.org/pdf/2012.15566.pdf).  Talk available [here](https://www.github.com/plai-group/a2d/blob/master/docs/talk).  Code available [here](https://www.github.com/plai-group/a2d)._
+
+<br>
 
 Imitation learning (IL) is great.  IL reduces reinforcement learning (RL) to a supervised learning problem, regressing the _trainee_ policy onto an _expert_, where the expert is pre-trained and can already solve the environment.  This allows us to exploit efficient and low-variance supervision to transfer and manipulate policies, without the complexity and hassle of performing full reinforcement learning.  This is particularly beneficial in high-dimensional and partially observed environments, where jointly learning to perceive _and_ act is notoriously difficult.  The expert has already learned to act, and so the trainee only needs to learn to percieve such that it can replicate the actions of the expert. 
 
@@ -51,9 +53,7 @@ In this post, we will explore and expand on some of the ideas presented in the p
 
 ## <a name="sec_for"></a> Background 
 
-<small>
 _If you are only interested in the technical content, this background section can be skipped._
-</small>
 
 Reinforcement learning (RL) in Markov decision processes (MDPs) is a hard problem.  Stochastic environments, large action spaces, and long dependencies between actions and rewards make learning to optimally interact with an environment one of the most challenging problems in machine learning.  
 
@@ -80,7 +80,7 @@ In the next couple of sections we will briefly survey the core results that enab
 
 <center>
 <a name="fig1"></a> 
-![Simple comparison of DAgger and A2D.](/Users/andrew/Documents/Public_repos/a2d/docs/figures/banner.png)
+![Simple comparison of DAgger and A2D.](https://github.com/plai-group/a2d/tree/master/docs/figures/banner.png)
 
 <small>
 _**Figure 1**: High-level comparison of imitation learning (here we consider DAgger [[ros2011a]](#ros2011a)), shown in black, and our algorithm, Adaptive Asymmetric DAgger (A2D), which adds an additional feedback loop to IL, shown in blue.  The additional feedback loop is implemented by lines 10 & 11 in [Algorithm 1](#alg1), also highlighted in blue._ 
@@ -155,11 +155,9 @@ If processes are not identifiable, then the reward earned by the trainee may be 
 
 We briefly survey this derivation in the next section.
 
-<small>
 <a name="fn2"></a>[<sup>2</sup>](#fn2) _To sample from this distribution would require one of the following: being able to force rollouts to go through a particular belief state; the belief state defining a predictive distribution over the true state; or; a method for generating an unbiased estimate of the true state from the observation history.  These are not simple problems, and hence we consider sampling from this distribution to be intractable._
 
 <a name="fn3"></a>[<sup>3</sup>](#fn3) _We note that we are a little lax in notation here, and overload \\( \phi \^\* \\) to indicate the optimal agent policy under the RL_ and _under the AIL objective, even when these policies may not be the same.  This is to avoid adding more notational clutter.  Practically speaking however, \\( \phi \\) is/cannot be learned using the original AIL objective, and instead  \\( \psi \\) is learned, and so there is no clash practically speaking._
-</small>
 
 
 
@@ -278,7 +276,7 @@ In [Algorithm 1](#alg1) we show the main A2D algorithm.  Crucially, we highlight
 
 <center>
 <a name="alg1"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/algorithm.png" width="40%">
+<embed src="/https://github.com/plai-group/a2d/tree/master/docs/figures/algorithm.png" width="40%">
 
 <small>
 _**Algorithm 1**: A2D algorithm.  Highlighted in blue are the lines that differentiate A2D from asymmetric imitation learning (AIL), such as asymmetric DAgger.  Note here we do not explicitly learn the Q-function.  To do this, Line 10 is converted to target the Q-function and is used to evaluate the reward-to-go in \\(\mathtt{RLSTEP}\\)._
@@ -331,10 +329,10 @@ In both scenarios, the agent observes the noisy, high-dimensional image shown in
 
 <center>
 <a name="fig2"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-LavaGapS7-v0_observe.png" width="20%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-LavaGapS7-v0_full_observe.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-TigerDoorEnv-v0_observe.png" width="20%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/MiniGrid-TigerDoorEnv-v0_full_observe.png" width="20%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/MiniGrid-LavaGapS7-v0_observe.png" width="20%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figuresgridworld/MiniGrid-LavaGapS7-v0_full_observe.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figuresgridworld/MiniGrid-TigerDoorEnv-v0_observe.png" width="20%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figuresgridworld/MiniGrid-TigerDoorEnv-v0_full_observe.png" width="20%"> &nbsp;
 
 <small>
 _**Figure 2**: Gridworld environments.  **Left pair**: Frozen Lake.  **Right pair**: Tiger Door.  The left figure in each pair is the high-dimensional observation as seen by the agent.  The right figure in each pair shows the true underlying state.  In Frozen Lake, the agent (red) can never reveal the location of the weak ice (dark blue), and the location of the goal (green) is fixed.  The weak ice can be in any of the interior nine squares, and its location is never revealed to the agent.  In Tiger Door, the agent can step on the button (purple) to reveal the location of the goal and the (dark blue...?_ 🤔_) tiger, essentially allowing the agent to see the rightmost figure.  The tiger and goal are swapped from the shown configuration 50% of the time._
@@ -352,9 +350,9 @@ We then show our A2D method, when the trainee is provided with a compact-but-par
 <br>
 <center>
 <a name="fig3"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_results_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_results_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/legend_sec4_results.png" width="16.5%">
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_results_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_results_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/legend_sec4_results.png" width="16.5%">
 
 <small>
 _**Figure 3**: Results for the two Gridworld experiments.  **Left**: Frozen Lake.  **Right**: Tiger Door. Results are normalized such that the optimal reward obtainable in the MDP is -1.0 (= -10<sup>0</sup>)._
@@ -367,8 +365,8 @@ We also show in [Figure 4](#fig4) the KL-divergence between expert and trainee d
 <br>
 <center>
 <a name="fig4"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_divergence_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/gridworld/sec4_divergence_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%">
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_divergence_IceLake_True_cr_logs_LavaGap_LavaGapCompiledRun_.png" width="40%"> &nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/gridworld/sec4_divergence_TigerDoor_True_cr_logs_TigerDoor_TigerDoorCompiledRun_.png" width="40%">
 
 <small>
 _**Figure 4**: Divergence results for the two Gridworld experiments.  **Left**: Frozen Lake.  **Right**: Tiger Door.  Note the log-scale on the y-axis._
@@ -441,7 +439,7 @@ We have released all of these resources under the [Creative Commons Attribution-
 <br>
 <center>
 <a name="tab_a1"></a>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/notation.png" width="100%"> 
+<embed src="/https://github.com/plai-group/a2d/tree/master/docs/figures/notation.png" width="100%"> 
 
 <small>
 _**Table A.1**: Table of the notation we use throughout the paper and this post._
@@ -476,9 +474,9 @@ _**Table A.1**: Table of the notation we use throughout the paper and this post.
 © Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License, Andrew Warrington & J. Wilder Lavington.
 
 <center>
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/oxford.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/ubc.png" width="28%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/iai.png" width="27%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<embed src="/Users/andrew/Documents/Public_repos/a2d/docs/figures/logos/plai.png" width="9%">
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/oxford.png" width="20%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/ubc.png" width="28%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/iai.png" width="27%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<embed src="https://github.com/plai-group/a2d/tree/master/docs/figures/logos/plai.png" width="9%">
 </center>
 ---
