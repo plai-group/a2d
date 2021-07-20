@@ -4,9 +4,6 @@
 
 This repository contains the source code accompanying the paper Robust Asymmetric Learning in POMDPs, Warrington, A.\*, Lavington, J. W.\*, Ścibior, A., Schmidt, M., & Wood, F. (2021). Robust Asymmetric Learning in POMDPs. _International Conference on Machine Learning, 2021.  arXiv preprint arXiv:2012.15566_. ([paper](https://arxiv.org/pdf/2012.15566.pdf)).
 
-Note that the CARLA implementation will be added to the repository shortly.
-
-
 
 ## A Foreword: Multiple Repositories
 
