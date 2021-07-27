@@ -64,6 +64,11 @@ In order to run this set of parameters, and log the evaluation out to weights an
 ```
 singularity run --nv -B $(pwd) a2d.sif wandb agent --count 1 <wandb-account>/scenario_1_a2d_ICML/<unique-id>
 ```
+Alternatively, programs can be run more manually by directly calling on the main function:
+```
+singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=64 --AD_buffer_mem=25000 --AD_full_mem=1 --AD_updates_per_batch=10 --action_penalty=1 --agent_frame_stack=1 --algo_key=a2d-agent --aux_info_stack=1 --beta=0 --clipped_nominal_reward=0 --collision_penalty=1 --completed_reward=1 --critic_batch_size=64 --critic_updates=3 --delayed_policy_update=1 --entropy_coeff=0.003 --env_name=plai-carla/OccludedPedestrian-v0 --eps=8.5e-05 --eval_interval=4000 --expert_frame_stack=1 --expert_reward=1 --force_fps=10 --gae_lambda=0.91 --gamma=0.98 --group=a2d_agent_eval --invasion_penalty=1 --log_dir=./trained_models/scenario_1/a2d-agent-eval/ --log_interval=1 --log_lr=-4 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=90 --nominal_penalty=0 --norm_states=1 --num_env_steps=400000 --num_processes=4 --num_steps=512 --policy_batch_size=64 --policy_updates=5 --pretrain_critic_updates=1 --save_dir=./trained_models/scenario_1/a2d-agent-eval/ --save_intermediate_video=0 --save_interval=10 --seed=1 --survive_reward=0 --use_compressed_state=1 --use_gae=1 --use_linear_lr_decay=0 --value_loss_coeff=1.25 --waypoint_reward=1
+```
+
 
 ## Scenario 2: OvertakingTruck
 
@@ -85,4 +90,8 @@ wandb: Run sweep agent with: wandb agent /<wandb-account>/scenario_1_a2d_ICML/<u
 In order to run this set of parameters, and log the evaluation out to weights and biases, you need to use the singularity container associated with this set of runs. To use this container, make sure that the "--nv" and "-B" are included or the container will likely not run correctly.
 ```
 singularity run --nv -B $(pwd) a2d.sif wandb agent --count 1 <wandb-account>/scenario_2_a2d_ICML/<unique-id>
+```
+Again, programs can be run more manually by directly calling on the main function:
+```
+singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=64 --AD_buffer_mem=25000 --AD_full_mem=1 --AD_updates_per_batch=25 --algo_key=a2d-agent --beta=0 --clipped_nominal_reward=0 --completed_reward=1 --critic_batch_size=64 --critic_updates=3 --delayed_policy_update=1 --entropy_coeff=0.003 --env_name=plai-carla/OvertakingTruck-v0 --eps=8.5e-05 --eval_interval=25000 --expert_frame_stack=1 --expert_reward=0 --force_fps=20 --gae_lambda=0.95 --gamma=0.995 --group=a2d_agent_eval --log_dir=./trained_models/scenario_2/a2d-agent-eval/ --log_interval=5 --log_lr=-4.5 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=300 --nominal_penalty=0 --norm_states=1 --num_env_steps=3000000 --num_processes=4 --num_steps=512 --policy_batch_size=512 --policy_updates=5 --pretrain_critic_updates=1 --save_dir=./trained_models/scenario_2/a2d-agent-eval/ --save_interval=1000 --seed=1 --survive_reward=1 --use_compressed_state=1 --use_gae=1 --use_linear_lr_decay=0 --use_log_lr=1 --value_loss_coeff=1.25 --waypoint_reward=0
 ```
