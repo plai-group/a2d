@@ -66,10 +66,25 @@ singularity run --nv -B $(pwd) a2d.sif wandb agent --count 1 <wandb-account>/sce
 ```
 Alternatively, programs can be run more manually by directly calling on the main function:
 ```
+# A2D
 singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=64 --AD_buffer_mem=25000 --AD_full_mem=1 --AD_updates_per_batch=10 --action_penalty=1 --agent_frame_stack=1 --algo_key=a2d-agent --aux_info_stack=1 --beta=0 --clipped_nominal_reward=0 --collision_penalty=1 --completed_reward=1 --critic_batch_size=64 --critic_updates=3 --delayed_policy_update=1 --entropy_coeff=0.003 --env_name=plai-carla/OccludedPedestrian-v0 --eps=8.5e-05 --eval_interval=4000 --expert_frame_stack=1 --expert_reward=1 --force_fps=10 --gae_lambda=0.91 --gamma=0.98 --group=a2d_agent_eval --invasion_penalty=1 --log_dir=./trained_models/scenario_1/a2d-agent-eval/ --log_interval=1 --log_lr=-4 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=90 --nominal_penalty=0 --norm_states=1 --num_env_steps=400000 --num_processes=4 --num_steps=512 --policy_batch_size=64 --policy_updates=5 --pretrain_critic_updates=1 --save_dir=./trained_models/scenario_1/a2d-agent-eval/ --save_intermediate_video=0 --save_interval=10 --seed=1 --survive_reward=0 --use_compressed_state=1 --use_gae=1 --use_linear_lr_decay=0 --value_loss_coeff=1.25 --waypoint_reward=1
 ```
-
-
+```
+# RL-Expert
+singularity run --nv -B $(pwd) a2d.sif python main.py --algo_key=rl-expert --clipped_nominal_reward=0 --completed_reward=1 --critic_batch_size=512 --critic_updates=3 --delayed_policy_update=1 --entropy_coeff=0.003 --env_name=plai-carla/OvertakingTruck-v0 --eps=8.5e-05 --eval_interval=25000 --expert_frame_stack=1 --expert_reward=0 --force_fps=20 --gae_lambda=0.95 --gamma=0.995 --group=rl_expert_eval --log_dir=./trained_models/scenario_2/rl-expert-eval/ --log_interval=5 --log_lr=-4.5 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=300 --nominal_penalty=0 --norm_states=1 --num_env_steps=3000000 --num_processes=4 --num_steps=512 --policy_batch_size=512 --policy_updates=5 --pretrain_critic_updates=1 --save_dir=./trained_models/scenario_2/rl-expert-eval/ --save_interval=1000 --seed=1 --survive_reward=1 --use_compressed_state=1 --use_gae=1 --use_linear_lr_decay=0 --use_log_lr=1 --value_loss_coeff=1.25 --waypoint_reward=0
+```
+```
+# RL-Agent
+singularity run --nv -B $(pwd) a2d.sif python main.py --agent_frame_stack=1 --algo_key=rl-agent --clipped_nominal_reward=0 --completed_reward=1 --critic_batch_size=64 --delayed_policy_update=1 --entropy_coeff=0.002 --env_name=plai-carla/OvertakingTruck-v0 --eps=0.0003 --eval_interval=25000 --expert_reward=0 --force_fps=20 --gae_lambda=0.93 --gamma=0.97 --group=rl_agent_eval_final --log_dir=./trained_models/scenario_2/rl-agent-eval/ --log_interval=5 --log_lr=-5.5 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=300 --nominal_penalty=0 --num_env_steps=3000000 --num_processes=4 --num_steps=100 --policy_batch_size=64 --pretrain_critic_updates=0 --save_dir=./trained_models/scenario_2/rl-agent-eval/ --save_interval=1000 --survive_reward=1 --use_gae=1 --use_linear_lr_decay=0 --use_log_lr=1 --value_loss_coeff=0.8 --waypoint_reward=0
+```
+```
+# AD-Expert
+singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=512 --AD_buffer_mem=25000 --AD_full_mem=1 --AD_updates_per_batch=15 --algo_key=ad-expert --beta=0 --clipped_nominal_reward=0 --completed_reward=1 --env_name=plai-carla/OvertakingTruck-v0 --eps=0.00015 --eval_interval=25000 --expert_frame_stack=1 --expert_reward=0 --force_fps=20 --group=ad_expert_eval_final --log_dir=./trained_models/scenario_2/ad-expert/ --log_interval=5 --log_lr=-5.5 --logged_moving_avg=25 --max_grad_norm=0.75 --max_time_horizon=300 --nominal_penalty=0 --num_env_steps=500000 --num_processes=4 --num_steps=10 --save_dir=./trained_models/scenario_2/ad-expert-eval/ --save_interval=1000 --survive_reward=1 --use_compressed_state=1 --use_linear_lr_decay=0 --use_log_lr=1 --waypoint_reward=0
+```
+```
+# AD-Agent
+singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=64 --AD_buffer_mem=25000 --AD_full_mem=1 --AD_updates_per_batch=15 --agent_frame_stack=1 --algo_key=ad-agent --beta=0 --clipped_nominal_reward=0 --completed_reward=1 --env_name=plai-carla/OvertakingTruck-v0 --eval_interval=25000 --expert_reward=0 --force_fps=20 --group=ad_agent_eval_final --log_dir=./scenario_2/ad-agent/ --log_interval=100 --log_lr=-5.5 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=300 --nominal_penalty=0 --num_env_steps=3000000 --num_processes=4 --num_steps=300 --save_dir=./scenario_2/ad-agent/ --save_interval=1000 --survive_reward=1 --use_linear_lr_decay=0 --use_log_lr=1 --waypoint_reward=0
+```
 ## Scenario 2: OvertakingTruck
 
 In order to generate scripts which will automatically generate the desired parameter set, run the include the following commands. Each of which will create a unique sweep ID, that can be used to run the first scenario with a specific algorithm.
@@ -93,5 +108,22 @@ singularity run --nv -B $(pwd) a2d.sif wandb agent --count 1 <wandb-account>/sce
 ```
 Again, programs can be run more manually by directly calling on the main function:
 ```
+# A2D
 singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=64 --AD_buffer_mem=25000 --AD_full_mem=1 --AD_updates_per_batch=25 --algo_key=a2d-agent --beta=0 --clipped_nominal_reward=0 --completed_reward=1 --critic_batch_size=64 --critic_updates=3 --delayed_policy_update=1 --entropy_coeff=0.003 --env_name=plai-carla/OvertakingTruck-v0 --eps=8.5e-05 --eval_interval=25000 --expert_frame_stack=1 --expert_reward=0 --force_fps=20 --gae_lambda=0.95 --gamma=0.995 --group=a2d_agent_eval --log_dir=./trained_models/scenario_2/a2d-agent-eval/ --log_interval=5 --log_lr=-4.5 --logged_moving_avg=25 --max_grad_norm=1.25 --max_time_horizon=300 --nominal_penalty=0 --norm_states=1 --num_env_steps=3000000 --num_processes=4 --num_steps=512 --policy_batch_size=512 --policy_updates=5 --pretrain_critic_updates=1 --save_dir=./trained_models/scenario_2/a2d-agent-eval/ --save_interval=1000 --seed=1 --survive_reward=1 --use_compressed_state=1 --use_gae=1 --use_linear_lr_decay=0 --use_log_lr=1 --value_loss_coeff=1.25 --waypoint_reward=0
+```
+```
+# RL-Expert
+singularity run --nv -B $(pwd) a2d.sif python main.py --action_penalty=1 --algo_key=rl-expert --aux_info_stack=1 --clipped_nominal_reward=0 --collision_penalty=1 --completed_reward=1 --critic_batch_size=64 --critic_updates=3 --delayed_policy_update=-1 --entropy_coeff=2e-05 --env_name=plai-carla/OccludedPedestrian-v0 --eps=0.0001 --eval_interval=4000 --expert_frame_stack=1 --expert_reward=1 --force_fps=10 --gae_lambda=0.975 --gamma=0.93 --group=rl_expert_eval --invasion_penalty=1 --log_dir=./trained_models/scenario_1/rl-expert-eval/ --log_interval=1 --log_lr=-3.75 --logged_moving_avg=25 --max_grad_norm=1.35 --max_time_horizon=90 --nominal_penalty=0 --norm_states=1 --num_env_steps=400000 --num_processes=4 --num_steps=200 --policy_batch_size=512 --policy_updates=5 --pretrain_critic_updates=1 --save_dir=./trained_models/scenario_1/rl-expert-eval/ --save_intermediate_video=0 --save_interval=10 --seed=1 --survive_reward=0 --use_compressed_state=1 --use_gae=1 --use_linear_lr_decay=0 --value_loss_coeff=1.25 --waypoint_reward=1
+```
+```
+# RL-Agent
+singularity run --nv -B $(pwd) a2d.sif python main.py --action_penalty=1 --agent_frame_stack=1 --algo_key=rl-agent --aux_info_stack=1 --clipped_nominal_reward=0 --collision_penalty=1 --completed_reward=1 --critic_batch_size=64 --critic_updates=3 --delayed_policy_update=1 --entropy_coeff=0.002 --env_name=plai-carla/OccludedPedestrian-v0 --eps=9e-05 --eval_interval=4000 --expert_reward=1 --force_fps=10 --gae_lambda=0.925 --gamma=0.95 --group=rl_agent_eval --invasion_penalty=1 --log_dir=./trained_models/scenario_1/rl-agent-eval/ --log_interval=1 --log_lr=-4.75 --logged_moving_avg=25 --max_grad_norm=0.75 --max_time_horizon=90 --nominal_penalty=0 --num_env_steps=400000 --num_processes=4 --num_steps=125 --policy_batch_size=64 --policy_updates=5 --pretrain_critic_updates=5 --save_dir=./trained_models/scenario_1/rl-agent-eval/ --save_intermediate_video=0 --save_interval=10 --seed=3 --survive_reward=0 --use_gae=1 --use_linear_lr_decay=0 --value_loss_coeff=1.75 --waypoint_reward=1
+```
+```
+# AD-Expert
+singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=512 --AD_buffer_mem=5000 --AD_full_mem=1 --AD_updates_per_batch=5 --action_penalty=1 --algo_key=ad-expert --aux_info_stack=1 --beta=0 --clipped_nominal_reward=0 --collision_penalty=1 --completed_reward=1 --env_name=plai-carla/OccludedPedestrian-v0 --eps=0.0001 --eval_interval=4000 --expert_frame_stack=1 --expert_reward=1 --force_fps=10 --group=ad_expert_eval --invasion_penalty=1 --log_dir=./trained_models/scenario_1/ad-expert-eval/ --log_interval=1 --log_lr=-4 --logged_moving_avg=25 --max_grad_norm=0.45 --max_time_horizon=90 --nominal_penalty=0 --norm_states=1 --num_env_steps=400000 --num_processes=4 --num_steps=10 --save_dir=./trained_models/scenario_1/ad-expert-eval/ --save_intermediate_video=0 --save_interval=10 --seed=1 --survive_reward=0 --use_compressed_state=1 --use_linear_lr_decay=0 --waypoint_reward=1
+```
+```
+# AD-Agent
+singularity run --nv -B $(pwd) a2d.sif python main.py --AD_batch_size=512 --AD_buffer_mem=5000 --AD_full_mem=1 --AD_updates_per_batch=5 --action_penalty=1 --agent_frame_stack=1 --algo_key=ad-agent --aux_info_stack=1 --beta=0 --clipped_nominal_reward=0 --collision_penalty=1 --completed_reward=1 --env_name=plai-carla/OccludedPedestrian-v0 --eps=0.0001 --eval_interval=4000 --expert_frame_stack=1 --expert_reward=1 --force_fps=10 --group=ad_agent_eval --invasion_penalty=1 --log_dir=./trained_models/scenario_1/ad-expert-eval/ --log_interval=1 --log_lr=-4 --logged_moving_avg=25 --max_grad_norm=0.45 --max_time_horizon=90 --nominal_penalty=0 --num_env_steps=400000 --num_processes=4 --num_steps=10 --save_dir=./trained_models/scenario_1/ad-expert-eval/ --save_intermediate_video=0 --save_interval=10 --seed=1 --survive_reward=0 --use_compressed_state=1 --use_linear_lr_decay=0 --waypoint_reward=1
 ```
