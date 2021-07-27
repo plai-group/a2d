@@ -1,0 +1,110 @@
+group: rl_agent_eval
+method: grid
+metric:
+  goal: maximize
+  name: agent_avg_eval_r_mean
+program: main.py
+project: scenario_1_a2d_ICML
+parameters:
+  group:
+    values: [rl_agent_eval]
+  save_interval:
+    values: [10]
+  save_dir:
+    values: ['./trained_models/scenario_1/rl-agent-eval/']
+  log_dir:
+    values: ['./trained_models/scenario_1/rl-agent-eval/']
+  seed:
+    values: [1,2,3,4,5,6,7,8,9,10]
+  agent_frame_stack:
+    values: [1]
+  algo_key:
+    values:
+    - rl-agent
+  delayed_policy_update:
+    values:
+    - 1
+  max_time_horizon:
+    values:
+    - 90
+  entropy_coeff:
+    values:
+    - 0.002
+  env_name:
+    values:
+    - plai-carla/OccludedPedestrian-v0
+  eps:
+    values:
+    - 0.00009
+  eval_interval:
+    values:
+    - 4000
+  gae_lambda:
+    values:
+    - 0.925
+  gamma:
+    values:
+    - 0.95
+  log_interval:
+    values:
+    - 1
+  logged_moving_avg:
+    values:
+    - 25
+  log_lr:
+    values:
+    - -4.75
+  max_grad_norm:
+    values:
+    - 0.75
+  num_env_steps:
+    values:
+    - 400000
+  num_processes:
+    values:
+    - 4
+  num_steps:
+    values:
+    - 125
+  use_gae:
+    values: [1]
+  use_linear_lr_decay:
+    values: [0]
+  value_loss_coeff:
+    values: [1.75]
+  pretrain_critic_updates:
+    values: [5]
+  waypoint_reward:
+    values: [1]
+  expert_reward:
+    values: [1]
+  completed_reward:
+    values: [1]
+  survive_reward:
+    values: [0]
+  nominal_penalty:
+    values: [0]
+  clipped_nominal_reward:
+    values: [0]
+  collision_penalty:
+    values: [1]
+  action_penalty:
+    values: [1]
+  invasion_penalty:
+    values: [1]
+  force_fps:
+    values: [10]
+  policy_batch_size:
+    values: [64]
+  critic_batch_size:
+    values: [64]
+  critic_updates:
+    values: [3]
+  policy_updates:
+    values: [5]
+  aux_info_stack:
+    values: [1]
+  agent_frame_stack:
+    values: [1]
+  save_intermediate_video:
+    values: [0]

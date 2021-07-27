@@ -1,0 +1,75 @@
+program: main.py
+group: ad_agent_eval_final
+method: bayes
+project: scenario_2_a2d_ICML
+metric:
+  name: agent_avg_eval_r_mean
+  goal: maximize
+parameters:
+  AD_full_mem:
+    values: [1]
+  AD_buffer_mem:
+    values: [25000]
+  AD_updates_per_batch:
+    values: [15]
+  group:
+    values: [ad_agent_eval_final]
+  save_interval:
+    values: [1000]
+  save_dir:
+    values: ['./scenario_2/ad-agent/']
+  log_dir:
+    values: ['./scenario_2/ad-agent/']
+  beta:
+    values: [0.]
+  log_lr:
+    values:
+    - -5.5
+  use_log_lr:
+    values:
+    - 1
+  num_env_steps:
+    values: [3000000]
+  agent_frame_stack:
+    values: [1]
+  num_processes:
+    values: [4]
+  num_steps:
+    values: [300]
+  log_interval:
+    values: [5]
+  use_linear_lr_decay:
+    values: [0]
+  max_grad_norm:
+    values: [1.25]
+  eval_interval:
+    values: [25000]
+  env_name:
+    values: ['plai-carla/OvertakingTruck-v0']
+  log_interval:
+    values:
+    - 100
+  logged_moving_avg:
+    values:
+    - 25
+  algo_key:
+    values: ['ad-agent']
+  max_time_horizon:
+    values: [300]
+  force_fps:
+    values:
+    - 20
+  waypoint_reward:
+    values: [0]
+  expert_reward:
+    values: [0]
+  completed_reward:
+    values: [1]
+  survive_reward:
+    values: [1]
+  nominal_penalty:
+    values: [0]
+  clipped_nominal_reward:
+    values: [0]
+  AD_batch_size:
+    values: [64]

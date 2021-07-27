@@ -1,0 +1,116 @@
+group: rl_expert_eval
+method: grid
+metric:
+  goal: maximize
+  name: expert_avg_eval_r_mean
+program: main.py
+project: scenario_1_a2d_ICML
+parameters:
+  group:
+    values: [rl_expert_eval]
+  save_interval:
+    values: [1]
+  save_dir:
+    values: ['./trained_models/scenario_1/rl-expert-eval/']
+  log_dir:
+    values: ['./trained_models/scenario_1/rl-expert-eval/']
+  seed:
+    values: [1,2,3,4,5,6,7,8,9,10]
+  algo_key:
+    values:
+    - rl-expert
+  delayed_policy_update:
+    values:
+    - -1
+  max_time_horizon:
+    values:
+    - 90
+  entropy_coeff:
+    values:
+    - 0.00002
+  env_name:
+    values:
+    - plai-carla/OccludedPedestrian-v0
+  eps:
+    values: [0.0001]
+  eval_interval:
+    values:
+    - 2000
+  expert_frame_stack:
+    values:
+    - 1
+  gae_lambda:
+    values:
+    - 0.975
+  gamma:
+    values:
+    - 0.93
+  critic_updates:
+    values:
+    - 3
+  policy_updates:
+    values:
+    - 5
+  log_interval:
+    values:
+    - 1
+  logged_moving_avg:
+    values:
+    - 25
+  log_lr:
+    values:
+    - -3.75
+  max_grad_norm:
+    values:
+    - 1.35
+  num_env_steps:
+    values:
+    - 26000
+  num_processes:
+    values:
+    - 2
+  num_steps:
+    values:
+    - 250
+  use_compressed_state:
+    values: [1]
+  pretrain_critic_updates:
+    values: [1]
+  use_gae:
+    values: [1]
+  norm_states:
+    values: [1]
+  use_linear_lr_decay:
+    values: [0]
+  value_loss_coeff:
+    values: [1.25]
+  waypoint_reward:
+    values: [1]
+  expert_reward:
+    values: [1]
+  completed_reward:
+    values: [1]
+  survive_reward:
+    values: [0]
+  nominal_penalty:
+    values: [0]
+  clipped_nominal_reward:
+    values: [0]
+  collision_penalty:
+    values: [1]
+  action_penalty:
+    values: [1]
+  invasion_penalty:
+    values: [1]
+  force_fps:
+    values: [10]
+  policy_batch_size:
+    values: [512]
+  critic_batch_size:
+    values: [64]
+  aux_info_stack:
+    values: [1]
+  expert_frame_stack:
+    values: [1]
+  save_intermediate_video:
+    values: [1]

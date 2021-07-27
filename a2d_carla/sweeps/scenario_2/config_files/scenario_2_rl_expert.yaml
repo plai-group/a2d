@@ -1,0 +1,107 @@
+group: rl_expert_eval
+method: grid
+metric:
+  goal: maximize
+  name: expert_avg_eval_r_mean
+program: main.py
+project: scenario_2_a2d_ICML
+parameters:
+  group:
+    values: [rl_expert_eval]
+  save_interval:
+    values: [1000]
+  save_dir:
+    values: ['./trained_models/scenario_2/rl-expert-eval/']
+  log_dir:
+    values: ['./trained_models/scenario_2/rl-expert-eval/']
+  seed:
+    values: [1,2,3,4,5,6,7,8,9,10]
+  algo_key:
+    values:
+    - rl-expert
+  delayed_policy_update:
+    values:
+    - 1
+  max_time_horizon:
+    values:
+    - 300
+  entropy_coeff:
+    values:
+    - 0.003
+  env_name:
+    values:
+    - plai-carla/OvertakingTruck-v0
+  eps:
+    values: [8.5e-05]
+  eval_interval:
+    values:
+    - 25000
+  expert_frame_stack:
+    values:
+    - 1
+  gae_lambda:
+    values:
+    - 0.95
+  gamma:
+    values:
+    - 0.995
+  critic_updates:
+    values:
+    - 3
+  policy_updates:
+    values:
+    - 5
+  log_interval:
+    values:
+    - 5
+  logged_moving_avg:
+    values:
+    - 25
+  log_lr:
+    values:
+    - -4.5
+  use_log_lr:
+    values:
+    - 1
+  max_grad_norm:
+    values:
+    - 1.25
+  num_env_steps:
+    values:
+    - 3000000
+  num_processes:
+    values:
+    - 4
+  num_steps:
+    values:
+    - 512
+  use_compressed_state:
+    values: [1]
+  pretrain_critic_updates:
+    values: [1]
+  use_gae:
+    values: [1]
+  norm_states:
+    values: [1]
+  use_linear_lr_decay:
+    values: [0]
+  value_loss_coeff:
+    values: [1.25]
+  waypoint_reward:
+    values: [0]
+  expert_reward:
+    values: [0]
+  completed_reward:
+    values: [1]
+  survive_reward:
+    values: [1]
+  nominal_penalty:
+    values: [0]
+  clipped_nominal_reward:
+    values: [0]
+  force_fps:
+    values: [20]
+  policy_batch_size:
+    values: [512]
+  critic_batch_size:
+    values: [512]

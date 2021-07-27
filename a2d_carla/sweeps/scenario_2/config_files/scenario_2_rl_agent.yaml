@@ -1,0 +1,90 @@
+group: rl_agent_eval_final
+method: bayes
+program: main.py
+project: scenario_2_a2d_ICML
+metric:
+  goal: maximize
+  name: agent_avg_eval_r_mean
+parameters:
+  group:
+    values: [rl_agent_eval_final]
+  save_interval:
+    values: [1000]
+  save_dir:
+    values: ['./trained_models/scenario_2/rl-agent-eval/']
+  log_dir:
+    values: ['./trained_models/scenario_2/rl-agent-eval/']
+  algo_key:
+    values:
+    - rl-agent
+  delayed_policy_update:
+    values:
+    - 1
+  max_time_horizon:
+    values:
+    - 300
+  force_fps:
+    values:
+    - 20
+  entropy_coeff:
+    values: [0.002]
+  env_name:
+    values:
+    - plai-carla/OvertakingTruck-v0
+  eps:
+    values: [0.0003]
+  eval_interval:
+    values:
+    - 25000
+  gae_lambda:
+    values: [0.93]
+  gamma:
+    values: [0.97]
+  log_interval:
+    values:
+    - 5
+  logged_moving_avg:
+    values:
+    - 25
+  log_lr:
+    values:
+    - -5.5
+  use_log_lr:
+    values:
+    - 1
+  max_grad_norm:
+    values: [1.25]
+  num_env_steps:
+    values:
+    - 3000000
+  num_processes:
+    values:
+    - 4
+  num_steps:
+    values: [100]
+  use_gae:
+    values: [1]
+  use_linear_lr_decay:
+    values: [0]
+  value_loss_coeff:
+    values: [0.8]
+  pretrain_critic_updates:
+    values: [0]
+  agent_frame_stack:
+    values: [1]
+  waypoint_reward:
+    values: [0]
+  expert_reward:
+    values: [0]
+  completed_reward:
+    values: [1]
+  survive_reward:
+    values: [1]
+  nominal_penalty:
+    values: [0]
+  clipped_nominal_reward:
+    values: [0]
+  policy_batch_size:
+    values: [64]
+  critic_batch_size:
+    values: [64]
