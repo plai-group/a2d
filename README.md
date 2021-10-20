@@ -43,7 +43,7 @@ The AV implementation is contained in `a2d_av`.   The AV implementation requires
 
 ## Contact
 
-If you have questions, comments, bugfixes, or ideas for collaborations and extensions, then we are all ears!  Please reach out to us at `andrew (dot) warrington (at) keble (dot) ox (dot) ac (dot) uk` and we would be more than happy to help out wherever we can! :) 
+If you have questions, comments, bugfixes, or ideas for collaborations and extensions, then we are all ears!  Please reach out to us at `awarring at stanford dot edu` and we would be more than happy to help out wherever we can! :) 
 
 Big love, 
 
